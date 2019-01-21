@@ -1,0 +1,90 @@
+{
+  "BlankCardPower": {
+    "NAME": "白卡",
+    "DESCRIPTIONS": [
+      "每回合开始打出",
+      "张[",
+      "]。",
+      "未指定卡牌"
+    ]
+  },
+  "DecreaseDamagePower": {
+    "NAME": "减伤buff",
+    "DESCRIPTIONS": [
+      "每次攻击增加减伤(1%)，本次只受到",
+      "%的伤害。（最低50%）"
+    ]
+  },
+  "DoctorFetusPlusPower": {
+    "NAME": "婴儿博士+",
+    "DESCRIPTIONS": [
+      "每回合开始获得",
+      "张[快爆炸弹]"
+    ]
+  },
+  "DoctorFetusPower": {
+    "NAME": "婴儿博士",
+    "DESCRIPTIONS": [
+      "每回合开始获得",
+      "张[快爆炸弹]"
+    ]
+  },
+  "ElectroPower": {
+    "NAME": "电力洞穴",
+    "DESCRIPTIONS": [
+      "闪电球将攻击所有敌人，如果只有一个敌人，闪电球将攻击",
+      "次。"
+    ]
+  },
+  "EpicFetusPower": {
+    "NAME": "史诗婴儿",
+    "DESCRIPTIONS": [
+      "每回合开始获得",
+      "张[史诗攻击]。"
+    ]
+  },
+  "LonelyPower": {
+    "NAME": "孑然一人",
+    "DESCRIPTIONS": [
+      "在回合结束房间内只剩自己时，对自己造成666伤害"
+    ]
+  },
+  "NineLifeCatPower": {
+    "NAME": "九命猫buff",
+    "DESCRIPTIONS": [
+      "九命猫：“喵~你还有",
+      "条命。”"
+    ]
+  },
+  "PowerDownPower": {
+    "NAME": "力竭",
+    "DESCRIPTIONS": [
+      "每两回合，在回合开始时所有增益状态丢失一层。(机器人部分能力免疫)"
+    ]
+  },
+  "ShuaLaiPower": {
+    "NAME": "耍赖",
+    "DESCRIPTIONS": [
+      "受到的攻击有50%的概率会失效"
+    ]
+  },
+  "GuppysCollarPower": {
+    "NAME": "猫圈buff",
+    "DESCRIPTIONS": [
+      "死亡时有50%的概率一血复活。"
+    ]
+  },
+  "UpPower": {
+    "NAME": "起",
+    "DESCRIPTIONS": [
+      "额外受到",
+      "%的伤害。"
+    ]
+  },
+  "DownPower": {
+    "NAME": "蹲",
+    "DESCRIPTIONS": [
+      "不会受到伤害。"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "Battery": {
+    "NAME": "电池",
+    "DESCRIPTION": "选择一个充能遗物并充满能。虚无。消耗。",
+    "UPGRADE_DESCRIPTION": "选择一个充能遗物并充满能。消耗。"
+  },
+  "BettingIsNotGood": {
+    "NAME": "赌博是个恶习",
+    "DESCRIPTION": "打出时随机获得下列一个效果： NL ①掉血 #b3 滴 ②回血 #b5 滴 ③对所有敌人造成 !D! 伤害 ④获得 #b15 金币 NL 消耗",
+    "UPGRADE_DESCRIPTION": "打出时随机获得下列一个效果： NL ①掉血 6 滴 ②回血 10 滴 ③对所有敌人造成 !D! 伤害 ④获得 25 金币。"
+  },
+  "BloodyBrimstone": {
+    "NAME": "鲜血硫磺火",
+    "DESCRIPTION": "扣除3点血上限，对所有敌人分别造成他们 !M! %血上限的真实伤害(最低30)。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "扣除3点血上限，对所有敌人造成场上最大血上限怪物 !M! %血上限的真实伤害(最低40)。 NL 消耗。"
+  },
+  "Bomb": {
+    "NAME": "炸弹",
+    "DESCRIPTION": "对所有敌人造成 40 固定伤害。使用一次后从主牌库移除。不能升级。消耗。"
+  },
+  "Cancel": {
+    "NAME": "撤销",
+    "DESCRIPTION": "将你的生命变成上回合的数值。消耗。"
+  },
+  "Distribution": {
+    "NAME": "分配",
+    "DESCRIPTION": "降低1力量，1敏捷，获得 !M! 集中"
+  },
+  "DoctorFetus": {
+    "NAME": "婴儿博士",
+    "DESCRIPTION": "每回合开始获得一张 !M! 费快爆炸弹"
+  },
+  "ElectricPowerLearning": {
+    "NAME": "电力洞穴",
+    "DESCRIPTION": "闪电球将攻击所有敌人。",
+    "UPGRADE_DESCRIPTION": "闪电球将攻击所有敌人，如果只有一个敌人，闪电球将攻击两次。"
+  },
+  "EpicFetus": {
+    "NAME": "史诗婴儿",
+    "DESCRIPTION": "每回合开始获得一张 [史诗攻击]。",
+    "UPGRADE_DESCRIPTION": "每回合开始获得一张 [史诗攻击+]。"
+  },
+  "Pulse": {
+    "NAME": "脉冲",
+    "DESCRIPTION": "使用所有充能球被动一次。消耗。",
+    "UPGRADE_DESCRIPTION": "使用所有充能球被动一次。"
+  },
+  "EpicFetusAttack": {
+    "NAME": "史诗攻击",
+    "DESCRIPTION": "对敌人造成 !D! 点伤害，对其余敌人造成一半的溅射伤害。 消耗。 虚无。"
+  },
+  "MyBomb": {
+    "NAME": "快爆炸弹",
+    "DESCRIPTION": "两回合后爆炸，对所有敌人造成40点伤害。虚无。消耗。"
+  },
+  "ChaosCard": {
+    "NAME": "混沌卡",
+    "DESCRIPTION": "对怪物造成99%血上限的真实伤害。每被使用或者被虚无消耗一次，在主牌库移除一次混沌卡。不能升级。虚无。消耗。"
+  }
+}

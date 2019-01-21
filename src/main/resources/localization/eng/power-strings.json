@@ -1,0 +1,88 @@
+{
+  "BlankCardPower": {
+    "NAME": "Blank Card",
+    "DESCRIPTIONS": [
+      "At the start of each turn, play ",
+      " [",
+      "].",
+      "unspecified cards"
+    ]
+  },
+  "DecreaseDamagePower": {
+    "NAME": "Damage Reduction",
+    "DESCRIPTIONS": [
+      "You only take ", 
+      "% of the damage recieved. After you play an attack card, decrease the damage received by 1%. (Minimum 50%)"
+    ]
+  },
+  "DoctorFetusPlusPower": {
+    "NAME": "Doctor Fetus+",
+    "DESCRIPTIONS": [
+      "At the start of each turn, add ",
+      " [Quick Bomb] to your hand"
+    ]
+  },
+  "DoctorFetusPower": {
+    "NAME": "Doctor Fetus",
+    "DESCRIPTIONS": [
+      "At the start of each turn, add ",
+      " [Quick Bomb] to your hand"
+    ]
+  },
+  "ElectroPower": {
+    "NAME": "Electro Power",
+    "DESCRIPTIONS": [
+      "Lightning hits all enemies. If there is only one enemy, Lightning will hit",
+      "times."
+    ]
+  },
+  "EpicFetusPower": {
+    "NAME": "Epic Fetus Power",
+    "DESCRIPTIONS": [
+      "At the start of each turn, add ",
+      " [Epic Attack] to your hand."
+    ]
+  },
+  "LonelyPower": {
+    "NAME": "Forever Alone",
+    "DESCRIPTIONS": [
+      "At the end of the turn, deal 666 damage to yourself if you are alone in the room."
+    ]
+  },
+  "NineLifeCatPower": {
+    "NAME": "Nine-Life Cat",
+    "DESCRIPTIONS": [
+      "Nine-life cats: \"Meow~ you still have ",
+      " lifes.\""
+    ]
+  },
+  "PowerDownPower": {
+    "NAME": "Exhaustion",
+    "DESCRIPTIONS": [
+      "At the start of every two turns, lose 1 of all buffs you have. (Defect is immune for some of the buffs.)"
+    ]
+  },
+  "ShuaLaiPower": {
+    "NAME": "Lose Target",
+    "DESCRIPTIONS": [
+      "Prevent 50% of the time this enemy would recieve damage."
+    ]
+  },
+  "GuppysCollarPower":{
+    "NAME": "Guppys Collar",
+    "DESCRIPTIONS":["When you would die, heal to 1 HP with 50% of chance."]
+  },
+  "UpPower": {
+    "NAME": "UP",
+    "DESCRIPTIONS": [
+      "receive extra",
+      "% damage."
+    ]
+  },
+  "DownPower": {
+    "NAME": "DOWN",
+    "DESCRIPTIONS": [
+      "don't receive damage."
+    ]
+  }
+}

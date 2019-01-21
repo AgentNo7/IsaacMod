@@ -1,0 +1,60 @@
+{
+  "Battery": {
+    "NAME": "Battery",
+    "DESCRIPTION": "Choose a rechargeable relic and fully recharge it. Ethereal. Exhaust.",
+    "UPGRADE_DESCRIPTION": "Choose a rechargeable relic and fully it. Exhaust."
+  },
+  "BettingIsNotGood": {
+    "NAME": "Gambling",
+    "DESCRIPTION": "Randomly do one of the follwing: NL 1.lose 3 HP; 2.heal 5 HP; 3.deal !D! damage to ALL enemies; 4.gain 15 Gold. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Randomly do one of the follwing: NL 1.lose 6 HP; 2.heal 10 HP; 3.deal !D! damage to ALL enemies; 4.gain 25 Gold."
+  },
+  "BloodyBrimstone": {
+    "NAME": "Bloody Brimstone",
+    "DESCRIPTION": "Lose 3 Max HP, deal real damage equal to !M! % of your Max HP (minimum 30) to ALL enemies. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Lose 3 Max HP, deal real damage equal to !M! % of the highest Max HP of ALL enemies (minimum 40) to ALL enemies. NL Exhaust."
+  },
+  "Bomb": {
+    "NAME": "Bomb",
+    "DESCRIPTION": "Deal 40 damage to ALL enemies. Remove this card from your deck permanently. Cannot be upgraded. Exhaust."
+  },
+  "Cancel": {
+    "NAME": "Undo",
+    "DESCRIPTION": "Set your HP to what it was last turn. Exhaust."
+  },
+  "Distribution": {
+    "NAME": "Allocate",
+    "DESCRIPTION": "Lose 1 Strength. Lose 1 Dexterity. Gain !M! Focus." 
+  },
+  "DoctorFetus": {
+    "NAME": "Doctor Fetus",
+    "DESCRIPTION": "At the start of your turn, add a Quick Bomb that costs !M! to your hand."
+  },
+  "ElectricPowerLearning": {
+    "NAME": "Antique Electrodynamics",
+    "DESCRIPTION": "Lightning now hits ALL enemies.",
+    "UPGRADE_DESCRIPTION": "Lightning now hits ALL enemies. If there is only one enemy, Lightning will hit twice."
+  },
+  "EpicFetus": {
+    "NAME": "Epic Fetus",
+    "DESCRIPTION": "At the start of each turn, add a [Epic Attack] to your hand.",
+    "UPGRADE_DESCRIPTION": "At the start of each turn, add a [Epic Attack +] to your hand."
+  },
+  "Pulse": {
+    "NAME": "Pulse",
+    "DESCRIPTION": "Trigger the passive ability of all Orbs once. Exhaust.",
+    "UPGRADE_DESCRIPTION": "Trigger the passive ability of all Orbs once."
+  },
+  "EpicFetusAttack": {
+    "NAME": "Epic Attack",
+    "DESCRIPTION": "Deal !D! damage. Deal half of that damage to ALL other enemies. Exhaust. Ethereal."
+  },
+  "MyBomb": {
+    "NAME": "Quick Bomb",
+    "DESCRIPTION": "At the end of 2 turns, deal 40 damage to ALL enemies. Ethereal. Exhaust."
+  },
+  "ChaosCard": {
+    "NAME": "Chaos Card",
+    "DESCRIPTION": "Deal damage equal to 99% of the Max HP of the target. This card will be removed from the deck permanently if used or Exhuasted. Cannot be upgraded. Exhaust. Ethereal."
+  }
+}

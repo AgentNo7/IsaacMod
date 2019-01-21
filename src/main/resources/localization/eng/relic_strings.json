@@ -1,0 +1,277 @@
+{
+  "MaYiHuaBei": {
+    "NAME": "AliPay",
+    "FLAVOR": "Money - easy come easy go",
+    "DESCRIPTIONS": [
+      "Click to get #b500 temporary Gold. You will lose all Gold the next time you lose Gold. This relic is disabled once used until entering the boss room. (Not Isaac related, just remained as the first relic I made)"
+    ]
+  },
+  "TestRelic": {
+    "NAME": "TestRelic",
+    "FLAVOR": "???",
+    "DESCRIPTIONS": [
+      "Start each battle with 999 strength and 999 buffer. Test relics. If somehow it shows up, please do not take it and report it as a bug. (Of course, I can't kill you if you take it.)"
+    ]
+  },
+  "KonoKeeper": {
+    "NAME": "It’s me! Keeper!,",
+    "FLAVOR": "kono Keeper!",
+    "DESCRIPTIONS": [
+      "You will have a #b15% probability to change a normal enemy room into a shop."
+    ]
+  },
+  "SalivaCoin": {
+    "NAME": "Swallowed Penny",
+    "FLAVOR": "The keeper's swallowed penny! It's game over.",
+    "DESCRIPTIONS": [
+      "Whenever you lose HP, gain 7 Gold."
+    ]
+  },
+  "D6": {
+    "NAME": "D6",
+    "FLAVOR": "The D6! It's game over",
+    "DESCRIPTIONS": [
+      "6 charges. When fully charged, right-click to re-roll the shop, relic that elite dropped, the treasure chest and the boss treasure chest."
+    ]
+  },
+  "BloodDonationMachine": {
+    "NAME": "Blood Donation Machine",
+    "FLAVOR": "Is this a German machine?",
+    "DESCRIPTIONS": [
+      "Right-click to donate 1 HP for 20 Gold (10%), 10 Gold (30%), 5 Gold (30%), or 1 Gold (30%). It has a 3% probability of exlosion every time it is used. Upon explosion, gain 7 Max HP or get Blood Donation Bag. You cannot donate blood during boss fights."
+    ]
+  },
+  "BloodDonationBag": {
+    "NAME": "Blood Donation Bag",
+    "FLAVOR": "The quality  is not as good as the Blood Donation Machine",
+    "DESCRIPTIONS": [
+      "Right-click to donate 1 HP for 10 Gold (20%), 5 Gold (30%), or 1 Gold (50%). You cannot donate blood during boss fights."
+    ]
+  },
+  "DeathBook": {
+    "NAME": "The Necronomicon",
+    "FLAVOR": "This Necronomicon is not the Necronomicon",
+    "DESCRIPTIONS": [
+      "4 Charges. When fully charged, right-click to deal #b40 damage to ALL enemies."
+    ]
+  },
+  "EdensBlessing": {
+    "NAME": "Eden's Blessing",
+    "FLAVOR": "The blessing from Eden",
+    "DESCRIPTIONS": [
+      "At the start of each battle, gain #b1 Strength, Dexterity, or Focus randomly. You start you next game with a random rare relic. "
+    ]
+  },
+  "MoneyPower": {
+    "NAME": "MONEY = POWER",
+    "FLAVOR": "Gold = Strength",
+    "DESCRIPTIONS": [
+      "At the start of each battle, gain Gold / 150 strength."
+    ]
+  },
+  "TuHaoJin": {
+    "NAME": "Magic Fingers",
+    "FLAVOR": "Pay to play",
+    "DESCRIPTIONS": [
+      "Right-click to pay #b1 Gold to deal #b1 damage to ALL enemies. Whenever you use this relic, increase the cost and damage of this relic by #b1."
+    ]
+  },
+  "DeadEye": {
+    "NAME": "Dead eye",
+    "FLAVOR": "Accuracy brings strength!",
+    "DESCRIPTIONS": [
+      "Gain #b2 strength whenever you play attacks on the same target in a row in the same turn. The strength gained will be removed at the end of the turn and when you attack different enemies."
+    ]
+  },
+  "NineLifeCat": {
+    "NAME": "Dead Cat",
+    "FLAVOR": "9 lives! A part of Guppy",
+    "DESCRIPTIONS": [
+      "Upon pick up, reduce your Max HP by #b75% and gain #b9 lives. When resurrected, heal to full HP."
+    ]
+  },
+  "UnicornStump": {
+    "NAME": "Unicorn Stump",
+    "FLAVOR": "It stands still like a mountain!",
+    "DESCRIPTIONS": [
+      "1 charge. When fully charged, right-click to immune to all damages this turn, and you cannot play any cards this turn. Cannot be used after playing any cards."
+    ]
+  },
+  "BlankCard": {
+    "NAME": "Blank Card",
+    "FLAVOR": "Hoho! Easy game!",
+    "DESCRIPTIONS": [
+      "4 charges. When fully charged, right-click to select a card from your hand and play it once at the start of each following turns."
+    ]
+  },
+  "HushsDoor": {
+    "NAME": "Hush's Door",
+    "FLAVOR": "Rush!",
+    "DESCRIPTIONS": [
+      "The key to Hush. Right click to cancel challenging hush, do it before you enter the second last floor."
+    ]
+  },
+  "PillsDrop": {
+    "NAME": "Spire's pills",
+    "FLAVOR": "Open your mouth to take the medicine.",
+    "DESCRIPTIONS": [
+      "Pills may drop at the end of each battle. The pills with the same color will have the same effect. (If you save and quit at the pill reward screen, the save will be broken.)"
+    ]
+  },
+  "YumHeart": {
+    "NAME": "Yum Heart",
+    "FLAVOR": "Miss Mo is really bad!",
+    "DESCRIPTIONS": [
+      "4 charges. When fully charged, right-click to heal 25 HP."
+    ]
+  },
+  "BelialBook": {
+    "NAME": "The Book Of Belial",
+    "FLAVOR": "In fact, it is called the book of Pilates",
+    "DESCRIPTIONS": [
+      "3 charges. When fully charged, right-click to gain 5 strength."
+    ]
+  },
+  "DoctorsRemote": {
+    "NAME": "Doctor's Remote",
+    "FLAVOR": "Use it as a bomb",
+    "DESCRIPTIONS": [
+      "2 charges. When fully charged, right-click to add a [Epic attack +2] to your hand."
+    ]
+  },
+  "TheBean": {
+    "NAME": "The Bean",
+    "FLAVOR": "Toot on command.",
+    "DESCRIPTIONS": [
+      "1 charge. When fully charged, right-click to apply 5 poison to ALL enemies."
+    ]
+  },
+  "TheBible": {
+    "NAME": "Bible",
+    "FLAVOR": "Want to defeat the heart immediately? Not a chance.",
+    "DESCRIPTIONS": [
+      "6 charges. When fully charged, right-click to gain 6 Flight."
+    ]
+  },
+  "GnawedLeaf": {
+    "NAME": "Gnawed Leaf",
+    "FLAVOR": "One two three wood people.",
+    "DESCRIPTIONS": [
+      "After three consecutive turns without playing any cards, the player will be immune to all damages until a card is played."
+    ]
+  },
+  "SteamSale": {
+    "NAME": "Steam Sale",
+    "FLAVOR": "Double discounts is also available at the Spire!",
+    "DESCRIPTIONS": [
+      "50% discount on all products! If you hold a membership card or another Steam Sale at the same time, all products are free!"
+    ]
+  },
+  "Diplopia": {
+    "NAME": "Diplopia",
+    "FLAVOR": "Double discounts with Diplopia is also available at the Spire!",
+    "DESCRIPTIONS": [
+      "Right-click to choose and copy an existing relic. (Copying Diplopia will get a Diplopia, but new one won't work.)"
+    ]
+  },
+  "KeepersGift":{
+    "NAME": "Keeper's gift",
+    "FLAVOR": "Select one from three.",
+    "DESCRIPTIONS":["Right-click to use, select and obtain a relic from 3 random Isaac relics."]
+  },
+  "GuppysHead":{
+    "NAME": "Guppy's Head",
+    "FLAVOR": "A part of Guppy",
+    "DESCRIPTIONS":["1 charge. When fully charged, right-click to summon a fly that deals damage to enemies."]
+  },
+  "GuppysTail":{
+    "NAME": "Guppy's Tail",
+    "FLAVOR": "A part of Guppy.",
+    "DESCRIPTIONS":["Little chests are now large chests."]
+  },
+  "GuppysPaw":{
+    "NAME": "Guppy's Paw",
+    "FLAVOR": "A part of Guppy.",
+    "DESCRIPTIONS":["Right click to trade 10 Max Hp for 5 #yPlated #yArmor. The Plated Armor gained decreases after each use."]
+  },
+  "GuppysCollar":{
+    "NAME": "Guppy's Collar",
+    "FLAVOR": "A part of Guppy.",
+    "DESCRIPTIONS":["When you would die, heal to 1 HP with 50% of chance."]
+  },
+  "GuppysHairball":{
+    "NAME": "Guppy's Hairball",
+    "FLAVOR": "A part of Guppy.",
+    "DESCRIPTIONS":["At the start of each battle, summon a Hairball that deals damage to enemies. Once per battle, when the Hairball kills an enemy, its Strength is permanently increased by 2."]
+  },
+  "BookofShadows":{
+    "NAME": "Book of Shadows",
+    "FLAVOR": "A part of bookworm.",
+    "DESCRIPTIONS":["3 charges. When fully charged, right-click to prevent all damages for the next 2 turns."]
+  },
+  "AnarchistCookbook":{
+    "NAME": "Anarchist Cookbook",
+    "FLAVOR": "A part of bookworm.",
+    "DESCRIPTIONS":["3 charges. Right-click to give 6 The Bomb effect, which deals damage to ALL opposing characters later, to the player and ALL enemies randomly. Your The Bomb effect will be triggered first."]
+  },
+  "MagicMushroom":{
+    "NAME": "Magic Mushroom",
+    "FLAVOR": "All stat up.",
+    "DESCRIPTIONS":["Upon pick up, gain 7 max HP. At the start of each battle, gain 1 strength, 1 dexterity, 1 focus, 1 plated armor, 1 regeneration, 1 blur, 1 conserve, and 1 anger."]
+  },
+  "BookOfRevelations":{
+    "NAME": "Book of Revelations",
+    "FLAVOR": "A part of bookworm.",
+    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade and 30 block."]
+  },
+  "SatanicBible":{
+    "NAME": "Satanic Bible",
+    "FLAVOR": "A part of bookworm.",
+    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade, 30 block, and 20 flame barrier."]
+  },
+  "HowToJump":{
+    "NAME": "How to Jump",
+    "FLAVOR": "A part of bookworm.",
+    "DESCRIPTIONS":["Negate damage 20% of the time. Right-click to jump. "]
+  },
+  "Incubus":{
+    "NAME": "Incubus",
+    "FLAVOR": "Conjoined haven't finished.",
+    "DESCRIPTIONS":["At the start of each battle, summon an Incubus, which, at the end of each turn, plays the last attack card you played that turn."]
+  },
+  "MegaBlast":{
+    "NAME": "Mega Blast",
+    "FLAVOR": "RUSH!",
+    "DESCRIPTIONS":["12 charges. When fully charged, right-click to reduce ALL enemies' HP to 1 for 20 seconds."]
+  },
+  "Succubus":{
+    "NAME": "Succubus",
+    "FLAVOR": "Something fun!",
+    "DESCRIPTIONS":["At the beginning of each battle, summon a succubus that moves, deals damage to enemies and gives 1 strength to the player temporarily."]
+  },
+  "ForgetMeNow":{
+    "NAME": "Forget Me Now",
+    "FLAVOR": "go back",
+    "DESCRIPTIONS":["Only be used once,right-click to go back to the first floor of current dungeon(at BossTreasureRoom,you go to next dungeon as normal)."]
+  },
+  "ChampionBelt":{
+    "NAME": "Isaac's Champion Belt",
+    "FLAVOR": "Challenging me!",
+    "DESCRIPTIONS":["Gain [E], when you enter monster room, switch it into elite room with 35% of chance."]
+  },
+  "SharpPlug":{
+    "NAME": "Sharp Plug",
+    "FLAVOR": "Awesome Combo!",
+    "DESCRIPTIONS":["Right-Click to lose half HP(Max 50, Min 15),select a chargeable relic,and charge to full charge."]
+  },
+  "MomsKnife":{
+    "NAME": "Mom's Knife",
+    "FLAVOR": "take huge damage",
+    "DESCRIPTIONS":["summon a knife at battle start, left-click and press,release to discharge the knife,knife take damage to the monsters on the way."]
+  },
+  "D4":{
+    "NAME": "D4",
+    "FLAVOR": "ROLL！",
+    "DESCRIPTIONS":["6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier,"]
+  }
+}

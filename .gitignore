@@ -1,0 +1,6 @@
+target/
+lib/
+out/
+*.log
+.idea/
+IsaacMod.iml

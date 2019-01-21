@@ -1,0 +1,33 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 99, 112
+  orig: 99, 112
+  offset: 0, 0
+  index: -1
+boss_078_bluebaby_hush_10
+  rotate: false
+  xy: 2, 116
+  size: 150, 127
+  orig: 300, 268
+  offset: 91, 59
+  index: -1
+youchibang
+  rotate: true
+  xy: 103, 16
+  size: 98, 82
+  orig: 98, 82
+  offset: 0, 0
+  index: -1
+zuochibang
+  rotate: true
+  xy: 154, 141
+  size: 102, 81
+  orig: 102, 81
+  offset: 0, 0
+  index: -1
