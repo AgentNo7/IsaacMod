@@ -25,5 +25,13 @@ public abstract class DevilRelic extends CustomRelic implements DevilInterface{
         IsaacMod.devilOnlyRelics.remove(this.relicId);
     }
 
+    @Override
+    public void onEquip() {
+        super.onEquip();
+        IsaacMod.relics.remove(this.relicId);
+        IsaacMod.devilRelics.remove(this.relicId);
+        IsaacMod.devilOnlyRelics.remove(this.relicId);
+    }
+
     public int price;
 }

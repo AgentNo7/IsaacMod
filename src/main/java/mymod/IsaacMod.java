@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.characters.Defect;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
+import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.*;
@@ -157,6 +158,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BaseMod.loadCustomStrings(CardStrings.class, cardStrings);
         String powerStrings = Gdx.files.internal(makePath(LOCALIZATION_FOLDER, "power-strings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
         BaseMod.loadCustomStrings(PowerStrings.class, powerStrings);
+        String eventStrings = Gdx.files.internal(makePath(LOCALIZATION_FOLDER, "event-strings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
+        BaseMod.loadCustomStrings(EventStrings.class, eventStrings);
 //        String uiStrings = Gdx.files.internal(makePath(LOCALIZATION_FOLDER, "future_UI.json")).readString(String.valueOf(StandardCharsets.UTF_8));
 //        BaseMod.loadCustomStrings(UIStrings.class, uiStrings);
 //        String characterStrings = Gdx.files.internal(makePath(LOCALIZATION_FOLDER, "future_characters.json")).readString(String.valueOf(StandardCharsets.UTF_8));
@@ -214,24 +217,22 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             //初始遗物赠送
             obtain(AbstractDungeon.player, HushsDoor.ID, false);
             obtain(AbstractDungeon.player, KeepersGift.ID, false);
-            obtain(AbstractDungeon.player, GuppysHead.ID, false);
-            obtain(AbstractDungeon.player, GuppysHairball.ID, false);
-            obtain(AbstractDungeon.player, GuppysPaw.ID, false);
+//            obtain(AbstractDungeon.player, TestRelic.ID, false);
+//            obtain(AbstractDungeon.player, MagicMushroom.ID, true);
+//            obtain(AbstractDungeon.player, GuppysHead.ID, false);
+//            obtain(AbstractDungeon.player, GuppysHairball.ID, false);
+//            obtain(AbstractDungeon.player, GuppysPaw.ID, false);
+//            obtain(AbstractDungeon.player, GuppysCollar.ID, false);
 //            obtain(AbstractDungeon.player, TestRelic.ID, false);
 //            obtain(AbstractDungeon.player, DoctorsRemote.ID, true);
-//            obtain(AbstractDungeon.player, MegaBlast.ID, true);
 //            obtain(AbstractDungeon.player, SharpPlug.ID, true);
 //            obtain(AbstractDungeon.player, SteamSale.ID, false);
 //            obtain(AbstractDungeon.player, MomsKnife.ID, false);
 //            obtain(AbstractDungeon.player, MegaBlast.ID, false);
-//            obtain(AbstractDungeon.player, BloodDonationBag.ID, false);
-//            obtain(AbstractDungeon.player, BloodDonationMachine.ID, false);
-////        obtain(AbstractDungeon.player, new SmilingMask(), false);
 ////        obtain(AbstractDungeon.player, "Diplopia", false);
 //        obtain(AbstractDungeon.player, new FusionHammer(), true);
 //        obtain(AbstractDungeon.player, new MagicMushroom(), true);
 //        obtain(AbstractDungeon.player, new HappyFlower(), true);
-//        obtain(AbstractDungeon.player, new MummifiedHand(), true);
 //        obtainRandomRelics(2);
             //初始卡牌赠送
 //        ElectricPowerLearning electricPowerLearning = new ElectricPowerLearning();
@@ -239,7 +240,10 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
 //            for (int i = 0; i < 20; i++) {
 //                AbstractDungeon.player.masterDeck.addToBottom(new Pummel());
 //            }
+//            AbstractDungeon.player.masterDeck.addToBottom(new Bomb());
+//            AbstractDungeon.player.masterDeck.addToBottom(new EpicFetus());
             //牌库卡牌添加
+            AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
             AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
             //事件添加
 //        for (int i = 0; i < 100; i++) {
@@ -311,6 +315,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                     while (iterator.hasNext()) {
                         AbstractRelic relic = iterator.next();
                         if (!(relic instanceof HushsDoor) && !(relic instanceof D4)) {
+                            relic.onUnequip();
                             iterator.remove();
                         }
                     }
@@ -341,7 +346,11 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                         obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON), false);
                     }
                     for (int i = 0; i < d4.boss; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS), false);
+                        AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS);
+                        while (relic instanceof CallingBell) {
+                            relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS);
+                        }
+                        obtain(AbstractDungeon.player, relic, false);
                     }
                     for (int i = 0; i < d4.shop; i++) {
                         obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.SHOP), false);
@@ -389,9 +398,10 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
 
     private void addEvent() {
 //        Class[] events = new Class[]{HidenRoomEvent.class};
-//        for (int i = 0; i < 100; i++) {
-//            BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class);
-//        }
+//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class);
+//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "Exordium");
+//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheCity");
+//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheBeyond");
     }
 
     @Override

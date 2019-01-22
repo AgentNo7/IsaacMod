@@ -50,6 +50,9 @@ public class GuppysHairball extends DevilRelic {
     @Override
     public void onEquip() {
         super.onEquip();
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.guppyCount++;
+        }
     }
 
     @Override

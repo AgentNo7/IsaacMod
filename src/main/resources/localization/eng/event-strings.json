@@ -1,0 +1,19 @@
+{
+  "HidenRoomEvent": {
+    "NAME": "Secret Room?",
+    "DESCRIPTIONS": [
+      "When you walked into this room, you found that the layout of the room seems a little special. It seemed to be a secret room. Now you look at the #p~...bomb in your hand...~ NL NL it may contains various #rmonsters or #ytreasures. NL Do you want to believe in your instincts?",
+      "#r~bang!!! ~ NL NL is really a secret room! You have a keen sense of intuition.",
+      "#r~bang!!! ~ NL NL Nothing happened, You feel depressed."
+    ],
+    "OPTIONS": [
+      "[Put a bomb] delete the bomb in master deck and enter the secret room",
+      "[Lock] Need: Bomb.",
+      "[Use EpicFetus or DoctorFetus] to enter the secret room.",
+      "[Lock] Need: EpicFetus baby or DoctorFetus.",
+      "[Using Doctor's remote] set Doctor's remote's charge to 0 and enter the secret room.",
+      "[Lock] Need: Doctor's remote and full charge.",
+      "[Leave]"
+    ]
+  }
+}

@@ -237,7 +237,7 @@
   "Incubus":{
     "NAME": "Incubus",
     "FLAVOR": "Conjoined haven't finished.",
-    "DESCRIPTIONS":["At the start of each battle, summon an Incubus, which, at the end of each turn, plays the last attack card you played that turn."]
+    "DESCRIPTIONS":["At the start of each battle, summon an Incubus, which, at the end of each turn, plays the last card you played that turn."]
   },
   "MegaBlast":{
     "NAME": "Mega Blast",
@@ -257,7 +257,7 @@
   "ChampionBelt":{
     "NAME": "Isaac's Champion Belt",
     "FLAVOR": "Challenging me!",
-    "DESCRIPTIONS":["Gain [E], when you enter monster room, switch it into elite room with 35% of chance."]
+    "DESCRIPTIONS":["Gain [E], when you enter monster room, switch it into elite room with 40% of chance."]
   },
   "SharpPlug":{
     "NAME": "Sharp Plug",

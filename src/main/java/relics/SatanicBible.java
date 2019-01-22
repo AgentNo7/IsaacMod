@@ -55,5 +55,8 @@ public class SatanicBible extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.bookCount++;
+        }
     }
 }

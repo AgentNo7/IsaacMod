@@ -43,6 +43,9 @@ public class NineLifeCat extends DevilRelic {
         this.counter = 9;
         lives = 9;
         AbstractDungeon.player.decreaseMaxHealth(AbstractDungeon.player.maxHealth * 75 / 100);
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.guppyCount++;
+        }
     }
 
     private boolean check = true;

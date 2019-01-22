@@ -2,6 +2,7 @@ package relics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import relics.abstracrt.ChargeableRelic;
 
@@ -46,5 +47,8 @@ public class GuppysHead extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.guppyCount++;
+        }
     }
 }

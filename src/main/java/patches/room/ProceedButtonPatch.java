@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.relics.CallingBell;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.TreasureRoomBoss;
 import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
+import events.HidenRoomEvent;
 import screen.BloodShopScreen;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,37 +16,63 @@ import java.lang.reflect.Method;
 
 import static relics.HushsDoor.isOn;
 
-@SpirePatch(
-        cls = "com.megacrit.cardcrawl.ui.buttons.ProceedButton",
-        method = "update",
-        paramtypez = {}
-)
 public class ProceedButtonPatch {
-    @SpireInsertPatch(
-            loc = 129
+    @SpirePatch(
+            cls = "com.megacrit.cardcrawl.ui.buttons.ProceedButton",
+            method = "update",
+            paramtypez = {}
     )
-    public static void Insert(ProceedButton button) {
-        //反射私有方法
-        try {
-            if (AbstractDungeon.shopScreen instanceof BloodShopScreen) {
-                if (AbstractDungeon.player.hasRelic(CallingBell.ID) && !isOn) {
-                    isOn = true;
-                    AbstractDungeon.gridSelectScreen.hide();
-                    AbstractDungeon.shopScreen.open();
-                } else {
-                    if (Settings.isDemo) {
-                        Method tickDuration = ProceedButton.class.getDeclaredMethod("goToDemoVictoryRoom");
-                        tickDuration.setAccessible(true);
-                        tickDuration.invoke(AbstractDungeon.overlayMenu.proceedButton);
+    public static class BloodShopScreenPatch {
+        public BloodShopScreenPatch() {
+        }
+
+        @SpireInsertPatch(
+                loc = 129
+        )
+        public static void Insert(ProceedButton button) {
+            //反射私有方法
+            try {
+                if (AbstractDungeon.shopScreen instanceof BloodShopScreen) {
+                    if (AbstractDungeon.player.hasRelic(CallingBell.ID) && !isOn) {
+                        isOn = true;
+                        AbstractDungeon.gridSelectScreen.hide();
+                        AbstractDungeon.shopScreen.open();
                     } else {
-                        Method goToNextDungeon = ProceedButton.class.getDeclaredMethod("goToNextDungeon", AbstractRoom.class);
-                        goToNextDungeon.setAccessible(true);
-                        goToNextDungeon.invoke(AbstractDungeon.overlayMenu.proceedButton, new TreasureRoomBoss());
+                        if (Settings.isDemo) {
+                            Method tickDuration = ProceedButton.class.getDeclaredMethod("goToDemoVictoryRoom");
+                            tickDuration.setAccessible(true);
+                            tickDuration.invoke(AbstractDungeon.overlayMenu.proceedButton);
+                        } else {
+                            Method goToNextDungeon = ProceedButton.class.getDeclaredMethod("goToNextDungeon", AbstractRoom.class);
+                            goToNextDungeon.setAccessible(true);
+                            goToNextDungeon.invoke(AbstractDungeon.overlayMenu.proceedButton, new TreasureRoomBoss());
+                        }
                     }
                 }
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
+        }
+    }
+
+    @SpirePatch(
+            cls = "com.megacrit.cardcrawl.ui.buttons.ProceedButton",
+            method = "update",
+            paramtypez = {}
+    )
+    public static class HidenRoomPatch {
+        public HidenRoomPatch() {
+        }
+
+        @SpireInsertPatch(
+                loc = 140
+        )
+        public static void Insert(ProceedButton button) {
+            if (AbstractDungeon.getCurrRoom().event instanceof HidenRoomEvent && AbstractDungeon.getCurrRoom().monsters != null) {
+                AbstractDungeon.closeCurrentScreen();
+                AbstractDungeon.dungeonMapScreen.open(/*EL:143*/false);
+                AbstractDungeon.previousScreen = AbstractDungeon.CurrentScreen.COMBAT_REWARD;
+            }
         }
     }
 }

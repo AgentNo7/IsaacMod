@@ -51,6 +51,14 @@ public class HowToJump extends ClickableRelic {
     }
 
     @Override
+    public void onEquip() {
+        super.onEquip();
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.bookCount++;
+        }
+    }
+
+    @Override
     public void update() {
         super.update();
     }

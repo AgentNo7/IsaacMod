@@ -39,6 +39,7 @@ public abstract class ClickableRelic extends CustomRelic {
     @Override
     public void onEquip() {
         super.onEquip();
+        IsaacMod.relics.remove(this.relicId);
         IsaacMod.devilRelics.remove(this.relicId);
         IsaacMod.devilOnlyRelics.remove(this.relicId);
     }

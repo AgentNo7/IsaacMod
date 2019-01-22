@@ -75,14 +75,14 @@
     ]
   },
   "UpPower": {
-    "NAME": "起",
+    "NAME": "凸",
     "DESCRIPTIONS": [
       "额外受到",
       "%的伤害。"
     ]
   },
   "DownPower": {
-    "NAME": "蹲",
+    "NAME": "凹",
     "DESCRIPTIONS": [
       "不会受到伤害。"
     ]

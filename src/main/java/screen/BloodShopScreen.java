@@ -26,6 +26,8 @@ import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.potions.AbstractPotion.PotionRarity;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.Orrery;
+import com.megacrit.cardcrawl.relics.TinyHouse;
 import com.megacrit.cardcrawl.shop.Merchant;
 import com.megacrit.cardcrawl.shop.OnSaleTag;
 import com.megacrit.cardcrawl.shop.ShopScreen;
@@ -381,7 +383,8 @@ public class BloodShopScreen extends ShopScreen {
 
         List<String> tempDevilRelics = new ArrayList<>(IsaacMod.devilRelics);
         List<String> tempDevilOnlyRelics = new ArrayList<>(IsaacMod.devilOnlyRelics);
-        for (int i = 0; i < 3; i++) {
+        int size = AbstractDungeon.merchantRng.random(1, 3);
+        for (int i = 0; i < size; i++) {
             AbstractRelic tempRelic = null;
             // todo 恶魔房专属遗物
             if (IsaacMod.devilOnlyRelics.size() > 0 && AbstractDungeon.relicRng.randomBoolean(0.24F)) {
@@ -1053,6 +1056,9 @@ public class BloodShopScreen extends ShopScreen {
                         AbstractDungeon.gridSelectScreen.open(
                                 CardGroup.getGroupWithoutBottledCards(AbstractDungeon.player.masterDeck
                                         .getPurgeableCards()), 1, NAMES[13], false, false, true, true);
+                        if (AbstractDungeon.player.hasRelic(TinyHouse.ID) || AbstractDungeon.player.hasRelic(Orrery.ID)) {
+                            this.purgeAvailable = false;
+                        }
                     } else {
 
 

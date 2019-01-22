@@ -78,6 +78,13 @@ public class HushsDoor extends ClickableRelic {
     }
 
     @Override
+    public void onEquip() {
+        super.onEquip();
+        guppyCount = 0;
+        bookCount = 0;
+    }
+
+    @Override
     public void justEnteredRoom(AbstractRoom room) {
         super.justEnteredRoom(room);
     }
@@ -105,7 +112,8 @@ public class HushsDoor extends ClickableRelic {
 
     private boolean enteredBloodShop = false;
 
-    private boolean go = true;
+    public static int guppyCount = 0;
+    public static int bookCount = 0;
 
     @Override
     public void update() {
@@ -142,14 +150,12 @@ public class HushsDoor extends ClickableRelic {
 
     private AbstractCard lastCard = null;
 
-    private boolean noReveiceDamage = false;
-
     /**
      * 猫套效果
      */
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (Utils.areGuppy()) {
+        if (guppyCount >= 3 || Utils.areGuppy()) {
             spawnFly();
         }
     }
@@ -157,7 +163,7 @@ public class HushsDoor extends ClickableRelic {
     @Override
     public void onPlayCard(AbstractCard c, AbstractMonster m) {
         super.onPlayCard(c, m);
-        if (c.type == AbstractCard.CardType.ATTACK && lastCard != c && Utils.areBookworm()) {
+        if ((Utils.areBookworm() || bookCount >= 3) && c.type == AbstractCard.CardType.ATTACK && lastCard != c) {
             int rnd = AbstractDungeon.aiRng.random(0, 99);
             if (rnd < 50) {
                 lastCard = BlankCardPower.playAgain(c, m);
@@ -172,7 +178,7 @@ public class HushsDoor extends ClickableRelic {
     public void atBattleStart() {
         super.atBattleStart();
         counter = -2;
-        if (Utils.areGuppy()) {
+        if (guppyCount >= 3 || Utils.areGuppy()) {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FlightPower(AbstractDungeon.player, 1), 1));
         }
         for (int i = 0; i < Fly.flyAlive.length; i++) {

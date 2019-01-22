@@ -9,8 +9,12 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import helpers.BasePlayerMinionHelper;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +45,7 @@ public abstract class AbstractPet extends CustomMonster {
         }
         List<AbstractMonster> monsters = new ArrayList<>();
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-            if (!m.escaped && !m.isDying && !m.isDead && !(m instanceof AbstractPet)) {
+            if (!m.escaped && !m.isDying && !m.isDead && m.currentHealth > 0 && !(m instanceof AbstractPet)) {
                 monsters.add(m);
             }
         }
@@ -59,18 +63,33 @@ public abstract class AbstractPet extends CustomMonster {
         }
     }
 
-//    @Override
-//    public void applyPowers() {
-//        super.applyPowers();
-//        if (this.hasPower(PoisonPower.POWER_ID)) {
-//            AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(this, (AbstractCreature)null, PoisonPower.POWER_ID));
-//        }
-//        if (this.hasPower(GainStrengthPower.POWER_ID)) {
-//            int amount = this.getPower(GainStrengthPower.POWER_ID).amount;
-//            AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(this, (AbstractCreature)this, new StrengthPower(this, amount), amount));
-//            AbstractDungeon.actionManager.addToTop(new RemoveSpecificPowerAction(this, (AbstractCreature)null, GainStrengthPower.POWER_ID));
-//        }
-//    }
+
+    @Override
+    public void applyPowers() {
+        try {
+            Field move = AbstractMonster.class.getDeclaredField("move");
+            move.setAccessible(true);
+            EnemyMoveInfo theMove = (EnemyMoveInfo) move.get(this);
+            if (theMove.baseDamage > -1) {
+                Method calculateDamage = AbstractMonster.class.getDeclaredMethod("calculateDamage", int.class);
+                calculateDamage.setAccessible(true);
+                calculateDamage.invoke(this, theMove.baseDamage);
+//                this.calculateDamage(this.move.baseDamage);
+            }
+            Field intentImg = AbstractMonster.class.getDeclaredField("intentImg");
+            intentImg.setAccessible(true);
+            Method getIntentImg = AbstractMonster.class.getDeclaredMethod("getIntentImg");
+            getIntentImg.setAccessible(true);
+            intentImg.set(this, getIntentImg.invoke(this));
+            Method updateIntentTip = AbstractMonster.class.getDeclaredMethod("updateIntentTip");
+            updateIntentTip.setAccessible(true);
+            updateIntentTip.invoke(this);
+//            this.intentImg = this.getIntentImg();
+//            this.updateIntentTip();
+        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void update() {

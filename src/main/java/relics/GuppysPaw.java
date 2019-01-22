@@ -55,6 +55,9 @@ public class GuppysPaw extends ClickableRelic {
     public void onEquip() {
         super.onEquip();
         shieldBase = 5;
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.guppyCount++;
+        }
     }
 
     @Override

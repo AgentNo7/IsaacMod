@@ -16,7 +16,7 @@ import utils.Utils;
 public class Incubus extends DevilRelic {
     public static final String ID = "Incubus";
     public static final String IMG = "images/relics/Incubus.png";
-    public static final String DESCRIPTION = "战斗开始召唤一个莉莉丝宝宝，莉莉丝宝宝会在回合结束时打出你这回合的最后一张攻击牌。";
+    public static final String DESCRIPTION = "战斗开始召唤一个莉莉丝宝宝，莉莉丝宝宝会在回合结束时打出你这回合的最后一张牌。";
 
     public Incubus() {
         super("Incubus", new Texture(Gdx.files.internal("images/relics/Incubus.png")), RelicTier.SPECIAL, LandingSound.CLINK);
@@ -64,10 +64,8 @@ public class Incubus extends DevilRelic {
     @Override
     public void onPlayCard(AbstractCard c, AbstractMonster m) {
         super.onPlayCard(c, m);
-        if (c.type == AbstractCard.CardType.ATTACK) {
-            usedCard = c;
-            targetMonster = m;
-        }
+        usedCard = c;
+        targetMonster = m;
     }
 
     @Override

@@ -4,18 +4,26 @@ import cards.Bomb;
 import cards.DoctorFetus;
 import cards.EpicFetus;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.colorless.TheBomb;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.monsters.city.Mugger;
+import com.megacrit.cardcrawl.monsters.exordium.Looter;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
+import com.megacrit.cardcrawl.vfx.GainPennyEffect;
 import relics.DoctorsRemote;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class HidenRoomEvent extends AbstractImageEvent {
     public static final String ID = "HidenRoomEvent";
+    private static final EventStrings eventStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
     public static final String[] OPTIONS;
@@ -35,10 +43,10 @@ public class HidenRoomEvent extends AbstractImageEvent {
     }
 
     public HidenRoomEvent() {
-        super(NAME, DIALOG_1, "images/relics/mindBloom.jpg");
+        super(NAME, DIALOG_1, "images/events/fengshui.png");
         this.screen = HidenRoomEvent.CurScreen.INTRO;
         //1
-        if (hasCard(Bomb.ID)) {
+        if (hasCard(Bomb.ID) || hasCard(TheBomb.ID)) {
             this.imageEventText.setDialogOption(OPTIONS[0]);
         } else {
             this.imageEventText.setDialogOption(OPTIONS[1], true);
@@ -64,30 +72,80 @@ public class HidenRoomEvent extends AbstractImageEvent {
         this.imageEventText.setDialogOption(OPTIONS[6]);
     }
 
+    private void battle() {
+        this.imageEventText.updateBodyText(DIALOG_2);
+        logMetric("HidenRoomEvent", "Fight");
+        List<String> list = new ArrayList<>();
+        list.add("3 Cultists");
+        list.add("Colosseum Nobs");
+        list.add("2 Thieves");
+        Collections.shuffle(list, new Random(AbstractDungeon.miscRng.randomLong()));
+        AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(list.get(0));
+        if (list.get(0).equals("2 Thieves")) {
+            AbstractDungeon.getCurrRoom().monsters.addMonster(new Looter(-200.0F, 415.0F));
+            AbstractDungeon.getCurrRoom().monsters.addMonster(new Mugger(80.0F, 400.0F));
+        }
+        AbstractDungeon.getCurrRoom().rewards.clear();
+        AbstractDungeon.getCurrRoom().addGoldToRewards(50);
+        AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.RARE);
+        AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.COMMON);
+        this.enterCombatFromImage();
+        leave();
+        AbstractDungeon.lastCombatMetricKey = "Hiden Room Battle";
+    }
+
+    private void leave() {
+        this.imageEventText.clearRemainingOptions();
+        this.imageEventText.updateDialogOption(0, OPTIONS[6]);
+        this.screen = CurScreen.LEAVE;
+    }
+
     protected void buttonEffect(int buttonPressed) {
         switch (this.screen) {
             case INTRO:
                 switch (buttonPressed) {
                     case 0:
-                        AbstractDungeon.player.masterDeck.removeCard(Bomb.ID);
-                        this.imageEventText.updateBodyText(DIALOG_2);
-                        this.screen = HidenRoomEvent.CurScreen.FIGHT;
-                        logMetric("HidenRoomEvent", "Fight");
-                        ArrayList<String> list = new ArrayList();
-                        list.add("Cultist");
-                        Collections.shuffle(list, new Random(AbstractDungeon.miscRng.randomLong()));
-                        AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(list.get(0));
-                        AbstractDungeon.getCurrRoom().rewards.clear();
-                        AbstractDungeon.getCurrRoom().addGoldToRewards(100);
-                        AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.RARE);
-                        this.enterCombatFromImage();
-                        AbstractDungeon.lastCombatMetricKey = "Hiden Room Boss Battle";
+                        if (hasCard(TheBomb.ID)) {
+                            AbstractDungeon.player.masterDeck.removeCard(TheBomb.ID);
+                        } else {
+                            AbstractDungeon.player.masterDeck.removeCard(Bomb.ID);
+                        }
+                        battle();
                         break;
                     case 1:
+                        if (AbstractDungeon.eventRng.randomBoolean(0.75F)) {
+                            if (AbstractDungeon.eventRng.randomBoolean(0.25F)) {
+                                battle();
+                            } else {
+                                this.imageEventText.updateBodyText(DIALOG_2);
+                                AbstractDungeon.getCurrRoom().rewards.clear();
+                                AbstractDungeon.getCurrRoom().addGoldToRewards(100);
+                                AbstractDungeon.combatRewardScreen.open();
+                                leave();
+                            }
+                        } else {
+                            this.imageEventText.updateBodyText(DIALOG_3);
+                            leave();
+                        }
                         break;
                     case 2:
-                        if (AbstractDungeon.player.hasRelic(DoctorsRemote.ID)) {
-                            AbstractDungeon.player.getRelic(DoctorsRemote.ID).counter = 0;
+                        if (AbstractDungeon.eventRng.randomBoolean(0.75F)) {
+                            if (AbstractDungeon.eventRng.randomBoolean(0.25F)) {
+                                battle();
+                            } else {
+                                this.imageEventText.updateBodyText(DIALOG_2);
+                                if (AbstractDungeon.player.hasRelic(DoctorsRemote.ID)) {
+                                    AbstractDungeon.player.getRelic(DoctorsRemote.ID).counter = 0;
+                                }
+                                AbstractDungeon.player.gainGold(300);
+                                for (int i = 0; i < 300; ++i) {
+                                    AbstractDungeon.effectList.add(new GainPennyEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, true));
+                                }
+                                leave();
+                            }
+                        } else {
+                            this.imageEventText.updateBodyText(DIALOG_3);
+                            leave();
                         }
                         break;
                     case 3:
@@ -99,8 +157,6 @@ public class HidenRoomEvent extends AbstractImageEvent {
                     default:
                         this.openMap();
                 }
-//                this.imageEventText.updateDialogOption(0, OPTIONS[8]);
-//                this.imageEventText.clearRemainingOptions();
                 break;
             case LEAVE:
                 this.openMap();
@@ -112,20 +168,23 @@ public class HidenRoomEvent extends AbstractImageEvent {
     }
 
     static {
-//        eventStrings = CardCrawlGame.languagePack.getEventString("HidenRoomEvent");
-        NAME = "风水宝地？";
-        DESCRIPTIONS = new String[]{"你走到这个房间时，发现这个房间布局不太一般,好像是个风水宝地。现在你看了下自己手里的 …… #p~炸弹……~ NL NL 里面可能有各种 #r怪物 与 #y财宝。 NL 到底要不要相信自己的直觉呢？",
-                "bang！炸了。",
-                "bang！炸了。"
-        };
-        OPTIONS = new String[]{"[放个炸弹]删除牌库中的炸弹并进入隐藏房",
-                "[锁定] 需要：炸弹。",
-                "[使用史诗或者博士]进入隐藏房。",
-                "[锁定] 需要：史诗婴儿或婴儿博士。",
-                "[使用博士的遥控器]消耗遥控器的充能并进入隐藏房。",
-                "[锁定] 需要：博士的遥控器并且满充能。",
-                "[离开]"
-        };
+        eventStrings = CardCrawlGame.languagePack.getEventString("HidenRoomEvent");
+        NAME = eventStrings.NAME;
+        DESCRIPTIONS = eventStrings.DESCRIPTIONS;
+        OPTIONS = eventStrings.OPTIONS;
+//        NAME = "风水宝地？";
+//        DESCRIPTIONS = new String[]{"你走到这个房间时，发现这个房间布局不太一般,好像是个风水宝地。现在你看了下自己手里的 #p~……炸弹……~ NL NL 里面可能有各种 #r怪物 与 #y财宝。 NL 到底要不要相信自己的直觉呢？",
+//                "#r~bang！炸了。~ NL  NL 真的是隐藏房，不愧是风水大师。",
+//                "#r~bang！炸了。~ NL  NL 什么都没有发生，风水大师的陨落。"
+//        };
+//        OPTIONS = new String[]{"[放个炸弹]删除牌库中的炸弹并进入隐藏房",
+//                "[锁定] 需要：炸弹。",
+//                "[使用史诗或者博士]进入隐藏房。",
+//                "[锁定] 需要：史诗婴儿或婴儿博士。",
+//                "[使用博士的遥控器]消耗遥控器的充能并进入隐藏房。",
+//                "[锁定] 需要：博士的遥控器并且满充能。",
+//                "[离开]"
+//        };
         DIALOG_1 = DESCRIPTIONS[0];
         DIALOG_2 = DESCRIPTIONS[1];
         DIALOG_3 = DESCRIPTIONS[2];

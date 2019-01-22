@@ -51,7 +51,7 @@ public class D6 extends ChargeableRelic {
                 }
                 bossChest.open(true);
                 show();
-//                counter = 0;
+                counter = 0;
             }
             else {
                 for (RewardItem item : room.rewards) {

@@ -39,6 +39,14 @@ public class BelialBook extends ChargeableRelic {
     }
 
     @Override
+    public void onEquip() {
+        super.onEquip();
+        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+            HushsDoor.bookCount++;
+        }
+    }
+
+    @Override
     public void onVictory() {
         super.onVictory();
     }

@@ -11,7 +11,7 @@ import relics.abstracrt.DevilInterface;
 public class D4 extends ChargeableRelic {
     public static final String ID = "D4";
     public static final String IMG = "images/relics/D4.png";
-    public static final String DESCRIPTION = "六充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效）。";
+    public static final String DESCRIPTION = "六充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效，战斗中使用可能会导致bug）。";
 
     public D4() {
         super("D4", new Texture(Gdx.files.internal("images/relics/D4.png")), RelicTier.RARE, LandingSound.CLINK, 6);
