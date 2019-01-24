@@ -59,7 +59,7 @@
   "PowerDownPower": {
     "NAME": "力竭",
     "DESCRIPTIONS": [
-      "每两回合，在回合开始时所有增益状态丢失一层。(机器人部分能力免疫)"
+      "每3回合，在回合开始时所有增益状态丢失一层。(机器人部分能力免疫)"
     ]
   },
   "ShuaLaiPower": {
@@ -71,7 +71,7 @@
   "GuppysCollarPower": {
     "NAME": "猫圈buff",
     "DESCRIPTIONS": [
-      "死亡时有50%的概率一血复活。"
+      "死亡时有75%的概率一血复活。"
     ]
   },
   "UpPower": {

@@ -33,22 +33,20 @@ public class SharpPlug extends ClickableRelic {
 
     //右键使用
     protected void onRightClick() {
-        if (AbstractDungeon.getMonsters() != null) {
-            int cost = AbstractDungeon.player.currentHealth / 2;
-            cost = cost < 15 ? 15 : cost;
-            cost = cost > 60 ? 60 : cost;
-            AbstractDungeon.player.currentHealth -= cost;
-            AbstractDungeon.player.healthBarUpdatedEvent();
-            AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, cost));
-            if (AbstractDungeon.player.currentHealth <= 0) {
-                AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
-            }
-            for (AbstractRelic relic : AbstractDungeon.player.relics) {
-                if (relic instanceof ChargeableRelic) {
-                    chargeRelicSelectScreen = new BoxForChargeRelicSelectScreen(false, "选择一件遗物充电", "充电页面", "极速快充2.0，瞬间满电，还在等什么？", this);
-                    chargeRelicSelectScreen.open();
-                    return;
-                }
+        int cost = AbstractDungeon.player.currentHealth / 2;
+        cost = cost < 15 ? 15 : cost;
+        cost = cost > 60 ? 60 : cost;
+        AbstractDungeon.player.currentHealth -= cost;
+        AbstractDungeon.player.healthBarUpdatedEvent();
+        AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, cost));
+        if (AbstractDungeon.player.currentHealth <= 0) {
+            AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
+        }
+        for (AbstractRelic relic : AbstractDungeon.player.relics) {
+            if (relic instanceof ChargeableRelic) {
+                chargeRelicSelectScreen = new BoxForChargeRelicSelectScreen(false, "选择一件遗物充电", "充电页面", "极速快充2.0，瞬间满电，还在等什么？", this);
+                chargeRelicSelectScreen.open();
+                return;
             }
         }
     }

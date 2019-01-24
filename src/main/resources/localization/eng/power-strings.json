@@ -59,7 +59,7 @@
   "PowerDownPower": {
     "NAME": "Exhaustion",
     "DESCRIPTIONS": [
-      "At the start of every two turns, lose 1 of all buffs you have. (Defect is immune for some of the buffs.)"
+      "At the start of every 3 turns, lose 1 of all buffs you have. (Defect is immune for some of the buffs.)"
     ]
   },
   "ShuaLaiPower": {
@@ -70,7 +70,7 @@
   },
   "GuppysCollarPower":{
     "NAME": "Guppys Collar",
-    "DESCRIPTIONS":["When you would die, heal to 1 HP with 50% of chance."]
+    "DESCRIPTIONS":["When you would die, heal to 1 HP with 75% of chance."]
   },
   "UpPower": {
     "NAME": "UP",

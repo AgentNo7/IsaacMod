@@ -21,7 +21,7 @@ public class Bomb extends CustomCard {
     public static final String imgUrl = "images/cards/Bomb.png";
 
     public Bomb() {
-        super("Bomb", NAME, imgUrl, 0, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
+        super("Bomb", NAME, imgUrl, 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
         this.exhaust = true;
         this.baseDamage = 40;
         this.isMultiDamage = true;

@@ -3,10 +3,13 @@ package relics;
 import actions.LoseRelicAction;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.dungeons.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import relics.abstracrt.ClickableRelic;
+
+import java.util.ArrayList;
 
 public class ForgetMeNow extends ClickableRelic {
     public static final String ID = "ForgetMeNow";
@@ -34,11 +37,51 @@ public class ForgetMeNow extends ClickableRelic {
             CardCrawlGame.music.fadeOutBGM();
             CardCrawlGame.music.fadeOutTempBGM();
             AbstractDungeon.fadeOut();
-            AbstractDungeon.isDungeonBeaten = true;
-            AbstractDungeon.overlayMenu.proceedButton.hide();
-            AbstractDungeon.dungeonMapScreen.closeInstantly();
+//            AbstractDungeon.isDungeonBeaten = true;
+//            AbstractDungeon.overlayMenu.proceedButton.hide();
+//            AbstractDungeon.dungeonMapScreen.closeInstantly();
+            CardCrawlGame.dungeon = getDungeon(CardCrawlGame.nextDungeon, AbstractDungeon.player);
             AbstractDungeon.getCurrRoom().onPlayerEntry();
             AbstractDungeon.floorNum = AbstractDungeon.floorNum - AbstractDungeon.floorNum % 17;
+        }
+    }
+
+    public AbstractDungeon getDungeon(String key, AbstractPlayer p) {
+        byte var4 = -1;
+        switch(key.hashCode()) {
+            case -1887678253:
+                if (key.equals("Exordium")) {
+                    var4 = 0;
+                }
+                break;
+            case 313705820:
+                if (key.equals("TheCity")) {
+                    var4 = 1;
+                }
+                break;
+            case 791401920:
+                if (key.equals("TheBeyond")) {
+                    var4 = 2;
+                }
+                break;
+            case 884969688:
+                if (key.equals("TheEnding")) {
+                    var4 = 3;
+                }
+        }
+
+        switch(var4) {
+            case 0:
+                ArrayList<String> emptyList = new ArrayList<>();
+                return new Exordium(p, emptyList);
+            case 1:
+                return new TheCity(p, AbstractDungeon.specialOneTimeEventList);
+            case 2:
+                return new TheBeyond(p, AbstractDungeon.specialOneTimeEventList);
+            case 3:
+                return new TheEnding(p, AbstractDungeon.specialOneTimeEventList);
+            default:
+                return null;
         }
     }
 

@@ -197,7 +197,7 @@
   "GuppysCollar":{
     "NAME": "Guppy's Collar",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["When you would die, heal to 1 HP with 50% of chance."]
+    "DESCRIPTIONS":["When you would die, heal to 1 HP with 75% of chance."]
   },
   "GuppysHairball":{
     "NAME": "Guppy's Hairball",
@@ -242,7 +242,7 @@
   "MegaBlast":{
     "NAME": "Mega Blast",
     "FLAVOR": "RUSH!",
-    "DESCRIPTIONS":["12 charges. When fully charged, right-click to reduce ALL enemies' HP to 1 for 20 seconds."]
+    "DESCRIPTIONS":["12 charges. When fully charged, right-click to defeat ALL enemies at battle start for 15 seconds."]
   },
   "Succubus":{
     "NAME": "Succubus",
@@ -252,7 +252,7 @@
   "ForgetMeNow":{
     "NAME": "Forget Me Now",
     "FLAVOR": "go back",
-    "DESCRIPTIONS":["Only be used once,right-click to go back to the first floor of current dungeon(at BossTreasureRoom,you go to next dungeon as normal)."]
+    "DESCRIPTIONS":["Only be used once,right-click to go back to the first floor of current dungeon(at BossTreasureRoom,you go to next dungeon as normal; at boss room, nothing will happen.)."]
   },
   "ChampionBelt":{
     "NAME": "Isaac's Champion Belt",
@@ -273,5 +273,15 @@
     "NAME": "D4",
     "FLAVOR": "ROLL！",
     "DESCRIPTIONS":["6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier,"]
+  },
+  "PunchingBag":{
+    "NAME": "Punching Bag",
+    "FLAVOR": "don't hurt me.",
+    "DESCRIPTIONS":["summon a Scape Goat at battle start.Right-Click this relic to get a card to change a enemy's target to Scape Goat"]
+  },
+  "PokeGo":{
+    "NAME": "Poke Go",
+    "FLAVOR": "Gotta catch em...",
+    "DESCRIPTIONS":["Right-Click to get a PokeBall(1 cost).PokeBall can catch the monster(not boss) which HP only left 1,and become your pet.(max pet amount = 1)"]
   }
 }

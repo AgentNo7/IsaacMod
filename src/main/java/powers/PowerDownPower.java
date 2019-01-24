@@ -18,7 +18,7 @@ public class PowerDownPower extends AbstractPower {
     public static final String POWER_ID = "PowerDownPower";
     public static final String NAME;//= "力竭";
     public static final String IMG = "images/powers/PowerDownPower.png";
-    public static final String[] DESCRIPTIONS;//= new String[]{"每两回合，在回合开始时所有增益状态丢失一层。(机器人部分能力免疫)"};
+    public static final String[] DESCRIPTIONS;//= new String[]{"每三回合，在回合开始时所有增益状态丢失一层。(机器人部分能力免疫)"};
 
     private static final List<String> whiteList = Arrays.asList(EchoPower.POWER_ID, CreativeAIPower.POWER_ID, ElectroPower.POWER_ID,
             StaticDischargePower.POWER_ID, BufferPower.POWER_ID,

@@ -41,7 +41,7 @@ public class D4 extends ChargeableRelic {
     protected void onRightClick() {
         if (counter >= maxCharge) {
             for (AbstractRelic relic : AbstractDungeon.player.relics) {
-                if (relic instanceof HushsDoor || relic instanceof D4 || relic instanceof Circlet) {
+                if (relic instanceof HushsDoor || relic instanceof D4 || relic instanceof Circlet || relic instanceof NineLifeCat) {
                     continue;
                 }
                 if (relic instanceof DevilInterface) {

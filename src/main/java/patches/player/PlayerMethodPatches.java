@@ -2,6 +2,7 @@ package patches.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.actions.animations.AnimateJumpAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -21,16 +22,24 @@ public class PlayerMethodPatches {
     public static class UpdatePowersPatch {
         public UpdatePowersPatch() {
         }
-
         public static void Postfix(AbstractCreature _instance) {
             if (_instance instanceof AbstractPlayer) {
                 (PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
                     monster.updatePowers();
                 });
             }
-
         }
     }
+
+//    @SpirePatch(cls = "com.megacrit.cardcrawl.monsters.MonsterGroup", method = "updateAnimations")
+//    public static class UpdateAnimationsPatch {
+//        @SpirePostfixPatch
+//        public static void Postfix(final MonsterGroup group) {
+//            for (final AbstractMonster m : PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player).monsters) {
+//                m.updatePowers();
+//            }
+//        }
+//    }
 
     @SpirePatch(
             cls = "com.megacrit.cardcrawl.core.AbstractCreature",
@@ -48,8 +57,19 @@ public class PlayerMethodPatches {
                 ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
                     monster.loseBlock();
                 });
+                PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player).showIntent();
             }
+        }
+    }
 
+    @SpirePatch(cls = "com.megacrit.cardcrawl.monsters.MonsterGroup", method = "showIntent")
+    public static class ShowIntentPatch {
+        @SpirePostfixPatch
+        public static void Postfix(final MonsterGroup group) {
+            if (group != PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)) {
+                PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player).showIntent();
+
+            }
         }
     }
 
@@ -131,7 +151,6 @@ public class PlayerMethodPatches {
                 case COMBAT:
                     if (BasePlayerMinionHelper.hasMinions(AbstractDungeon.player)) {
                         minions.update();
-                        minions.showIntent();
                     }
             }
 

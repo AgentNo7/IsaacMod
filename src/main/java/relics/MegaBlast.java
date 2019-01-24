@@ -3,6 +3,7 @@ package relics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -16,7 +17,7 @@ import java.util.Iterator;
 public class MegaBlast extends ChargeableRelic implements DevilInterface {
     public static final String ID = "MegaBlast";
     public static final String IMG = "images/relics/MegaBlast.png";
-    public static final String DESCRIPTION = "十二充能，满充能时右击获得20秒涅奥的悲恸效果。";
+    public static final String DESCRIPTION = "十二充能，满充能时右击获得15秒战斗开始当场怪物即死效果。";
 
     public MegaBlast() {
         super("MegaBlast", new Texture(Gdx.files.internal("images/relics/MegaBlast.png")), RelicTier.SPECIAL, LandingSound.CLINK, 12);
@@ -87,6 +88,7 @@ public class MegaBlast extends ChargeableRelic implements DevilInterface {
             AbstractMonster m = (AbstractMonster) var1.next();
             m.currentHealth = 1;
             m.healthBarUpdatedEvent();
+            m.damage(new DamageInfo(m, 1, DamageInfo.DamageType.HP_LOSS));
         }
 
         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));

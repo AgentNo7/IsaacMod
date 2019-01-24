@@ -45,6 +45,8 @@ public class ChampionBelt extends CustomRelic {
                 if (rnd < 40) {
                     AbstractDungeon.nextRoom.room = new MonsterRoomElite();
                     counter = -3;
+                } else {
+                    counter = -1;
                 }
             }
         }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import powers.BlankCardPower;
@@ -37,6 +38,7 @@ public class BlankCard extends ChargeableRelic {
             for (AbstractCard c : AbstractDungeon.player.hand.group) {
                 all.addToRandomSpot(c);
             }
+            CardLibrary.cards.entrySet();
             AbstractDungeon.gridSelectScreen.open(all, 1, "选择一张牌", false);
             counter = 0;
             isValid = true;

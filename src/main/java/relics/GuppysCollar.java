@@ -13,7 +13,7 @@ import relics.abstracrt.DevilRelic;
 public class GuppysCollar extends DevilRelic {
     public static final String ID = "GuppysCollar";
     public static final String IMG = "images/relics/GuppysCollar.png";
-    public static final String DESCRIPTION = "死亡时有50%的概率一血复活。";
+    public static final String DESCRIPTION = "死亡时有75%的概率一血复活。";
 
     public GuppysCollar() {
         super("GuppysCollar", new Texture(Gdx.files.internal("images/relics/GuppysCollar.png")), RelicTier.COMMON, LandingSound.CLINK);

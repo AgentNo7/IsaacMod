@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
@@ -60,8 +59,6 @@ public class HushsDoor extends ClickableRelic {
     public AbstractRelic makeCopy() {
         return new HushsDoor();
     }
-
-    private AbstractEvent event;//= new MysteriousSphere();
 
     /**
      * 把心脏变成凹凸
@@ -134,7 +131,7 @@ public class HushsDoor extends ClickableRelic {
         if (change) {
             change = false;
             //是否无伤
-            int chance = 2;//AbstractDungeon.floorNum > 20 ? 6 : 4;
+            int chance = 3;//AbstractDungeon.floorNum > 20 ? 6 : 4;
             int chanceToDevil = counter == -3 ? 1 : chance;
             int rnd = AbstractDungeon.eventRng.random(1, chanceToDevil);
             if (rnd == 1) {
@@ -155,7 +152,8 @@ public class HushsDoor extends ClickableRelic {
      */
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (guppyCount >= 3 || Utils.areGuppy()) {
+        //guppyCount >= 3 ||
+        if ( Utils.areGuppy()) {
             spawnFly();
         }
     }
@@ -163,7 +161,8 @@ public class HushsDoor extends ClickableRelic {
     @Override
     public void onPlayCard(AbstractCard c, AbstractMonster m) {
         super.onPlayCard(c, m);
-        if ((Utils.areBookworm() || bookCount >= 3) && c.type == AbstractCard.CardType.ATTACK && lastCard != c) {
+        // || ( bookCount >= 3)
+        if (Utils.areBookworm() && c.type == AbstractCard.CardType.ATTACK && lastCard != c) {
             int rnd = AbstractDungeon.aiRng.random(0, 99);
             if (rnd < 50) {
                 lastCard = BlankCardPower.playAgain(c, m);
@@ -178,7 +177,8 @@ public class HushsDoor extends ClickableRelic {
     public void atBattleStart() {
         super.atBattleStart();
         counter = -2;
-        if (guppyCount >= 3 || Utils.areGuppy()) {
+        //guppyCount >= 3 ||
+        if (Utils.areGuppy()) {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FlightPower(AbstractDungeon.player, 1), 1));
         }
         for (int i = 0; i < Fly.flyAlive.length; i++) {

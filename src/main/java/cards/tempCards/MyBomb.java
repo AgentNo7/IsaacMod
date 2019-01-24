@@ -1,5 +1,6 @@
 package cards.tempCards;
 
+import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,7 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.TheBombPower;
 
-public class MyBomb extends AbstractCard {
+public class MyBomb extends CustomCard {
     private static final CardStrings cardStrings;
     public static final String ID = "MyBomb";
     public static final String NAME;//= "快爆炸弹";

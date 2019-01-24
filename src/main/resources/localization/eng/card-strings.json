@@ -56,5 +56,21 @@
   "ChaosCard": {
     "NAME": "Chaos Card",
     "DESCRIPTION": "Deal damage equal to 99% of the Max HP of the target. This card will be removed from the deck permanently if used or Exhuasted. Cannot be upgraded. Exhaust. Ethereal."
+  },
+  "SuicideKing": {
+    "NAME": "Suicide King",
+    "DESCRIPTION": "Suicide.And add large amount of rewards at reward screen.This card will be removed from the deck permanently if used. Exhaust. Ethereal."
+  },
+  "ScapeGoat": {
+    "NAME": "Scape Goat",
+    "DESCRIPTION": "make target enemy attack ScapeGoat instead of you.But you receive 1 damage by the pricks of conscience."
+  },
+  "PokeBall": {
+    "NAME": "Poke Ball",
+    "DESCRIPTION": "Catch the monster which has only 1 HP. Exhaust. Ethereal."
+  },
+  "PokeGOGO": {
+    "NAME": "GO! ",
+    "DESCRIPTION": "Make your pet attack or debuff enemy."
   }
 }

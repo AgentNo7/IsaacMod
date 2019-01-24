@@ -95,8 +95,8 @@ public class MomsKnife extends DevilRelic {
                             int damage;
                             if (monster.maxHealth / 100 < 3) {
                                 damage = 3;
-                            } else if (monster.maxHealth > 4000){
-                                damage = 40;
+                            } else if (monster.maxHealth > 5000){
+                                damage = 50;
                             } else {
                                 damage = monster.maxHealth / 100;
                             }

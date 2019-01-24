@@ -41,6 +41,9 @@ public class BloodDonationBag extends ClickableRelic {
             return;
         }
         AbstractDungeon.player.currentHealth -= 1;
+        if (AbstractDungeon.player.hasRelic("Charity")) {
+            AbstractDungeon.player.currentHealth -= 5;
+        }
         AbstractDungeon.player.healthBarUpdatedEvent();
         AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1));
         if (AbstractDungeon.player.currentHealth <= 0) {

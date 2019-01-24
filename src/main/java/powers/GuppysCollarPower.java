@@ -30,7 +30,7 @@ public class GuppysCollarPower extends AbstractPower {
     public int onLoseHp(int damageAmount) {
         if (damageAmount >= AbstractDungeon.player.currentHealth) {
             int rnd = AbstractDungeon.aiRng.random(0, 99);
-            if (rnd < 50) {
+            if (rnd < 75) {
                 AbstractDungeon.player.currentHealth = 0;
                 AbstractDungeon.player.heal(1, true);
                 flash();

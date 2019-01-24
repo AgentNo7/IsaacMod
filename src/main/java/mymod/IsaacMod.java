@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.blue.Electrodynamics;
+import com.megacrit.cardcrawl.cards.curses.AscendersBane;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.characters.Defect;
 import com.megacrit.cardcrawl.core.Settings;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.shop.ShopScreen;
+import patches.event.AddEventPatch;
 import relics.*;
 import rewards.Pill;
 import screen.BloodShopScreen;
@@ -62,6 +64,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             "MoneyPower",
             "NineLifeCat",
             "PillsDrop",
+            PokeGo.ID,
+            PunchingBag.ID,
             "SalivaCoin",
             "SatanicBible",
             "KeepersGift",
@@ -74,7 +78,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             "UnicornStump",
             "YumHeart"};
     public static String[] cardsString = {"BettingIsNotGood", "BloodyBrimstone", "DoctorFetus", "EpicFetus",
-//            "Battery",
+            "ChaosCard",
+            "SuicideKing",
             "Bomb"};
 
     public static String[] inPoolRelic = {ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID};
@@ -142,6 +147,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BaseMod.addCard(new Pulse());
         BaseMod.addCard(new Bomb());
         BaseMod.addCard(new ChaosCard());
+        BaseMod.addCard(new SuicideKing());
     }
 
     public void receiveEditStrings() {
@@ -200,6 +206,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BloodDonationBag.canUse = true;
         BloodDonationMachine.broken = false;
         BloodDonationMachine.isBag = false;
+        AddEventPatch.hidenRoomTimes = 0;
         Pill.forgotColor = Pill.getRandomColor();
         Utils.removeFromPool(new BloodDonationBag());
         if (AbstractDungeon.shopScreen instanceof BloodShopScreen) {
@@ -216,24 +223,14 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             preSettings();
             //初始遗物赠送
             obtain(AbstractDungeon.player, HushsDoor.ID, false);
-            obtain(AbstractDungeon.player, KeepersGift.ID, false);
+//            obtain(AbstractDungeon.player, KeepersGift.ID, false);
+            obtain(AbstractDungeon.player, PokeGo.ID, false);
+//            obtain(AbstractDungeon.player, D6.ID, false);
 //            obtain(AbstractDungeon.player, TestRelic.ID, false);
+//            obtain(AbstractDungeon.player, PunchingBag.ID, false);
 //            obtain(AbstractDungeon.player, MagicMushroom.ID, true);
 //            obtain(AbstractDungeon.player, GuppysHead.ID, false);
 //            obtain(AbstractDungeon.player, GuppysHairball.ID, false);
-//            obtain(AbstractDungeon.player, GuppysPaw.ID, false);
-//            obtain(AbstractDungeon.player, GuppysCollar.ID, false);
-//            obtain(AbstractDungeon.player, TestRelic.ID, false);
-//            obtain(AbstractDungeon.player, DoctorsRemote.ID, true);
-//            obtain(AbstractDungeon.player, SharpPlug.ID, true);
-//            obtain(AbstractDungeon.player, SteamSale.ID, false);
-//            obtain(AbstractDungeon.player, MomsKnife.ID, false);
-//            obtain(AbstractDungeon.player, MegaBlast.ID, false);
-////        obtain(AbstractDungeon.player, "Diplopia", false);
-//        obtain(AbstractDungeon.player, new FusionHammer(), true);
-//        obtain(AbstractDungeon.player, new MagicMushroom(), true);
-//        obtain(AbstractDungeon.player, new HappyFlower(), true);
-//        obtainRandomRelics(2);
             //初始卡牌赠送
 //        ElectricPowerLearning electricPowerLearning = new ElectricPowerLearning();
 //        AbstractDungeon.player.masterDeck.addToBottom(electricPowerLearning);
@@ -241,10 +238,11 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
 //                AbstractDungeon.player.masterDeck.addToBottom(new Pummel());
 //            }
 //            AbstractDungeon.player.masterDeck.addToBottom(new Bomb());
+//            AbstractDungeon.player.masterDeck.addToBottom(new SuicideKing());
 //            AbstractDungeon.player.masterDeck.addToBottom(new EpicFetus());
             //牌库卡牌添加
             AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
-            AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
+            AbstractDungeon.commonCardPool.addToBottom(new Bomb());
             //事件添加
 //        for (int i = 0; i < 100; i++) {
 //            BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "" + i);
@@ -263,6 +261,17 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                 obtain(AbstractDungeon.player, relic, false);
                 Utils.removeFromPool(relic);
                 EdensBlessing.obtained = false;
+            }
+        } else {
+            int cnt = 0;
+            for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
+                if (AscendersBane.ID.equals(card.cardID)) {
+                    cnt++;
+                }
+            }
+            while (cnt > 1) {
+                AbstractDungeon.player.masterDeck.removeCard(AscendersBane.ID);
+                cnt--;
             }
         }
     }
@@ -314,7 +323,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                     Iterator<AbstractRelic> iterator = AbstractDungeon.player.relics.iterator();
                     while (iterator.hasNext()) {
                         AbstractRelic relic = iterator.next();
-                        if (!(relic instanceof HushsDoor) && !(relic instanceof D4)) {
+                        if (!(relic instanceof HushsDoor) && !(relic instanceof D4) && !(relic instanceof NineLifeCat)) {
                             relic.onUnequip();
                             iterator.remove();
                         }

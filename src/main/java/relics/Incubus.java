@@ -38,7 +38,7 @@ public class Incubus extends DevilRelic {
         Point center = new Point(AbstractDungeon.player.hb.x - 1200, AbstractDungeon.player.hb_y + 170);
         double angle = Math.PI / 6;
         Point point = Utils.getCirclePoint(center, angle, 150);
-        IncubusPet incubus = new IncubusPet((float) point.x, (float) point.y, this);
+        IncubusPet incubus = new IncubusPet((float) point.x, (float) point.y);
 //        AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(incubus, false));
         BaseSummonHelper.summonMinion(incubus);
     }

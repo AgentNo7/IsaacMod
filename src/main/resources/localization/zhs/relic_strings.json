@@ -87,7 +87,7 @@
 	"YumHeart":{
 		"NAME": "美味的心",
 		"FLAVOR": "莫小姐真的逊！",
-		"DESCRIPTIONS":["四充能，每打一个怪物房间加一充能，满充能时右击回复25血。"]
+		"DESCRIPTIONS":["四充能，每打一个怪物房间加一充能，满充能时右击回复25血，每个房间最多用一次。"]
 	},
 	"BelialBook":{
 		"NAME": "恶魔书",
@@ -147,7 +147,7 @@
 	"GuppysCollar":{
 		"NAME": "嗝屁猫的项圈",
 		"FLAVOR": "猫套的一部分",
-		"DESCRIPTIONS":["死亡时有50%的概率一血复活。"]
+		"DESCRIPTIONS":["死亡时有75%的概率一血复活。"]
 	},
 	"GuppysHairball":{
 		"NAME": "嗝屁猫的毛球",
@@ -192,7 +192,7 @@
 	"MegaBlast":{
 		"NAME": "撒旦头",
 		"FLAVOR": "开车开车",
-		"DESCRIPTIONS":["十二充能，满充能时右击获得20秒涅奥的悲恸效果。"]
+		"DESCRIPTIONS":["十二充能，满充能时右击获得15秒战斗开始当场怪物即死效果。"]
 	},
 	"Succubus":{
 		"NAME": "魅魔",
@@ -202,7 +202,7 @@
 	"ForgetMeNow":{
 		"NAME": "再爽一次",
 		"FLAVOR": "现在就忘了我",
-		"DESCRIPTIONS":["一次性遗物，右击回到本层的第一层（在boss宝箱会直接下层）。"]
+		"DESCRIPTIONS":["一次性遗物，右击回到本层的第一层（boss层无效，在boss宝箱会直接下层）。"]
 	},
 	"ChampionBelt":{
 		"NAME": "以撒的冠军腰带",
@@ -223,5 +223,15 @@
 		"NAME": "D4",
 		"FLAVOR": "ROLL！",
 		"DESCRIPTIONS":["六充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效，战斗中使用可能会导致bug）。"]
+	},
+	"PunchingBag":{
+		"NAME": "棉花怪",
+		"FLAVOR": "呜呜呜",
+		"DESCRIPTIONS":["战斗开始召唤一只棉花怪，右击遗物获得一张可以使怪物转移攻击到棉花怪的卡牌。"]
+	},
+	"PokeGo":{
+		"NAME": "精灵宝可Go",
+		"FLAVOR": "残血了，快抓住它",
+		"DESCRIPTIONS":["右击获得一张精灵球（1费）。精灵球可以抓住剩余1血的非boss怪物，并成为你的随从。随从最多一只（可替换）。"]
 	}
 }

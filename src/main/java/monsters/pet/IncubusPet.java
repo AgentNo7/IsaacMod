@@ -12,19 +12,16 @@ public class IncubusPet extends AbstractPet {
     public static final String NAME;
     public static final String MOVE_NAME;
 
-    private relics.Incubus incubus;
-
     private int attackDmg = 0;
 
     public int index = 0;
 
-    public IncubusPet(float x, float y, relics.Incubus incubus) {
+    public IncubusPet(float x, float y) {
         super(NAME, "Incubus", 10, -8.0F, 10.0F, 70, 70.0F, (String) null, x, y);
         this.setHp(10);
         this.img = new Texture(Gdx.files.internal("images/monsters/Incubus.png"));
         this.damage.add(new DamageInfo(this, attackDmg));
         this.setMove(MOVE_NAME, (byte) Move.ATTACK.id, Intent.ATTACK, attackDmg);
-        this.incubus = incubus;
     }
 
     @Override
