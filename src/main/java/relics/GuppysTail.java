@@ -15,12 +15,12 @@ public class GuppysTail extends DevilRelic {
     public static final String IMG = "images/relics/GuppysTail.png";
     public static final String DESCRIPTION = "进入宝箱房间时，把小宝箱变成大宝箱。";
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("GuppysTail").flash();
+    public void show() {
+        this.flash();
     }
 
     public GuppysTail() {
-        super("GuppysTail", new Texture(Gdx.files.internal("images/relics/GuppysTail.png")), RelicTier.COMMON, LandingSound.CLINK);
+        super("GuppysTail", new Texture(Gdx.files.internal("images/relics/GuppysTail.png")), RelicTier.RARE, LandingSound.CLINK);
     }
 
     public String getUpdatedDescription() {

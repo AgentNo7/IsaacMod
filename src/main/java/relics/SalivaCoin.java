@@ -11,8 +11,8 @@ public class SalivaCoin extends CustomRelic {
     public static final String IMG = "images/relics/SalivaCoin.png";
     public static final String DESCRIPTION = "每次受伤获得 #b7 块钱。";
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("SalivaCoin").flash();
+    public void show() {
+        this.flash();
     }
 
     public SalivaCoin() {

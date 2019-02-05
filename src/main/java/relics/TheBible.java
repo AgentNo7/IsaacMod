@@ -7,9 +7,9 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import powers.FlightPower;
-import relics.abstracrt.ChargeableRelic;
+import relics.abstracrt.BookSuit;
 
-public class TheBible extends ChargeableRelic {
+public class TheBible extends BookSuit {
     public static final String ID = "TheBible";
     public static final String IMG = "images/relics/TheBible.png";
     public static final String DESCRIPTION = "六充能，每打一个怪物房间加一充能，满充能时右击对使自己获得6层飞行。";
@@ -43,9 +43,6 @@ public class TheBible extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 
     @Override

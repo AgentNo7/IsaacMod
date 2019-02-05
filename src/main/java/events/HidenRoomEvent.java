@@ -4,6 +4,7 @@ import cards.Bomb;
 import cards.DoctorFetus;
 import cards.EpicFetus;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.colorless.TheBomb;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -14,6 +15,7 @@ import com.megacrit.cardcrawl.monsters.city.Mugger;
 import com.megacrit.cardcrawl.monsters.exordium.Looter;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
 import com.megacrit.cardcrawl.vfx.GainPennyEffect;
+import mymod.IsaacMod;
 import relics.DoctorsRemote;
 
 import java.util.ArrayList;
@@ -64,12 +66,8 @@ public class HidenRoomEvent extends AbstractImageEvent {
             this.imageEventText.setDialogOption(OPTIONS[5], true);
         }
         //4
-//        if ()) {
-//            this.imageEventText.setDialogOption(OPTIONS[6]);
-//        } else {
-//            this.imageEventText.setDialogOption(OPTIONS[7], true);
-//        }
         this.imageEventText.setDialogOption(OPTIONS[6]);
+        this.imageEventText.setDialogOption(OPTIONS[7]);
     }
 
     private void battle() {
@@ -81,13 +79,16 @@ public class HidenRoomEvent extends AbstractImageEvent {
         list.add("2 Thieves");
         Collections.shuffle(list, new Random(AbstractDungeon.miscRng.randomLong()));
         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(list.get(0));
+        if (AbstractDungeon.floorNum < 17) {
+            list.set(0, "Colosseum Slavers");
+        }
         if (list.get(0).equals("2 Thieves")) {
             AbstractDungeon.getCurrRoom().monsters.addMonster(new Looter(-200.0F, 415.0F));
             AbstractDungeon.getCurrRoom().monsters.addMonster(new Mugger(80.0F, 400.0F));
         }
         AbstractDungeon.getCurrRoom().rewards.clear();
         AbstractDungeon.getCurrRoom().addGoldToRewards(50);
-        AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.RARE);
+        AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.UNCOMMON);
         AbstractDungeon.getCurrRoom().addRelicToRewards(RelicTier.COMMON);
         this.enterCombatFromImage();
         leave();
@@ -96,7 +97,7 @@ public class HidenRoomEvent extends AbstractImageEvent {
 
     private void leave() {
         this.imageEventText.clearRemainingOptions();
-        this.imageEventText.updateDialogOption(0, OPTIONS[6]);
+        this.imageEventText.updateDialogOption(0, OPTIONS[7]);
         this.screen = CurScreen.LEAVE;
     }
 
@@ -149,7 +150,27 @@ public class HidenRoomEvent extends AbstractImageEvent {
                         }
                         break;
                     case 3:
-                        this.openMap();
+                        AbstractDungeon.player.damage(/*EL:77*/new DamageInfo(AbstractDungeon.player, 15, DamageInfo.DamageType.HP_LOSS));
+                        if (AbstractDungeon.eventRng.randomBoolean(0.25F)) {
+                            battle();
+                        } else {
+                            if (AbstractDungeon.eventRng.randomBoolean(0.85F)) {
+                                this.imageEventText.updateBodyText(DIALOG_2);
+                                if (AbstractDungeon.eventRng.randomBoolean(0.35F)) {
+                                    IsaacMod.obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(RelicTier.COMMON), false);
+                                } else {
+                                    int gold = AbstractDungeon.eventRng.random(40, 100);
+                                    AbstractDungeon.player.gainGold(gold);
+                                    for (int i = 0; i < gold; ++i) {
+                                        AbstractDungeon.effectList.add(new GainPennyEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, true));
+                                    }
+                                }
+                                leave();
+                            } else {
+                                this.imageEventText.updateBodyText(DIALOG_3);
+                                leave();
+                            }
+                        }
                         break;
                     case 4:
                         this.openMap();
@@ -182,6 +203,7 @@ public class HidenRoomEvent extends AbstractImageEvent {
 //                "[使用史诗或者博士]进入隐藏房。",
 //                "[锁定] 需要：史诗婴儿或婴儿博士。",
 //                "[使用博士的遥控器]消耗遥控器的充能并进入隐藏房。",
+//                "[失去15生命] 没有炸弹的你打算用头把这堵墙撞破。",
 //                "[锁定] 需要：博士的遥控器并且满充能。",
 //                "[离开]"
 //        };

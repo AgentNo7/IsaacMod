@@ -80,7 +80,7 @@
     "NAME": "Dead eye",
     "FLAVOR": "Accuracy brings strength!",
     "DESCRIPTIONS": [
-      "Gain #b2 strength whenever you play attacks on the same target in a row in the same turn. The strength gained will be removed at the end of the turn and when you attack different enemies."
+      "Gain #b1 strength whenever you play attacks on the same target in a row in the same turn. The strength gained will be removed at the end of the turn and when you attack different enemies."
     ]
   },
   "NineLifeCat": {
@@ -192,7 +192,7 @@
   "GuppysPaw":{
     "NAME": "Guppy's Paw",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["Right click to trade 10 Max Hp for 5 #yPlated #yArmor. The Plated Armor gained decreases after each use."]
+    "DESCRIPTIONS":["Right click to trade 1 Max Hp for 3 #ySoul #yHeart."]
   },
   "GuppysCollar":{
     "NAME": "Guppy's Collar",
@@ -222,17 +222,17 @@
   "BookOfRevelations":{
     "NAME": "Book of Revelations",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade and 30 block."]
+    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade and 10 soul heart."]
   },
   "SatanicBible":{
     "NAME": "Satanic Bible",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade, 30 block, and 20 flame barrier."]
+    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade, 30 block, and 10 black heart."]
   },
   "HowToJump":{
     "NAME": "How to Jump",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["Negate damage 20% of the time. Right-click to jump. "]
+    "DESCRIPTIONS":["Negate damage 10% of the time. Right-click to jump. "]
   },
   "Incubus":{
     "NAME": "Incubus",
@@ -257,7 +257,7 @@
   "ChampionBelt":{
     "NAME": "Isaac's Champion Belt",
     "FLAVOR": "Challenging me!",
-    "DESCRIPTIONS":["Gain [E], when you enter monster room, switch it into elite room with 40% of chance."]
+    "DESCRIPTIONS":["Gain [E], when you enter monster room,turn ascension level to 20, switch it into elite room with 75% of chance."]
   },
   "SharpPlug":{
     "NAME": "Sharp Plug",
@@ -272,7 +272,7 @@
   "D4":{
     "NAME": "D4",
     "FLAVOR": "ROLL！",
-    "DESCRIPTIONS":["6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier,"]
+    "DESCRIPTIONS":["6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier,can't be used at last boss in TheEnding act"]
   },
   "PunchingBag":{
     "NAME": "Punching Bag",
@@ -282,6 +282,21 @@
   "PokeGo":{
     "NAME": "Poke Go",
     "FLAVOR": "Gotta catch em...",
-    "DESCRIPTIONS":["Right-Click to get a PokeBall(1 cost).PokeBall can catch the monster(not boss) which HP only left 1,and become your pet.(max pet amount = 1)"]
+    "DESCRIPTIONS":["Right-Click to get a PokeBall(1 cost). NL PokeBall can catch the monster(not boss) which HP only left 1 NL or catch 1 HP BOSS at the chance of 15%, NL and become your pet.(max pet amount = 1)"]
+  },
+  "Chaos":{
+    "NAME": "Chaos",
+    "FLAVOR": "!!!",
+    "DESCRIPTIONS":["Chaos causes relics to be chosen from random item pools."]
+  },
+  "RottenBaby":{
+    "NAME": "Rotten Baby",
+    "FLAVOR": "A nice baby",
+    "DESCRIPTIONS":["Spawn a fly at turn start."]
+  },
+  "BFFS":{
+    "NAME": "BFFS!",
+    "FLAVOR": "Best Friends Forever!",
+    "DESCRIPTIONS":["All minions gain 5 strength at battle start."]
   }
 }

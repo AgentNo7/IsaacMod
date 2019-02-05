@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import helpers.BasePlayerMinionHelper;
+import helpers.MinionHelper;
 
 @SpirePatch(
         cls = "com.megacrit.cardcrawl.cards.DamageInfo",
@@ -38,7 +38,7 @@ public class DamageInfoPatch {
                     damageInfo.isModified = true;
                 }
             }
-            if (!(target == AbstractDungeon.player && (owner instanceof AbstractMonster && BasePlayerMinionHelper.getMinions(AbstractDungeon.player).monsters.contains(owner)))) {
+            if (target != null && !(target == AbstractDungeon.player && (owner instanceof AbstractMonster && MinionHelper.getMinions().monsters.contains(owner)))) {
                 for (final AbstractPower p : target.powers) {
                     tmp = p.atDamageReceive(tmp, damageInfo.type);
                     if (damageInfo.base != (int) tmp) {
@@ -53,7 +53,7 @@ public class DamageInfoPatch {
                 }
             }
 
-            if (!(target == AbstractDungeon.player && (owner instanceof AbstractMonster && BasePlayerMinionHelper.getMinions(AbstractDungeon.player).monsters.contains(owner)))) {
+            if (target != null && !(target == AbstractDungeon.player && (owner instanceof AbstractMonster && MinionHelper.getMinions(AbstractDungeon.player).monsters.contains(owner)))) {
                 for (final AbstractPower p : target.powers) {
                     tmp = p.atDamageFinalReceive(tmp, damageInfo.type);
                     if (damageInfo.base != (int) tmp) {

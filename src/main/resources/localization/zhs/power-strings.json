@@ -86,5 +86,18 @@
     "DESCRIPTIONS": [
       "不会受到伤害。"
     ]
+  },
+  "ConceitedPower": {
+    "NAME": "自负",
+    "DESCRIPTIONS": [
+      "你觉得打萌死戳不用发挥全力。"
+    ]
+  },
+  "MoreDamagePower": {
+    "NAME": "打我！",
+    "DESCRIPTIONS": [
+      "破甲造成的伤害变成原来的",
+      "倍。"
+    ]
   }
 }

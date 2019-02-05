@@ -9,9 +9,11 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import helpers.BasePlayerMinionHelper;
+import helpers.MinionHelper;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 @SpirePatch(
         cls = "com.megacrit.cardcrawl.monsters.AbstractMonster",
@@ -33,10 +35,20 @@ public class AbstractMonsterPatch {
             /*SL:1248*/tmp = p.atDamageGive(tmp, DamageInfo.DamageType.NORMAL);
         }
 
-        if (!BasePlayerMinionHelper.getMinions(AbstractDungeon.player).monsters.contains(abstractMonster)) {
+        if (!MinionHelper.getMinions(AbstractDungeon.player).monsters.contains(abstractMonster)) {
             /*SL:1254*/for (final AbstractPower p : target.powers) {
                 /*SL:1255*/tmp = p.atDamageReceive(tmp, DamageInfo.DamageType.NORMAL);
             }
+        }
+        try {
+            Method method = AbstractMonster.class.getDeclaredMethod("applyBackAttack");
+            method.setAccessible(true);
+            Boolean b = (Boolean) method.invoke(abstractMonster);
+            if (b) {
+                /*SL:1260*/tmp = (int)(tmp * 1.5f);
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
 //        /*SL:1259*/if (abstractMonster.applyBackAttack()) {
 //            /*SL:1260*/tmp = (int)(tmp * 1.5f);
@@ -44,7 +56,7 @@ public class AbstractMonsterPatch {
         /*SL:1264*/for (final AbstractPower p : abstractMonster.powers) {
             /*SL:1265*/tmp = p.atDamageFinalGive(tmp, DamageInfo.DamageType.NORMAL);
         }
-        if (!BasePlayerMinionHelper.getMinions(AbstractDungeon.player).monsters.contains(abstractMonster)) {
+        if (!MinionHelper.getMinions(AbstractDungeon.player).monsters.contains(abstractMonster)) {
             /*SL:1269*/
             for (final AbstractPower p : target.powers) {
                 /*SL:1270*/

@@ -57,6 +57,7 @@ public class ElectroPower extends AbstractPower {
                             orb.onEndOfTurn();
                         }
                     }
+                    break;
                 }
             }
         }

@@ -13,7 +13,7 @@ import relics.abstracrt.ClickableRelic;
 public class HowToJump extends ClickableRelic {
     public static final String ID = "HowToJump";
     public static final String IMG = "images/relics/HowToJump.png";
-    public static final String DESCRIPTION = "在攻击时有10%的概率不受到伤害，右击让角色跳一下。";
+    public static final String DESCRIPTION = "在攻击时有15%的概率不受到伤害，右击让角色跳一下。";
 
     public HowToJump() {
         super("HowToJump", new Texture(Gdx.files.internal("images/relics/HowToJump.png")), RelicTier.COMMON, LandingSound.CLINK);
@@ -39,7 +39,7 @@ public class HowToJump extends ClickableRelic {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (AbstractDungeon.aiRng.randomBoolean(0.20F)) {
+        if (AbstractDungeon.aiRng.randomBoolean(0.10F)) {
             return super.onAttacked(info, 0);
         }
         return super.onAttacked(info, damageAmount);

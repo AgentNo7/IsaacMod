@@ -3,6 +3,7 @@ package cards;
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -26,6 +27,8 @@ public class SuicideKing extends CustomCard {
         this.isEthereal = true;
     }
 
+//    public static boolean suicide = false;
+
     @Override
     public boolean canUpgrade() {
         return false;
@@ -34,6 +37,7 @@ public class SuicideKing extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.player.masterDeck.removeCard(this.cardID);
         p.currentHealth = -999999;
+//        suicide = true;
         AbstractDungeon.actionManager.addToBottom(new DamageAction(p, new DamageInfo(p, p.maxHealth, DamageInfo.DamageType.HP_LOSS), AbstractGameAction.AttackEffect.SLASH_VERTICAL));
         int relic = AbstractDungeon.treasureRng.random(1, 3);
         for (int i = 0; i < relic; i++) {
@@ -57,6 +61,11 @@ public class SuicideKing extends CustomCard {
     }
 
     public void upgrade() {
+    }
+
+    @Override
+    public void triggerWhenDrawn(){
+        AbstractDungeon.actionManager.addToBottom(new DrawCardAction(AbstractDungeon.player, 1));
     }
 
     static {

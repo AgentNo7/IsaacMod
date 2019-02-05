@@ -84,5 +84,18 @@
     "DESCRIPTIONS": [
       "don't receive damage."
     ]
+  },
+  "ConceitedPower": {
+    "NAME": "Conceited",
+    "DESCRIPTIONS": [
+      "you feel very easy to defeat Monstro."
+    ]
+  },
+  "MoreDamagePower": {
+    "NAME": "beat me!",
+    "DESCRIPTIONS": [
+      "Deals ",
+      " times the damage after lose block "
+    ]
   }
 }

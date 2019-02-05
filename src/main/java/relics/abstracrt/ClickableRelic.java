@@ -2,7 +2,6 @@ package relics.abstracrt;
 
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import mymod.IsaacMod;
 
@@ -31,7 +30,7 @@ public abstract class ClickableRelic extends CustomRelic {
     }
 
     public void show() {
-        AbstractDungeon.player.getRelic(this.relicId).flash();
+        this.flash();
     }
 
     protected abstract void onRightClick();

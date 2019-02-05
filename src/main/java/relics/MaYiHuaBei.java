@@ -13,8 +13,8 @@ public class MaYiHuaBei extends ClickableRelic {
     public static final String IMG = "images/relics/huabei.png";
     public static final String DESCRIPTION = "点击遗物获得 #b500 临时金额并失效，下次失去金币时将失去所有金币，进入boss房间遗物重新生效。";
 
-    private boolean used = false;
-    private boolean loseAll = true;
+    private static boolean used = false;
+    private static boolean loseAll = true;
 
     public MaYiHuaBei() {
         super("MaYiHuaBei", new Texture(Gdx.files.internal("images/relics/huabei.png")), RelicTier.SPECIAL, LandingSound.CLINK);
@@ -28,6 +28,13 @@ public class MaYiHuaBei extends ClickableRelic {
 
     public AbstractRelic makeCopy() {
         return new MaYiHuaBei();
+    }
+
+    @Override
+    public void onEquip() {
+        super.onEquip();
+        used = false;
+        loseAll = true;
     }
 
     //右键点击获得500金币

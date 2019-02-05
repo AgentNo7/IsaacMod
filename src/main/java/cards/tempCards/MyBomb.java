@@ -1,6 +1,5 @@
 package cards.tempCards;
 
-import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -10,7 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.TheBombPower;
 
-public class MyBomb extends CustomCard {
+public class MyBomb extends AbstractCard {
     private static final CardStrings cardStrings;
     public static final String ID = "MyBomb";
     public static final String NAME;//= "快爆炸弹";
@@ -20,7 +19,7 @@ public class MyBomb extends CustomCard {
 
     public MyBomb(boolean upgrade) {
         super("MyBomb", NAME, "colorless/skill/the_bomb", 2, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
-        this.baseMagicNumber = 40;
+        this.baseMagicNumber = 30;
         this.isEthereal = true;
         this.upgrade = upgrade;
         this.exhaust = true;

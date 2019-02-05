@@ -1,8 +1,8 @@
 {
   "Battery": {
     "NAME": "电池",
-    "DESCRIPTION": "选择一个充能遗物并充满能。虚无。消耗。",
-    "UPGRADE_DESCRIPTION": "选择一个充能遗物并充满能。消耗。"
+    "DESCRIPTION": "选择一个充能遗物并充满能。使用后此卡从牌库移除。虚无。消耗。",
+    "UPGRADE_DESCRIPTION": "选择一个充能遗物并充满能。使用后此卡从牌库移除。消耗。"
   },
   "BettingIsNotGood": {
     "NAME": "赌博是个恶习",
@@ -51,7 +51,7 @@
   },
   "MyBomb": {
     "NAME": "快爆炸弹",
-    "DESCRIPTION": "两回合后爆炸，对所有敌人造成40点伤害。 NL  虚无。 消耗。"
+    "DESCRIPTION": "两回合后爆炸，对所有敌人造成30点伤害。 NL  虚无。 消耗。"
   },
   "ChaosCard": {
     "NAME": "混沌卡",

@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import helpers.BaseSummonHelper;
+import helpers.SummonHelper;
 import monsters.pet.SuccubusPet;
 import relics.abstracrt.DevilRelic;
 import utils.Point;
@@ -47,8 +47,8 @@ public class Succubus extends DevilRelic {
         Point point = Utils.getCirclePoint(center, angle, 250);
         SuccubusPet Succubus = new SuccubusPet((float) point.x, (float) point.y, this);
         this.Succubus = Succubus;
-//        AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(Succubus, false));
-        BaseSummonHelper.summonMinion(Succubus);
+        SummonHelper.summonMinion(Succubus);
+        damageInfo = new DamageInfo(Succubus, 1);
     }
 
     @Override
@@ -69,11 +69,14 @@ public class Succubus extends DevilRelic {
     private boolean moveL = false;
     private int turnGo = 0;
 
+    private DamageInfo damageInfo = new DamageInfo(null, 1);
+
 
     @Override
     public void update() {
         super.update();
         if (Succubus != null) {
+            Succubus.hideHealthBar();
             int time = (int) (CardCrawlGame.playtime * 40);
             if (lastTime != time) {
                 lastTime = time;
@@ -92,10 +95,10 @@ public class Succubus extends DevilRelic {
                 }
                 if (time % 5 == 0) {
                     if (turnGo < 2) {
-
                         for (AbstractMonster monster : AbstractDungeon.getMonsters().monsters) {
                             if (!(monster instanceof SuccubusPet) && Math.abs(monster.drawX - Succubus.drawX) < 50) {
-                                AbstractDungeon.actionManager.addToBottom(new DamageAction(monster, new DamageInfo(monster, 1), AbstractGameAction.AttackEffect.NONE));
+                                damageInfo.applyPowers(Succubus, monster);
+                                AbstractDungeon.actionManager.addToBottom(new DamageAction(monster, damageInfo, AbstractGameAction.AttackEffect.NONE));
                             }
                         }
 

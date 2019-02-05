@@ -1,0 +1,19 @@
+
+air.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+m_air
+  rotate: false
+  xy: 2, 56
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+m_normal
+  rotate: false
+  xy: 2, 2
+  size: 67, 52
+  orig: 67, 52
+  offset: 0, 0
+  index: -1

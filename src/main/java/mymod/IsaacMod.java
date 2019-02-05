@@ -9,10 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.blue.Electrodynamics;
 import com.megacrit.cardcrawl.cards.curses.AscendersBane;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.characters.Defect;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
@@ -23,6 +21,8 @@ import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.shop.ShopScreen;
 import patches.event.AddEventPatch;
+import patches.ui.SoulHeartPatch;
+import powers.ConceitedPower;
 import relics.*;
 import rewards.Pill;
 import screen.BloodShopScreen;
@@ -30,39 +30,41 @@ import screen.RelicSelectScreen;
 import utils.Utils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import static utils.Utils.removeFromPool;
 import static utils.Utils.removeRelicString;
 
 
 @SpireInitializer
-public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber, PostInitializeSubscriber {
+public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber {//PostInitializeSubscriber EditCharactersSubscriber
 
     public static String[] relicsString = {
             "AnarchistCookbook",
+            BFFS.ID,
             "BelialBook",
 //            "BloodDonationBag",
             "BloodDonationMachine",
             "BookOfRevelations",
             "BookofShadows",
+            Chaos.ID,
             "D4",
             "D6",
             "DeadEye",
             "DeathBook",
             "DoctorsRemote",
             "GnawedLeaf",
-            "GuppysCollar",
-            "GuppysHairball",
-            "GuppysHead",
-            "GuppysPaw",
-            "GuppysTail",
+            GuppysHead.ID,
+            GuppysPaw.ID,
+            GuppysTail.ID,
             "HushsDoor",
             "HowToJump",
 //            "KonoKeeper",
             "MaYiHuaBei",
             "MoneyPower",
-            "NineLifeCat",
             "PillsDrop",
             PokeGo.ID,
             PunchingBag.ID,
@@ -82,15 +84,23 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             "SuicideKing",
             "Bomb"};
 
-    public static String[] inPoolRelic = {ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID};
+    public static String[] inPoolRelic = {ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID,
+            GuppysCollar.ID,
+            GuppysHairball.ID,
+            NineLifeCat.ID
+    };
 
     public static String[] bossRelic = {MagicMushroom.ID, ChampionBelt.ID};
     public static String[] devilRelic = {GuppysHead.ID, GuppysTail.ID, GuppysCollar.ID, GuppysHairball.ID, GuppysPaw.ID, NineLifeCat.ID,
-            SatanicBible.ID
+            SatanicBible.ID,
+            DeathBook.ID,
+            RottenBaby.ID,
+            BelialBook.ID
     };
     public static String[] deviOnlyRelic = {Incubus.ID, MegaBlast.ID,
             Succubus.ID,
-            MomsKnife.ID
+            MomsKnife.ID,
+            RottenBaby.ID
     };
 
     public static List<String> relics = new ArrayList<>(Arrays.asList(relicsString));
@@ -103,8 +113,11 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
     public IsaacMod() {
     }
 
+//    public static final Color GOLD = CardHelper.getColor(255.0F, 205.0F, 56.0F);
+
     public static void initialize() {
         BaseMod.subscribe(new IsaacMod());
+//        BaseMod.addColor(CardEnum.POKEMON, GOLD, GOLD, GOLD, GOLD, GOLD, GOLD, GOLD, "images/cardui/512/bg_attack_red.png", "images/cardui/512/bg_skill_red.png", "images/cardui/512/bg_power_red.png", "images/cardui/512/card_red_orb.png", "images/cardui/1024/bg_attack_red.png", "images/cardui/1024/bg_skill_red.png", "images/cardui/1024/bg_power_red.png", "images/cardui/1024/card_red_orb.png");
     }
 
     private static AbstractRelic getRelic(String name) {
@@ -148,6 +161,26 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BaseMod.addCard(new Bomb());
         BaseMod.addCard(new ChaosCard());
         BaseMod.addCard(new SuicideKing());
+
+//        //PokeMod
+//        BaseMod.addCard(new TakeTurn());
+//
+//        BaseMod.addCard(new Disarm_Poke());//un
+//        BaseMod.addCard(new Heal());//common
+//
+//        BaseMod.addCard(new Defend_Poke());//common
+//        BaseMod.addCard(new Entrench_Poke());//un
+//        BaseMod.addCard(new LimitBreak_Poke());//rare
+//
+//        BaseMod.addCard(new Combust_Poke());//un
+//        BaseMod.addCard(new Evolve_Poke());//un
+//        BaseMod.addCard(new Barricade_Poke());//rare
+//        BaseMod.addCard(new KaKaForm());//rare
+//        BaseMod.addCard(new HealForm());//rare
+//
+//        BaseMod.addCard(new Strike_Poke());//common
+//        BaseMod.addCard(new LittleStrike_Poke());//un
+//        BaseMod.addCard(new Suck());//rare
     }
 
     public void receiveEditStrings() {
@@ -212,6 +245,12 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         if (AbstractDungeon.shopScreen instanceof BloodShopScreen) {
             AbstractDungeon.shopScreen = new ShopScreen();
         }
+        BloodShopScreen.resetPurgeCost();
+        SoulHeartPatch.soulHeart = 0;
+        SoulHeartPatch.blackHeart = 0;
+        ConceitedPower.canSee = true;
+        HushsDoor.guppyCount = 0;
+        HushsDoor.bookCount = 0;
     }
 
     /**
@@ -223,13 +262,21 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             preSettings();
             //初始遗物赠送
             obtain(AbstractDungeon.player, HushsDoor.ID, false);
-//            obtain(AbstractDungeon.player, KeepersGift.ID, false);
-            obtain(AbstractDungeon.player, PokeGo.ID, false);
-//            obtain(AbstractDungeon.player, D6.ID, false);
+            obtain(AbstractDungeon.player, KeepersGift.ID, false);
+//            obtain(AbstractDungeon.player, Chaos.ID, false);
+            AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
+            AbstractDungeon.commonCardPool.addToBottom(new Bomb());
+//            obtain(AbstractDungeon.player, PokeGo.ID, true);
+//            obtain(AbstractDungeon.player, new FusionHammer(), true);
+//            obtain(AbstractDungeon.player, new RottenBaby(), true);
+//            obtain(AbstractDungeon.player, new FossilizedHelix(), true);
 //            obtain(AbstractDungeon.player, TestRelic.ID, false);
-//            obtain(AbstractDungeon.player, PunchingBag.ID, false);
+//            obtain(AbstractDungeon.player, ChampionBelt.ID, false);
+//            obtain(AbstractDungeon.player, ForgetMeNow.ID, false);
+//            obtain(AbstractDungeon.player, TestRelic.ID, false);
+//            obtain(AbstractDungeon.player, D6.ID, false);
 //            obtain(AbstractDungeon.player, MagicMushroom.ID, true);
-//            obtain(AbstractDungeon.player, GuppysHead.ID, false);
+//            obtain(AbstractDungeon.player, GuppysPaw.ID, false);
 //            obtain(AbstractDungeon.player, GuppysHairball.ID, false);
             //初始卡牌赠送
 //        ElectricPowerLearning electricPowerLearning = new ElectricPowerLearning();
@@ -237,21 +284,18 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
 //            for (int i = 0; i < 20; i++) {
 //                AbstractDungeon.player.masterDeck.addToBottom(new Pummel());
 //            }
-//            AbstractDungeon.player.masterDeck.addToBottom(new Bomb());
-//            AbstractDungeon.player.masterDeck.addToBottom(new SuicideKing());
-//            AbstractDungeon.player.masterDeck.addToBottom(new EpicFetus());
+//            AbstractDungeon.player.masterDeck.addToBottom(new Battery());
+//            AbstractDungeon.player.masterDeck.addToBottom(new BloodyBrimstone());
             //牌库卡牌添加
-            AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
-            AbstractDungeon.commonCardPool.addToBottom(new Bomb());
             //事件添加
 //        for (int i = 0; i < 100; i++) {
 //            BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "" + i);
 //        }
-            if (AbstractDungeon.player instanceof Defect) {
-                AbstractDungeon.removeCardFromPool(Electrodynamics.ID, Electrodynamics.NAME, Electrodynamics.CardRarity.RARE, AbstractCard.CardColor.BLUE);
-                AbstractCard[] cards = {new ElectricPowerLearning(), new Distribution(), new Cancel(), new Pulse()};
-                AbstractDungeon.player.masterDeck.addToBottom(cards[new Random().nextInt(cards.length)]);
-            }
+//            if (AbstractDungeon.player instanceof Defect) {
+//                AbstractDungeon.removeCardFromPool(Electrodynamics.ID, Electrodynamics.NAME, Electrodynamics.CardRarity.RARE, AbstractCard.CardColor.BLUE);
+//                AbstractCard[] cards = {new ElectricPowerLearning(), new Distribution(), new Cancel(), new Pulse()};
+//                AbstractDungeon.player.masterDeck.addToBottom(cards[new Random().nextInt(cards.length)]);
+//            }
             //初始玫瑰赠送
             if (EdensBlessing.obtained) {
                 AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE);
@@ -281,6 +325,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
     @Override
     public void receivePostUpdate() {
         //初始卡牌赠送
+        //AbstractDungeon.combatRewardScreen.rewards.add(/*EL:59*/new RewardItem(new TinyHouse()));
         if (!receivedCard && AbstractDungeon.currMapNode != null && AbstractDungeon.getCurrRoom() != null && AbstractDungeon.floorNum < 1) {
             receivedCard = true;
             RewardItem cardReward = new RewardItem();
@@ -310,9 +355,9 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                 KeepersGift keepersGift = (KeepersGift) AbstractDungeon.player.getRelic(KeepersGift.ID);
                 if (keepersGift.addRelic != null) {
                     AbstractDungeon.player.loseRelic(keepersGift.relicId);
+                    removeFromPool(keepersGift.addRelic.makeCopy());
                     obtain(AbstractDungeon.player, keepersGift.addRelic.makeCopy(), false);
                     removeRelicString(keepersGift.addRelic.relicId);
-                    removeFromPool(keepersGift.addRelic.makeCopy());
                     keepersGift.addRelic = null;
                 }
             }
@@ -328,7 +373,6 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                             iterator.remove();
                         }
                     }
-//                    obtain(AbstractDungeon.player, HushsDoor.ID, false);
                     for (int i = 0; i < d4.starter; i++) {
                         int rnd = AbstractDungeon.relicRng.random(0, 2);
                         AbstractRelic relic = null;
@@ -346,13 +390,13 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                         obtain(AbstractDungeon.player, relic, false);
                     }
                     for (int i = 0; i < d4.rare + d4.special; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE), false);
+                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE), true);
                     }
                     for (int i = 0; i < d4.uncommon; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.UNCOMMON), false);
+                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.UNCOMMON), true);
                     }
                     for (int i = 0; i < d4.common; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON), false);
+                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON), true);
                     }
                     for (int i = 0; i < d4.boss; i++) {
                         AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS);
@@ -362,10 +406,10 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                         obtain(AbstractDungeon.player, relic, false);
                     }
                     for (int i = 0; i < d4.shop; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.SHOP), false);
+                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.SHOP), true);
                     }
                     for (int i = 0; i < d4.devilOnlyRelic; i++) {
-                        obtain(AbstractDungeon.player, Utils.getRandomRelicRng(devilOnlyRelics), false);
+                        obtain(AbstractDungeon.player, Utils.getRandomRelicRng(devilOnlyRelics), true);
                     }
                     d4.init();
                     AbstractDungeon.player.reorganizeRelics();
@@ -405,16 +449,21 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         RelicSelectScreen.updateRender(spriteBatch);
     }
 
-    private void addEvent() {
-//        Class[] events = new Class[]{HidenRoomEvent.class};
-//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class);
-//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "Exordium");
-//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheCity");
-//        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheBeyond");
-    }
+//    private void addEvent() {
+////        Class[] events = new Class[]{HidenRoomEvent.class};
+////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class);
+////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "Exordium");
+////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheCity");
+////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheBeyond");
+//    }
 
-    @Override
-    public void receivePostInitialize() {
-        addEvent();
-    }
+//    @Override
+//    public void receivePostInitialize() {
+//        addEvent();
+//    }
+
+
+//    public void receiveEditCharacters() {
+//        BaseMod.addCharacter(new AshKetchum("Ash Ketchum"), "images/ui/charSelect/AshKetchumButton.png", "images/ui/charSelect/AshKetchumPortrait.jpg", ModClassEnum.AshKetchum);
+//    }
 }

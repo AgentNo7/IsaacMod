@@ -47,7 +47,7 @@ public class Fly extends AbstractPet {
         if (monster != null) {
             liveTurn++;
             if (liveTurn >= 3) {
-                AbstractDungeon.actionManager.addToBottom(new AnimateSuicideAction(this, monster, 0.25F, 25));
+                AbstractDungeon.actionManager.addToBottom(new AnimateSuicideAction(this, monster, 0.25F, 20));
             } else {
                 this.damage.get(0).applyPowers(this, monster);
                 AbstractDungeon.actionManager.addToBottom(new DamageAction(monster, this.damage.get(0), AbstractGameAction.AttackEffect.NONE));

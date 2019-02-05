@@ -25,10 +25,13 @@ public class KeepersGift extends ClickableRelic {
         return new KeepersGift();
     }
 
+    private boolean selected = false;
+
     //右键开大
     protected void onRightClick() {
-        if (addRelic == null) {
+        if (addRelic == null && !selected) {
             this.flash();
+            selected = true;
             new BoxForChargeRelicSelectScreen(false, "选择一个遗物", "遗物选择", "", this).open();
         }
     }

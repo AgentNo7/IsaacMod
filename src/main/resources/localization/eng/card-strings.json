@@ -1,8 +1,8 @@
 {
   "Battery": {
     "NAME": "Battery",
-    "DESCRIPTION": "Choose a rechargeable relic and fully recharge it. Ethereal. Exhaust.",
-    "UPGRADE_DESCRIPTION": "Choose a rechargeable relic and fully it. Exhaust."
+    "DESCRIPTION": "Choose a rechargeable relic and fully recharge it. This card will be removed from master deck if used. Ethereal. Exhaust.",
+    "UPGRADE_DESCRIPTION": "Choose a rechargeable relic and fully it. This card will be removed from master deck if used. Exhaust."
   },
   "BettingIsNotGood": {
     "NAME": "Gambling",
@@ -51,11 +51,11 @@
   },
   "MyBomb": {
     "NAME": "Quick Bomb",
-    "DESCRIPTION": "At the end of 2 turns, deal 40 damage to ALL enemies. Ethereal. Exhaust."
+    "DESCRIPTION": "At the end of 2 turns, deal 30 damage to ALL enemies. Ethereal. Exhaust."
   },
   "ChaosCard": {
     "NAME": "Chaos Card",
-    "DESCRIPTION": "Deal damage equal to 99% of the Max HP of the target. This card will be removed from the deck permanently if used or Exhuasted. Cannot be upgraded. Exhaust. Ethereal."
+    "DESCRIPTION": "Deal damage equal to 99% of the Max HP of the target. This card will be removed from the deck permanently if used or Exhuasted..Draw 1 card when draw this card. Cannot be upgraded. Exhaust. Ethereal."
   },
   "SuicideKing": {
     "NAME": "Suicide King",

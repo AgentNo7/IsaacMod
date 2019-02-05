@@ -14,13 +14,13 @@ import com.megacrit.cardcrawl.powers.TheBombPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import monsters.abstracrt.AbstractPet;
 import powers.TheMonsterBombPower;
-import relics.abstracrt.ChargeableRelic;
+import relics.abstracrt.BookSuit;
 import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnarchistCookbook extends ChargeableRelic {
+public class AnarchistCookbook extends BookSuit {
     public static final String ID = "AnarchistCookbook";
     public static final String IMG = "images/relics/AnarchistCookbook.png";
     public static final String DESCRIPTION = "三充能，随机给角色快爆炸弹buff或给怪物炸弹buff六次，攻击怪物可清除他们的炸弹buff。";
@@ -78,9 +78,6 @@ public class AnarchistCookbook extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 
     @Override

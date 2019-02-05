@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.rooms.*;
 public class ChampionBelt extends CustomRelic {
     public static final String ID = "ChampionBelt";
     public static final String IMG = "images/relics/ChampionBelt.png";
-    public static final String DESCRIPTION = "在每回合开始时获得 [E] 。进入普通敌人房间时有40%的概率变成精英房间";
+    public static final String DESCRIPTION = "在每回合开始时获得 [E] 。进阶数变成20。进入普通敌人房间时有75%的概率变成精英房间。";
 
     public ChampionBelt() {
         super("ChampionBelt", new Texture(Gdx.files.internal("images/relics/ChampionBelt.png")), RelicTier.BOSS, LandingSound.CLINK);
@@ -27,6 +27,7 @@ public class ChampionBelt extends CustomRelic {
 
     public void onEquip() {
         ++AbstractDungeon.player.energy.energyMaster;
+        AbstractDungeon.ascensionLevel = 20;
     }
 
     public void onUnequip() {
@@ -36,13 +37,14 @@ public class ChampionBelt extends CustomRelic {
     @Override
     public void justEnteredRoom(AbstractRoom room) {
         super.justEnteredRoom(room);
+        AbstractDungeon.ascensionLevel = 20;
         if (counter == -3) {
             AbstractDungeon.nextRoom.room = new MonsterRoomElite();
         } else {
             AbstractRoom theRoom = AbstractDungeon.nextRoom.room;
             if ((theRoom instanceof MonsterRoom) && !(theRoom instanceof MonsterRoomBoss) && !(theRoom instanceof MonsterRoomElite)) {
                 int rnd = AbstractDungeon.mapRng.random(0, 99);
-                if (rnd < 40) {
+                if (rnd < 75) {
                     AbstractDungeon.nextRoom.room = new MonsterRoomElite();
                     counter = -3;
                 } else {

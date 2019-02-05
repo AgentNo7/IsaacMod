@@ -14,8 +14,8 @@ public class KonoKeeper extends CustomRelic {
     public static final String IMG = "images/relics/konokeeper.png";
     public static final String DESCRIPTION = "进入普通怪物房间时，有 #b15% 的概率使得当前房间变成商店。";
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("KonoKeeper").flash();
+    public void show() {
+        this.flash();
     }
 
     public KonoKeeper() {

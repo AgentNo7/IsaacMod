@@ -7,12 +7,14 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.PlatedArmorPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import patches.ui.SoulHeartPatch;
 import relics.abstracrt.ClickableRelic;
+
 
 public class GuppysPaw extends ClickableRelic {
     public static final String ID = "GuppysPaw";
     public static final String IMG = "images/relics/GuppysPaw.png";
-    public static final String DESCRIPTION = "右击扣除 10 血上限，并在战斗开始获得 5 层多层护甲。每使用一次，减少一层多层护甲获得。";
+    public static final String DESCRIPTION = "右击扣除 1 血上限，获得 3 魂心。";
 
     private static int shieldBase = 5;
 
@@ -29,8 +31,16 @@ public class GuppysPaw extends ClickableRelic {
         return new GuppysPaw();
     }
 
-    //右键使用
+    @Override
     protected void onRightClick() {
+        if (AbstractDungeon.player.maxHealth > 1) {
+            AbstractDungeon.player.decreaseMaxHealth(1);
+            SoulHeartPatch.soulHeart += 3;
+        }
+    }
+
+    //右键使用
+    protected void onRightClick1() {
         if (shieldBase > 0 && counter < 15) {
             if (shieldBase == 5) {
                 int sum = 0;

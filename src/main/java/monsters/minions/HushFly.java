@@ -30,6 +30,7 @@ public class HushFly extends CustomMonster {
         this.setHp(10);
         this.img = new Texture(Gdx.files.internal("images/monsters/HushFly.png"));
         this.damage.add(new DamageInfo(this, attackDmg));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new IntangiblePower(this, 1)));
         this.setMove(MOVE_NAME, (byte) Move.ATTACK.id, Intent.ATTACK, attackDmg);
     }
 
@@ -52,7 +53,7 @@ public class HushFly extends CustomMonster {
     public void update() {
         super.update();
         if (!addPower) {
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new IntangiblePower(this, 1)));
+//            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new IntangiblePower(this, 1)));
             addPower = true;
         }
     }

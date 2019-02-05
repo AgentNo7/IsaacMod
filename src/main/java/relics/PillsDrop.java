@@ -29,24 +29,15 @@ public class PillsDrop extends CustomRelic {
     private static int maxHp = 0;
     public static final String DESCRIPTION = "奖励界面可能掉落随机药丸，同色药丸效果相同。(药丸掉落界面SL本局游戏将死档)。";
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("PillsDrop").flash();
+    public void show() {
+        this.flash();
     }
 
-    private Map<Color, Effect> pillEffect = new HashMap<>();
-    public Map<Color, Boolean> pillFound = new HashMap<>();
+    private static Map<Color, Effect> pillEffect = new HashMap<>();
+    public static Map<Color, Boolean> pillFound = new HashMap<>();
 
     public PillsDrop() {
         super("PillsDrop", new Texture(Gdx.files.internal("images/relics/PillsDrop.png")), RelicTier.UNCOMMON, LandingSound.CLINK);
-        Color[] colors = Color.values();
-        Effect[] effects = Effect.values();
-        int size = colors.length;
-        //roll效果
-        int[] key = Utils.randomCombine(size, size);
-        int[] value = Utils.randomCombine(size, size);
-        for (int i = 0; i < size; i++) {
-            pillEffect.put(colors[key[i]], effects[value[i]]);
-        }
     }
 
     private Color getRandomColor() {
@@ -60,6 +51,15 @@ public class PillsDrop extends CustomRelic {
         dexterity = 0;
         focus = 0;
         maxHp = 0;
+        Color[] colors = Color.values();
+        Effect[] effects = Effect.values();
+        int size = colors.length;
+        //roll效果
+        int[] key = Utils.randomCombine(size, size);
+        int[] value = Utils.randomCombine(size, size);
+        for (int i = 0; i < size; i++) {
+            pillEffect.put(colors[key[i]], effects[value[i]]);
+        }
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.getUpdatedDescription()));
     }

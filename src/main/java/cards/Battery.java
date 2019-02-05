@@ -19,12 +19,6 @@ public class Battery extends CustomCard {
     public static final String UPGRADE_DESCRIPTION;// = "选择一个充能遗物并充满能。虚无。消耗。";
     public static final String imgUrl = "images/cards/Battery.png";
 
-    private static String selectedRelicId = null;
-
-    public static void setSelectedRelicId(String relicId) {
-        selectedRelicId = relicId;
-    }
-
     public Battery() {
         super("Battery", NAME, imgUrl, 3, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
         this.exhaust = true;
@@ -32,6 +26,22 @@ public class Battery extends CustomCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        AbstractCard cardToRemove = null;
+        for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
+            if (card.uuid.equals(this.uuid)) {
+                cardToRemove = card;
+                break;
+            }
+        }
+        if (cardToRemove != null) {
+            int size = AbstractDungeon.player.masterDeck.size();
+            AbstractDungeon.player.masterDeck.removeCard(cardToRemove);
+            if (AbstractDungeon.player.masterDeck.size() == size) {
+                AbstractDungeon.player.masterDeck.removeCard(ID);
+            }
+        } else {
+            AbstractDungeon.player.masterDeck.removeCard(ID);
+        }
         for (AbstractRelic relic : AbstractDungeon.player.relics) {
             if (relic instanceof ChargeableRelic) {
                 new BoxForChargeRelicSelectScreen(false, "选择一件遗物充电", "充电页面", "极速快充2.0，瞬间满电，还在等什么？", this).open();
@@ -56,15 +66,6 @@ public class Battery extends CustomCard {
     @Override
     public void update() {
         super.update();
-        if (selectedRelicId != null) {
-            ChargeableRelic relic = (ChargeableRelic) AbstractDungeon.player.getRelic(selectedRelicId);
-            if (relic.maxCharge <= 6) {
-                relic.counter = relic.maxCharge;
-            } else {
-                relic.counter = (relic.counter < 6) ? 6 : relic.maxCharge;
-            }
-            selectedRelicId = null;
-        }
     }
 
     static {

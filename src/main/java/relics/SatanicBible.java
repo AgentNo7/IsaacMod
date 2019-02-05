@@ -3,18 +3,17 @@ package relics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.BarricadePower;
-import com.megacrit.cardcrawl.powers.FlameBarrierPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import relics.abstracrt.ChargeableRelic;
+import patches.ui.SoulHeartPatch;
+import relics.abstracrt.BookSuit;
 
-public class SatanicBible extends ChargeableRelic {
+public class SatanicBible extends BookSuit {
     public static final String ID = "SatanicBible";
     public static final String IMG = "images/relics/SatanicBible.png";
-    public static final String DESCRIPTION = "六充能，满充能时右击在本场战斗获得壁垒和30点格挡和20层火焰屏障。";
+    public static final String DESCRIPTION = "六充能，满充能时右击在本场战斗获得壁垒和10点黑心。";
 
     public SatanicBible() {
         super("SatanicBible", new Texture(Gdx.files.internal("images/relics/SatanicBible.png")), RelicTier.UNCOMMON, LandingSound.CLINK, 6);
@@ -33,8 +32,7 @@ public class SatanicBible extends ChargeableRelic {
         if (counter >= maxCharge && AbstractDungeon.getMonsters() != null) {
             this.flash();
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new BarricadePower(AbstractDungeon.player)));
-            AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player, AbstractDungeon.player, 30));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FlameBarrierPower(AbstractDungeon.player, 20)));
+            SoulHeartPatch.blackHeart += 10;
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             counter = 0;
             this.stopPulse();
@@ -55,8 +53,5 @@ public class SatanicBible extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 }

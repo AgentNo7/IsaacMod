@@ -16,7 +16,7 @@ public class GuppysCollar extends DevilRelic {
     public static final String DESCRIPTION = "死亡时有75%的概率一血复活。";
 
     public GuppysCollar() {
-        super("GuppysCollar", new Texture(Gdx.files.internal("images/relics/GuppysCollar.png")), RelicTier.COMMON, LandingSound.CLINK);
+        super("GuppysCollar", new Texture(Gdx.files.internal("images/relics/GuppysCollar.png")), RelicTier.SPECIAL, LandingSound.CLINK);
     }
 
     public String getUpdatedDescription() {

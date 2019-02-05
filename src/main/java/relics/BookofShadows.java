@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import relics.abstracrt.ChargeableRelic;
+import relics.abstracrt.BookSuit;
 
-public class BookofShadows extends ChargeableRelic {
+public class BookofShadows extends BookSuit {
     public static final String ID = "BookofShadows";
     public static final String IMG = "images/relics/BookofShadows.png";
     public static final String DESCRIPTION = "三充能，满充能时右击使怪物在两个回合内不能对你造成伤害。";
@@ -71,9 +71,6 @@ public class BookofShadows extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 
     @Override

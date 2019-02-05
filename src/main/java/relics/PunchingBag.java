@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import helpers.BaseSummonHelper;
+import helpers.SummonHelper;
 import monsters.pet.ScapeGoatPet;
 import patches.action.ChangeTargetPatch;
 import relics.abstracrt.ClickableRelic;
@@ -46,7 +46,7 @@ public class PunchingBag extends ClickableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        counter = 100;
+        counter = 150;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PunchingBag extends ClickableRelic {
             Point point = Utils.getCirclePoint(center, -Math.PI / 12, 400);
             ScapeGoatPet scapeGoatPet = new ScapeGoatPet((float) point.x, (float) point.y, this);
             this.scapeGoatPet = scapeGoatPet;
-            BaseSummonHelper.summonMinion(scapeGoatPet);
+            SummonHelper.summonMinion(scapeGoatPet);
         }
     }
 

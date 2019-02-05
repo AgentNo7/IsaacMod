@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import helpers.BaseSummonHelper;
+import helpers.SummonHelper;
 import monsters.pet.Hairball;
 import relics.abstracrt.DevilRelic;
 import utils.Point;
@@ -18,7 +18,7 @@ public class GuppysHairball extends DevilRelic {
     public static final String DESCRIPTION = "战斗开始召唤一个猫球，猫球杀死敌人时,猫球力量加2，每场战斗最多一次。";
 
     public GuppysHairball() {
-        super("GuppysHairball", new Texture(Gdx.files.internal("images/relics/GuppysHairball.png")), RelicTier.UNCOMMON, LandingSound.CLINK);
+        super("GuppysHairball", new Texture(Gdx.files.internal("images/relics/GuppysHairball.png")), RelicTier.SPECIAL, LandingSound.CLINK);
         counter = 0;
     }
 
@@ -41,7 +41,7 @@ public class GuppysHairball extends DevilRelic {
         Point point = Utils.getCirclePoint(center, angle, 150);
         Hairball hairball = new Hairball((float) point.x, (float) point.y);
 //        AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(hairball, false));
-        BaseSummonHelper.summonMinion(hairball);
+        SummonHelper.summonMinion(hairball);
         if (counter > 0) {
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(hairball, hairball, new StrengthPower(hairball, counter), counter));
         }

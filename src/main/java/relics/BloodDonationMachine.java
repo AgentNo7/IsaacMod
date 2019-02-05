@@ -57,6 +57,9 @@ public class BloodDonationMachine extends ClickableRelic {
             return;
         }
         AbstractDungeon.player.currentHealth -= 1;
+        if (AbstractDungeon.player.hasRelic(SalivaCoin.ID)) {
+            AbstractDungeon.player.getRelic(SalivaCoin.ID).onLoseHp(1);
+        }
         if (AbstractDungeon.player.hasRelic("Charity")) {
             AbstractDungeon.player.currentHealth -= 5;
         }
@@ -81,6 +84,12 @@ public class BloodDonationMachine extends ClickableRelic {
     @Override
     public void update() {
         super.update();
+    }
+
+    @Override
+    public void onEquip() {
+        super.onEquip();
+        canUse = !(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss) && !(AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss);
     }
 
     @Override

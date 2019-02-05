@@ -26,10 +26,6 @@ public class MoneyPower extends CustomRelic {
         }
     }
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("MoneyPower").flash();
-    }
-
     public MoneyPower() {
         super("MoneyPower", new Texture(Gdx.files.internal("images/relics/MoneyPower.png")), RelicTier.RARE, LandingSound.CLINK);
     }
@@ -45,7 +41,7 @@ public class MoneyPower extends CustomRelic {
     @Override
     public void atBattleStart() {
         this.flash();
-        int str = AbstractDungeon.player.gold / 100;
+        int str = AbstractDungeon.player.gold / 150;
         if (str > 0) {
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player,  str), str));
             AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));

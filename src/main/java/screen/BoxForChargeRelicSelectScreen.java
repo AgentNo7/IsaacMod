@@ -87,9 +87,12 @@ public class BoxForChargeRelicSelectScreen extends RelicSelectScreen {
     @Override
     protected void afterSelected() {
         if (battery != null) {
-            ChargeableRelic relic = (ChargeableRelic) this.selectedRelic;
-            Battery.setSelectedRelicId(relic.relicId);
-            battery.update();
+            ChargeableRelic relic = (ChargeableRelic) AbstractDungeon.player.getRelic(this.selectedRelic.relicId);
+            if (relic.maxCharge <= 6) {
+                relic.counter = relic.maxCharge;
+            } else {
+                relic.counter = (relic.counter < 6) ? 6 : relic.maxCharge;
+            }
         }
         if (diplopia != null) {
             diplopia.addRelic = this.selectedRelic;

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.BufferPower;
 import com.megacrit.cardcrawl.powers.FocusPower;
 import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
@@ -16,8 +17,8 @@ public class TestRelic extends CustomRelic {
     public static final String IMG = "images/relics/test.png";
     public static final String DESCRIPTION = "开局999力量999缓冲，测试遗物，如遇到请不要拿。";
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("TestRelic").flash();
+    public void show() {
+        this.flash();
     }
 
     public TestRelic() {
@@ -39,9 +40,9 @@ public class TestRelic extends CustomRelic {
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new IntangiblePlayerPower(AbstractDungeon.player, 999), 999));
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FocusPower(AbstractDungeon.player, 999), 999));
         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-//        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-//            m.die();
-//        }
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            m.die();
+        }
     }
 
 //    @Override

@@ -32,15 +32,15 @@ public class LittleHush extends CustomMonster {
 
     private int debuffTurnCount;
 
-    private int attackDmg = 30;
-    private int multiDmg = 12;
+    private int attackDmg = 35;
+    private int multiDmg = 15;
     private int multiple = 3;
 
     private int idleCount;
 
     private final int maxIdle = 3;
 
-    private int debuff = -1;
+    private int debuff = -2;
 
     private TrackEntry e;
 
@@ -73,7 +73,7 @@ public class LittleHush extends CustomMonster {
         switch (nextMove) {
             case DEBUFF:
                 this.debuffTurnCount = 0;
-                debuff--;
+                debuff -= 2;
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "DEBUFF"));
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
                 int range = 2;
@@ -94,7 +94,6 @@ public class LittleHush extends CustomMonster {
                     onceBuff = true;
                 }
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
-//                AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte) Move.ATTACK.id, Intent.ATTACK, ((DamageInfo) this.damage.get(0)).base));
                 break;
             case DEFAULT:
             default:
@@ -105,7 +104,6 @@ public class LittleHush extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
                 AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.BLUNT_HEAVY));
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
-//                AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte) Move.MULATTACK.id, Intent.ATTACK, ((DamageInfo) this.damage.get(1)).base));
                 break;
             case MULATTACK:
                 ++this.debuffTurnCount;
@@ -116,7 +114,6 @@ public class LittleHush extends CustomMonster {
                 }
                 ++multiple;
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
-//                AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte) Move.DEBUFF.id, Intent.STRONG_DEBUFF));
                 break;
             case ABORT:
                 AbstractDungeon.actionManager.addToBottom(new TextAboveCreatureAction(this, TextType.STUNNED));
@@ -128,7 +125,6 @@ public class LittleHush extends CustomMonster {
                     this.isAwake = true;
                     AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "OPEN"));
                     AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
-//                    AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte) Move.ATTACK.id, Intent.ATTACK, ((DamageInfo) this.damage.get(0)).base));
                 } else {
                     this.setMove((byte) Move.SLEEP.id, Intent.SLEEP);
                 }
@@ -211,6 +207,7 @@ public class LittleHush extends CustomMonster {
                 super.update();
             }
             AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(new Hush(this.saveX, this.saveY), false));
+            this.currentBlock = 0;
             AbstractDungeon.actionManager.addToBottom(new SuicideAction(this, false));
             AbstractDungeon.actionManager.addToBottom(new CanLoseAction());
         }
@@ -280,8 +277,8 @@ public class LittleHush extends CustomMonster {
                     return;
                 }
 
-                a = (AbstractGameAction)it.next();
-            } while(!(a instanceof SpawnMonsterAction));
+                a = (AbstractGameAction) it.next();
+            } while (!(a instanceof SpawnMonsterAction));
         }
     }
 

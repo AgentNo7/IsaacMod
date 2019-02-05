@@ -17,7 +17,7 @@ public class Bomb extends CustomCard {
     private static final CardStrings cardStrings;
     public static final String ID = "Bomb";
     public static final String NAME;// = "炸弹";
-    public static final String DESCRIPTION;// = "对所有敌人造成 40 固定伤害。使用一次后从主牌库移除。不能升级。消耗。";
+    public static final String DESCRIPTION;// = "对所有敌人造成 40 固定伤害。使用一次后从主牌库移除。抽到时抽一张牌。不能升级。消耗。";
     public static final String imgUrl = "images/cards/Bomb.png";
 
     public Bomb() {
@@ -41,6 +41,11 @@ public class Bomb extends CustomCard {
         }
         used = true;
     }
+
+//    @Override
+//    public void triggerWhenDrawn(){
+//        AbstractDungeon.actionManager.addToBottom(new DrawCardAction(AbstractDungeon.player, 1));
+//    }
 
     @Override
     public void update() {

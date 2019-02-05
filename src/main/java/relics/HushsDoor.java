@@ -1,5 +1,6 @@
 package relics;
 
+import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.GameActionManager;
@@ -7,34 +8,43 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.dungeons.Exordium;
+import com.megacrit.cardcrawl.dungeons.TheCity;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
 import com.megacrit.cardcrawl.rooms.*;
 import com.megacrit.cardcrawl.shop.ShopScreen;
-import helpers.BasePlayerMinionHelper;
-import helpers.BaseSummonHelper;
+import helpers.MinionHelper;
+import helpers.SummonHelper;
 import monsters.LittleHush;
+import monsters.Monstro;
 import monsters.pet.Fly;
 import powers.BlankCardPower;
 import powers.FlightPower;
 import relics.abstracrt.ClickableRelic;
+import rewards.BlackHeart;
+import rewards.SoulHeart;
 import room.MonsterRoomMyBoss;
 import screen.BloodShopScreen;
 import utils.Point;
+import utils.SoulHeartSave;
 import utils.Utils;
 
-import java.math.BigDecimal;
+import static patches.ui.SoulHeartPatch.blackHeart;
+import static patches.ui.SoulHeartPatch.soulHeart;
 
-public class HushsDoor extends ClickableRelic {
+public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeartSave> {
     public static final String ID = "HushsDoor";
     public static final String IMG = "images/relics/HushsDoor.png";
     public static final String DESCRIPTION = "通往Hush（凹凸）的关键。右击可切换是否挑战。";
 
-    private static boolean toHush = true;
+    public static boolean toHush = true;
 
     public static boolean isOn = false;
 
@@ -72,6 +82,7 @@ public class HushsDoor extends ClickableRelic {
         }
         makeHeartToHush();
 //        makeAllToHush();
+        makeBossToMonstro();
     }
 
     @Override
@@ -100,6 +111,20 @@ public class HushsDoor extends ClickableRelic {
         if (AbstractDungeon.nextRoom.room instanceof MonsterRoom) {
             AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new LittleHush(-50.0F, 30.0F)));
             AbstractDungeon.lastCombatMetricKey = "LittleHush";
+        }
+    }
+
+    private void makeBossToMonstro() {
+        if (AbstractDungeon.nextRoom.room instanceof MonsterRoomBoss && AbstractDungeon.aiRng.randomBoolean(0.33F)) {
+            if (CardCrawlGame.dungeon instanceof Exordium) {
+                AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new Monstro(-50.0F, 0.0F)));
+            } else if (CardCrawlGame.dungeon instanceof TheCity || (AbstractDungeon.floorNum > 22 && AbstractDungeon.floorNum < 38)) {
+                AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new AbstractMonster[]{new Monstro(-150.0F, 0.0F), new Monstro(150.0F, 0.0F)}));
+            }
+//            else if (CardCrawlGame.dungeon instanceof TheBeyond) {
+//                AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new AbstractMonster[]{new Monstro(-100.0F, 0.0F), new Monstro(-50.0F, 0.0F)}));
+//            }
+            AbstractDungeon.lastCombatMetricKey = "Monstro";
         }
     }
 
@@ -143,9 +168,25 @@ public class HushsDoor extends ClickableRelic {
                 enteredBloodShop = true;
             }
         }
+        if (save != null && AbstractDungeon.getCurrRoom() != null) {
+            int soul = save.soulHeartNum;
+            int black = save.blackHeartNum;
+            save = null;
+            if (soul > 0 || black > 0) {
+                for (int i = 0; i < soul; i++) {
+                    AbstractDungeon.getCurrRoom().rewards.add(0, new SoulHeart());
+                }
+                for (int i = 0; i < black; i++) {
+                    AbstractDungeon.getCurrRoom().rewards.add(0, new BlackHeart());
+                }
+                AbstractDungeon.combatRewardScreen.open();
+            }
+        }
     }
 
     private AbstractCard lastCard = null;
+
+    private SoulHeartSave save = null;
 
     /**
      * 猫套效果
@@ -153,7 +194,7 @@ public class HushsDoor extends ClickableRelic {
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         //guppyCount >= 3 ||
-        if ( Utils.areGuppy()) {
+        if (Utils.areGuppy()) {
             spawnFly();
         }
     }
@@ -184,8 +225,8 @@ public class HushsDoor extends ClickableRelic {
         for (int i = 0; i < Fly.flyAlive.length; i++) {
             Fly.flyAlive[i] = false;
         }
-        x = new BigDecimal(Float.toString(AbstractDungeon.player.drawX - 1300));
-        y = new BigDecimal(Float.toString(AbstractDungeon.player.drawY - 100));
+        x = AbstractDungeon.player.drawX;//new BigDecimal(Float.toString( - 1300));
+        y = AbstractDungeon.player.drawY + 70;//new BigDecimal(Float.toString( - 100));
     }
 
     @Override
@@ -193,8 +234,10 @@ public class HushsDoor extends ClickableRelic {
         super.atTurnStart();
     }
 
-    private static BigDecimal x;
-    private static BigDecimal y;
+    //    private static BigDecimal x;
+//    private static BigDecimal y;
+    private static double x;
+    private static double y;
 
     @Override
     public void onVictory() {
@@ -202,23 +245,55 @@ public class HushsDoor extends ClickableRelic {
         if (GameActionManager.damageReceivedThisCombat - GameActionManager.hpLossThisCombat == 0) {
             counter = -3;
         }
-        BasePlayerMinionHelper.clearMinions(AbstractDungeon.player);
+        MinionHelper.clearMinions(AbstractDungeon.player);
+        int rnd = AbstractDungeon.aiRng.random(0, 99);
+        if (rnd < 2) {
+            AbstractDungeon.getCurrRoom().rewards.add(new SoulHeart());
+        } else if (rnd < 3) {
+            AbstractDungeon.getCurrRoom().rewards.add(new BlackHeart());
+        }
     }
 
     public static void spawnFly() {
         int i = 0;
         for (; i < Fly.flyAlive.length; i++) {
             if (!Fly.flyAlive[i]) {
-                Point center = new Point(x.doubleValue(), y.doubleValue());
+                Point center = new Point(x, y);
                 double angle = 2 * Math.PI * i / Fly.flyAmount;
-                Point point = Utils.getCirclePoint(center, angle, 250);
-                Fly fly = new Fly((float) point.x, (float) point.y);
-                BaseSummonHelper.summonMinion(fly);
+                Point point = Utils.getCirclePoint(center, angle, 200);
+                Fly fly = new Fly(0, 0);
+                fly.drawX = (float) point.x;
+                fly.drawY = (float) point.y;
+                SummonHelper.summonMinion(fly);
                 fly.index = i;
                 if (i != Fly.flyAlive.length - 1) {
                     Fly.flyAlive[i] = true;
                 }
                 break;
+            }
+        }
+    }
+
+    @Override
+    public SoulHeartSave onSave() {
+        int soul = 0, black = 0;
+        for (RewardItem rewardItem : AbstractDungeon.getCurrRoom().rewards) {
+            if (rewardItem.img == SoulHeart.soulHeart && !rewardItem.isDone) {
+                soul++;
+            } else if (rewardItem.img == BlackHeart.blackHeart && !rewardItem.isDone) {
+                black++;
+            }
+        }
+        return new SoulHeartSave(soulHeart, blackHeart, soul, black);
+    }
+
+    @Override
+    public void onLoad(SoulHeartSave save) {
+        if (save != null) {
+            soulHeart = save.soulHeart;
+            blackHeart = save.blackHeart;
+            if (save.soulHeartNum > 0 || save.blackHeartNum > 0) {
+                this.save = save;
             }
         }
     }

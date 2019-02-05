@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
-import helpers.BasePlayerMinionHelper;
+import helpers.MinionHelper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -104,13 +104,13 @@ public abstract class AbstractPet extends CustomMonster {
     @Override
     public void die() {
         super.die();
-        BasePlayerMinionHelper.removeMinion(AbstractDungeon.player, this);
+        MinionHelper.removeMinion(AbstractDungeon.player, this);
     }
 
     @Override
     public void die(boolean triggerRelics) {
         super.die(triggerRelics);
-        BasePlayerMinionHelper.removeMinion(AbstractDungeon.player, this);
+        MinionHelper.removeMinion(AbstractDungeon.player, this);
     }
 
     private void updateMoveAnimation() {

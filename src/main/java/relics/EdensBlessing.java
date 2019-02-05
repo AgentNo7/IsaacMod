@@ -30,8 +30,8 @@ public class EdensBlessing extends CustomRelic {
         }
     }
 
-    public static void show() {
-        AbstractDungeon.player.getRelic("EdensBlessing").flash();
+    public void show() {
+        this.flash();
     }
 
     public EdensBlessing() {

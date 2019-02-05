@@ -40,14 +40,24 @@ public class BloodDonationBag extends ClickableRelic {
         if (!canUse) {
             return;
         }
-        AbstractDungeon.player.currentHealth -= 1;
         if (AbstractDungeon.player.hasRelic("Charity")) {
             AbstractDungeon.player.currentHealth -= 5;
         }
-        AbstractDungeon.player.healthBarUpdatedEvent();
-        AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1));
-        if (AbstractDungeon.player.currentHealth <= 0) {
+        if (AbstractDungeon.player.currentHealth <= 1) {
             AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
+        } else {
+            AbstractDungeon.player.currentHealth -= 1;
+            AbstractDungeon.player.healthBarUpdatedEvent();
+            AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1));
+            if (AbstractDungeon.player.currentHealth <= 0) {
+                AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
+            }
+        }
+        if (AbstractDungeon.player.hasRelic(SalivaCoin.ID)) {
+            AbstractDungeon.player.getRelic(SalivaCoin.ID).onLoseHp(1);
+        }
+        if (AbstractDungeon.player.hasRelic("Charity")) {
+            AbstractDungeon.player.currentHealth -= 5;
         }
         int rnd = new Random().nextInt(100);
         if (rnd < 20) {

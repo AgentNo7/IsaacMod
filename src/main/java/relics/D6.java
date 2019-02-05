@@ -45,17 +45,19 @@ public class D6 extends ChargeableRelic {
             }
             else if (room instanceof TreasureRoomBoss) {
                 BossChest bossChest = (BossChest) ((TreasureRoomBoss) room).chest;
-                bossChest.relics.clear();
-                for(int i = 0; i < 3; ++i) {
-                    bossChest.relics.add(AbstractDungeon.returnRandomRelic(RelicTier.BOSS));
+                if (bossChest != null && bossChest.isOpen) {
+                    bossChest.relics.clear();
+                    for(int i = 0; i < 3; ++i) {
+                        bossChest.relics.add(AbstractDungeon.returnRandomRelic(RelicTier.BOSS));
+                    }
+                    bossChest.open(true);
+                    show();
+                    counter = 0;
                 }
-                bossChest.open(true);
-                show();
-                counter = 0;
             }
             else {
                 for (RewardItem item : room.rewards) {
-                    if (item.relic != null) {
+                    if (!item.isDone && item.relic != null) {
                         AbstractRelic relic = AbstractDungeon.returnRandomRelic(item.relic.tier);
                         item.relic = relic;
                         item.text = relic.name;

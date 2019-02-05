@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import helpers.BaseSummonHelper;
+import helpers.SummonHelper;
 import monsters.pet.IncubusPet;
 import powers.BlankCardPower;
 import relics.abstracrt.DevilRelic;
@@ -40,7 +40,7 @@ public class Incubus extends DevilRelic {
         Point point = Utils.getCirclePoint(center, angle, 150);
         IncubusPet incubus = new IncubusPet((float) point.x, (float) point.y);
 //        AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(incubus, false));
-        BaseSummonHelper.summonMinion(incubus);
+        SummonHelper.summonMinion(incubus);
     }
 
     @Override

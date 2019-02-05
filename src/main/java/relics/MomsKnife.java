@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import helpers.BaseSummonHelper;
+import helpers.SummonHelper;
 import monsters.pet.MomsKnifePet;
 import relics.abstracrt.DevilRelic;
 import utils.Point;
@@ -43,7 +43,7 @@ public class MomsKnife extends DevilRelic {
         Point point = Utils.getCirclePoint(center, angle, 100);
         MomsKnifePet momsKnife = new MomsKnifePet((float) point.x, (float) point.y, this);
         this.momsKnife = momsKnife;
-        BaseSummonHelper.summonMinion(momsKnife);
+        SummonHelper.summonMinion(momsKnife);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package relics.abstracrt;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public abstract class ChargeableRelic extends ClickableRelic {
 
@@ -38,7 +37,7 @@ public abstract class ChargeableRelic extends ClickableRelic {
     }
 
     public void show() {
-        AbstractDungeon.player.getRelic(this.relicId).flash();
+        this.flash();
     }
 
     protected abstract void onRightClick();

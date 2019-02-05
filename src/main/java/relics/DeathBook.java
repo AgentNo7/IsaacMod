@@ -9,9 +9,9 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import relics.abstracrt.ChargeableRelic;
+import relics.abstracrt.BookSuit;
 
-public class DeathBook extends ChargeableRelic {
+public class DeathBook extends BookSuit {
     public static final String ID = "DeathBook";
     public static final String IMG = "images/relics/DeathBook.png";
     public static final String DESCRIPTION = "四充能，每打一个怪物房间加一充能，满充能时右击对所有怪物造成 #b40 伤害。";
@@ -45,9 +45,6 @@ public class DeathBook extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 
     @Override

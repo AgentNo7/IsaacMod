@@ -11,6 +11,8 @@ import relics.*;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -172,14 +174,14 @@ public class Utils {
 
     public static boolean areGuppy() {
         List<String> set = new ArrayList<>(Arrays.asList(guppys));
-        return isSuit(set, set.size());
+        return HushsDoor.guppyCount >= 3 || isSuit(set, set.size());
     }
 
     private static String[] books = {BelialBook.ID, DeathBook.ID, TheBible.ID, BookofShadows.ID, AnarchistCookbook.ID, SatanicBible.ID, BookOfRevelations.ID, HowToJump.ID};
 
     public static boolean areBookworm() {
         List<String> set = new ArrayList<>(Arrays.asList(books));
-        return isSuit(set, set.size());
+        return HushsDoor.bookCount >= 3 || isSuit(set, set.size());
     }
 
     private static boolean isSuit(List<String> set, int size) {
@@ -332,11 +334,38 @@ public class Utils {
 
 //    public static boolean[] flyDie = new boolean[6];
 
-//    public static void main(String[] args) throws InterruptedException {
-////        List<Integer> list = new ArrayList<>();
-////        list.add(1);
-////        System.out.println(list.get(3));
-//        System.out.println(-13%10);
-//    }
+    public static Method getDeclaredMethod(Class clazz, String method, Class<?>... params) {
+        try {
+            Method method1 = clazz.getDeclaredMethod(method, params);
+            method1.setAccessible(true);
+            return method1;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Object invoke(Object toInvoke, Method method, Object... params) {
+        try {
+            if (method != null) {
+                return method.invoke(toInvoke, params);
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws InterruptedException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+//        System.out.println(String.format("images/ui/YSD/YSDACNE%04d.png", 1));
+        int n = 101;
+        double a = 0.5;
+        for (int t = 1; t <= 15; t++) {
+            System.out.println(n - a * t * t);
+        }
+        for (int t = 1; t <= 15; t++) {
+            System.out.println(n + a * t * t);
+        }
+    }
 
 }

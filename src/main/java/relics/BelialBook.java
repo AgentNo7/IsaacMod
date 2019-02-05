@@ -7,9 +7,9 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import relics.abstracrt.ChargeableRelic;
+import relics.abstracrt.BookSuit;
 
-public class BelialBook extends ChargeableRelic {
+public class BelialBook extends BookSuit {
     public static final String ID = "BelialBook";
     public static final String IMG = "images/relics/BelialBook.png";
     public static final String DESCRIPTION = "三充能，每打一个怪物房间加一充能，满充能时右击在本场战斗增加5点力量。";
@@ -41,9 +41,6 @@ public class BelialBook extends ChargeableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
-            HushsDoor.bookCount++;
-        }
     }
 
     @Override

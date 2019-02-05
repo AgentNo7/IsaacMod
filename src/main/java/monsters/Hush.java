@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.InvinciblePower;
 import com.megacrit.cardcrawl.powers.SlowPower;
 import com.megacrit.cardcrawl.vfx.combat.SmokeBombEffect;
+import helpers.MinionHelper;
 import monsters.Intent.Move;
 import monsters.minions.BlueGaper;
 import monsters.minions.HushFly;
@@ -161,9 +162,17 @@ public class Hush extends CustomMonster {
     @Override
     protected void getMove(int i) {
         if ((this.moveHistory.isEmpty() || !AbstractDungeon.player.hasPower(PowerDownPower.POWER_ID)) && debuffTry < 3) {
-            debuffTry++;
-            this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
-            return;
+            boolean minionAdded = false;
+            for (AbstractMonster m : MinionHelper.getMinions().monsters) {
+                if (m.hasPower(PowerDownPower.POWER_ID)) {
+                    minionAdded = true;
+                }
+            }
+            if (!minionAdded) {
+                debuffTry++;
+                this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
+                return;
+            }
         }
         if (lastMove((byte) Move.MULATTACK.id)) {
             this.setMove((byte) Move.UNKNOWN.id, Intent.UNKNOWN);

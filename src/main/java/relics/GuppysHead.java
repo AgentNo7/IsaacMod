@@ -14,7 +14,7 @@ public class GuppysHead extends ChargeableRelic {
     public static final String DESCRIPTION = "一充能，满充能时右击，召唤一只苍蝇。";
 
     public GuppysHead() {
-        super("GuppysHead", new Texture(Gdx.files.internal("images/relics/GuppysHead.png")), RelicTier.UNCOMMON, LandingSound.CLINK, 1);
+        super("GuppysHead", new Texture(Gdx.files.internal("images/relics/GuppysHead.png")), RelicTier.RARE, LandingSound.CLINK, 1);
     }
 
     public String getUpdatedDescription() {

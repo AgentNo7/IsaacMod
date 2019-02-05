@@ -40,11 +40,10 @@ public class BloodyBrimstone extends CustomCard {
 
     private int min = 30;
 
-    private SpriteBatch sb = new SpriteBatch();
-
     public void use(AbstractPlayer p, AbstractMonster m) {
         int hp_before = p.currentHealth;
         //动画开始
+        SpriteBatch sb = new SpriteBatch();
         sb.begin();
         p.currentHealth = p.maxHealth * 10;
         p.healthBarRevivedEvent();
@@ -86,6 +85,11 @@ public class BloodyBrimstone extends CustomCard {
 
     public AbstractCard makeCopy() {
         return new BloodyBrimstone();
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     public void upgrade() {

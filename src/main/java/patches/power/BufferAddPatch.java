@@ -17,6 +17,10 @@ public class BufferAddPatch {
     }
 
     public static void Replace(Buffer buffer, AbstractPlayer player, AbstractMonster monster) {
-        AbstractDungeon.player.powers.add(0, new BufferPower(AbstractDungeon.player, buffer.magicNumber));
+        if (AbstractDungeon.player.powers != null && AbstractDungeon.player.powers.size() > 0 && AbstractDungeon.player.powers.get(0) != null && AbstractDungeon.player.powers.get(0).ID.equals(BufferPower.POWER_ID)) {
+            AbstractDungeon.player.powers.get(0).amount += buffer.magicNumber;
+        } else {
+            AbstractDungeon.player.powers.add(0, new BufferPower(AbstractDungeon.player, buffer.magicNumber));
+        }
     }
 }

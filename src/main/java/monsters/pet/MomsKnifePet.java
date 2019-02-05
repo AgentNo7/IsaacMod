@@ -77,11 +77,6 @@ public class MomsKnifePet extends AbstractPet {
         }
     }
 
-//    @SpireOverride
-//    protected void renderIntent(SpriteBatch sb){
-//
-//    }
-
     @Override
     public void createIntent() {
 
