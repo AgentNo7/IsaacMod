@@ -20,7 +20,7 @@ public class Pulse extends CustomCard {
 //    public static final String imgUrl = "images/cards/Pulse.png";
 
     public Pulse() {
-        super("Pulse", NAME, null, 1, DESCRIPTION, CardType.SKILL, CardColor.BLUE, CardRarity.UNCOMMON, CardTarget.SELF);
+        super(ID, NAME, null, 1, DESCRIPTION, CardType.SKILL, CardColor.BLUE, CardRarity.UNCOMMON, CardTarget.SELF);
         this.exhaust = true;
     }
 

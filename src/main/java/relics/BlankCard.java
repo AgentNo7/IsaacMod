@@ -14,12 +14,12 @@ import relics.abstracrt.ChargeableRelic;
 public class BlankCard extends ChargeableRelic {
     public static final String ID = "BlankCard";
     public static final String IMG = "images/relics/BlankCard.png";
-    public static final String DESCRIPTION = "四充能，满充能时右击从手牌中选择一张卡，在每回合开始时打出一次";
+    public static final String DESCRIPTION = "六充能，满充能时右击从手牌中选择一张卡，在每回合开始时打出一次";
 
     private boolean isValid = false;
 
     public BlankCard() {
-        super("BlankCard", new Texture(Gdx.files.internal("images/relics/BlankCard.png")), RelicTier.RARE, LandingSound.CLINK, 4);
+        super("BlankCard", new Texture(Gdx.files.internal("images/relics/BlankCard.png")), RelicTier.RARE, LandingSound.CLINK, 6);
     }
 
     public String getUpdatedDescription() {
@@ -31,7 +31,7 @@ public class BlankCard extends ChargeableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             this.flash();
             CardGroup all = new CardGroup(CardGroup.CardGroupType.HAND);

@@ -67,9 +67,8 @@ public class Chaos extends CustomRelic {
                 all.add(relic.relicId);
             }
         }
-        int n = otherRelics / 7;
-        int m = otherRelics % 7;
-        int devil = IsaacMod.devilRelics.size() + n;
+        int n = otherRelics / 6;
+        int m = otherRelics % 6;
         int devilOnly = IsaacMod.devilOnlyRelics.size() + n;
         int rare = AbstractDungeon.rareRelicPool.size() + n;
         int uncommon = AbstractDungeon.uncommonRelicPool.size() + n;
@@ -77,7 +76,6 @@ public class Chaos extends CustomRelic {
         int boss = AbstractDungeon.bossRelicPool.size() + n;
         int shop = AbstractDungeon.shopRelicPool.size() + n;
         addAndClear(all, IsaacMod.devilOnlyRelics);
-        addAndClear(all, IsaacMod.devilRelics);
         addAndClear(all, AbstractDungeon.rareRelicPool);
         addAndClear(all, AbstractDungeon.uncommonRelicPool);
         addAndClear(all, AbstractDungeon.commonRelicPool);
@@ -86,9 +84,6 @@ public class Chaos extends CustomRelic {
         Collections.shuffle(all, new Random(AbstractDungeon.miscRng.randomLong()));
         for (int i = 0; i < devilOnly; i++) {
             addAndRemove(all, IsaacMod.devilOnlyRelics);
-        }
-        for (int i = 0; i < devil; i++) {
-            addAndRemove(all, IsaacMod.devilRelics);
         }
         for (int i = 0; i < rare; i++) {
             addAndRemove(all, AbstractDungeon.rareRelicPool);

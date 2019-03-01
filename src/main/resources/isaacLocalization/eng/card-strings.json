@@ -24,7 +24,7 @@
   },
   "Distribution": {
     "NAME": "Allocate",
-    "DESCRIPTION": "Lose 1 Strength. Lose 1 Dexterity. Gain !M! Focus." 
+    "DESCRIPTION": "Lose 1 Strength. Lose 1 Dexterity. Gain !M! Focus."
   },
   "DoctorFetus": {
     "NAME": "Doctor Fetus",
@@ -71,6 +71,6 @@
   },
   "PokeGOGO": {
     "NAME": "GO! ",
-    "DESCRIPTION": "Make your pet attack or debuff enemy."
+    "DESCRIPTION": "Make your pet attack or debuff enemy or buff for pets."
   }
 }

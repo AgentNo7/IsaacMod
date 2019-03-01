@@ -32,7 +32,7 @@ public class BookofShadows extends BookSuit {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             usedTurn = turn;
             this.flash();
@@ -55,7 +55,7 @@ public class BookofShadows extends BookSuit {
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             return super.onAttacked(info, 0);
         }
-        return damageAmount;
+        return super.onAttacked(info, damageAmount);
     }
 
     @Override

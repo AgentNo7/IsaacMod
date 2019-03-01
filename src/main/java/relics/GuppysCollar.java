@@ -2,21 +2,20 @@ package relics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.rooms.MonsterRoom;
-import powers.GuppysCollarPower;
-import relics.abstracrt.DevilRelic;
+import relics.abstracrt.DevilInterface;
+import relics.abstracrt.ResurrectRelic;
 
-public class GuppysCollar extends DevilRelic {
+public class GuppysCollar extends ResurrectRelic implements DevilInterface{
     public static final String ID = "GuppysCollar";
     public static final String IMG = "images/relics/GuppysCollar.png";
-    public static final String DESCRIPTION = "死亡时有75%的概率一血复活。";
+    public static final String DESCRIPTION = "死亡时有60%的概率一血复活。";
+
+    private static final int PRIORITY = 1;
 
     public GuppysCollar() {
-        super("GuppysCollar", new Texture(Gdx.files.internal("images/relics/GuppysCollar.png")), RelicTier.SPECIAL, LandingSound.CLINK);
+        super("GuppysCollar", new Texture(Gdx.files.internal("images/relics/GuppysCollar.png")), RelicTier.SPECIAL, LandingSound.CLINK, PRIORITY);
     }
 
     public String getUpdatedDescription() {
@@ -28,15 +27,13 @@ public class GuppysCollar extends DevilRelic {
     }
 
     @Override
-    public void onEnterRoom(AbstractRoom room) {
-        if (!(room instanceof MonsterRoom)) {
-            AbstractDungeon.player.powers.add(new GuppysCollarPower(AbstractDungeon.player, 1));
-        }
+    public int onResurrect() {
+        return 1;
     }
 
     @Override
-    public void atBattleStart() {
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new GuppysCollarPower(AbstractDungeon.player, 1), 1));
+    public boolean canResurrect() {
+        return AbstractDungeon.aiRng.randomBoolean(0.6F);
     }
 
     @Override

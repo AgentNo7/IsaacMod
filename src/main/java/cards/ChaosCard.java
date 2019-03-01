@@ -20,7 +20,7 @@ public class ChaosCard extends CustomCard {
     public static final String imgUrl = "images/cards/ChaosCard.png";
 
     public ChaosCard() {
-        super("ChaosCard", NAME, imgUrl, 3, DESCRIPTION, CardType.ATTACK, CardColor.COLORLESS, CardRarity.RARE, CardTarget.ENEMY);
+        super(ID, NAME, imgUrl, 3, DESCRIPTION, CardType.ATTACK, CardColor.COLORLESS, CardRarity.RARE, CardTarget.ENEMY);
         this.exhaust = true;
         this.isEthereal = true;
     }

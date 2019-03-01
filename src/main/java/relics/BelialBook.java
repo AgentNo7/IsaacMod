@@ -7,9 +7,12 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import mymod.IsaacMod;
 import relics.abstracrt.BookSuit;
+import relics.abstracrt.DevilInterface;
 
-public class BelialBook extends BookSuit {
+public class BelialBook extends BookSuit implements DevilInterface {
     public static final String ID = "BelialBook";
     public static final String IMG = "images/relics/BelialBook.png";
     public static final String DESCRIPTION = "三充能，每打一个怪物房间加一充能，满充能时右击在本场战斗增加5点力量。";
@@ -27,14 +30,27 @@ public class BelialBook extends BookSuit {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             this.flash();
-            AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 5), 5));
-            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            if (AbstractDungeon.getMonsters() != null){
+                AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 5), 5));
+                AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            }
             counter = 0;
             this.stopPulse();
             show();
+        }
+    }
+
+    private boolean removed = false;
+
+    @Override
+    public void onEnterRoom(AbstractRoom room) {
+        super.onEnterRoom(room);
+        if (!removed) {
+            removed = true;
+            IsaacMod.devilRelics.remove(this.relicId);
         }
     }
 

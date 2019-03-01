@@ -70,7 +70,7 @@
   },
   "GuppysCollarPower":{
     "NAME": "Guppys Collar",
-    "DESCRIPTIONS":["When you would die, heal to 1 HP with 75% of chance."]
+    "DESCRIPTIONS":["When you would die, heal to 1 HP with 60% of chance."]
   },
   "UpPower": {
     "NAME": "UP",
@@ -96,6 +96,18 @@
     "DESCRIPTIONS": [
       "Deals ",
       " times the damage after lose block "
+    ]
+  },
+  "JudasShadowPower": {
+    "NAME": "Shadow of Judah",
+    "DESCRIPTIONS": [
+      "You can be resurrected into the shadow of Judah."
+    ]
+  },
+  "MonstroPower": {
+    "NAME": "Monstro",
+    "DESCRIPTIONS": [
+      "Every time get attacked three times, lose 1 strength in this turn."
     ]
   }
 }

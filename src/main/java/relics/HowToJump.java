@@ -28,7 +28,7 @@ public class HowToJump extends ClickableRelic {
     }
 
     //右键使用
-    protected void onRightClick() {
+    public void onRightClick() {
         AbstractDungeon.actionManager.addToBottom(new AnimateJumpAction(AbstractDungeon.player));
         if (AbstractDungeon.getMonsters() != null) {
             for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
@@ -39,7 +39,7 @@ public class HowToJump extends ClickableRelic {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (AbstractDungeon.aiRng.randomBoolean(0.10F)) {
+        if (info.type != DamageInfo.DamageType.HP_LOSS && AbstractDungeon.aiRng.randomBoolean(0.10F)) {
             return super.onAttacked(info, 0);
         }
         return super.onAttacked(info, damageAmount);
@@ -56,6 +56,11 @@ public class HowToJump extends ClickableRelic {
         if (AbstractDungeon.player.getRelic(this.relicId) == this) {
             HushsDoor.bookCount++;
         }
+    }
+
+    @Override
+    public void onUnequip() {
+        super.onUnequip();
     }
 
     @Override

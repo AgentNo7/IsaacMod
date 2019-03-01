@@ -36,7 +36,7 @@ public class PokeBall extends CustomCard {
             return;
         }
         if (m.type == BOSS) {
-            if (AbstractDungeon.aiRng.randomBoolean(0.90F)) {
+            if (AbstractDungeon.aiRng.randomBoolean(0.85F)) {
                 return;
             }
         }

@@ -26,7 +26,7 @@ public class GuppysHead extends ChargeableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             spawnFly();
             counter = 0;

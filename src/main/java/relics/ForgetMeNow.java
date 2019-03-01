@@ -34,7 +34,7 @@ public class ForgetMeNow extends ClickableRelic {
     }
 
     //右键使用
-    protected void onRightClick() {
+    public void onRightClick() {
         if (!used) {
             if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss || AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss) {
                 return;

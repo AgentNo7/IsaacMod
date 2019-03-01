@@ -26,6 +26,7 @@ public class CombatRewardScreenPatch {
                         screen.rewards.add(rewardItem);
                     }
                 }
+                AbstractDungeon.player.reorganizeRelics();
                 return SpireReturn.Return(null);
             }
             return SpireReturn.Continue();

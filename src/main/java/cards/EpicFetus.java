@@ -1,7 +1,6 @@
 package cards;
 
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -19,11 +18,11 @@ public class EpicFetus extends CustomCard {
     public static final String imgUrl = "images/cards/EpicFetus.png";
 
     public EpicFetus() {
-        super("EpicFetus", NAME, imgUrl, 3, DESCRIPTION, CardType.POWER, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
+        super(ID, NAME, imgUrl, 3, DESCRIPTION, CardType.POWER, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new EpicFetusPower(p, 1, this.upgraded), 1));
+        AbstractDungeon.player.powers.add(new EpicFetusPower(p, 1, this.upgraded));
     }
 
     public AbstractCard makeCopy() {

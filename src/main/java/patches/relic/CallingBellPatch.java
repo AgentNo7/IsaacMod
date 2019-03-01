@@ -2,7 +2,9 @@ package patches.relic;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.CallingBell;
+import relics.Chaos;
 
 public class CallingBellPatch {
 
@@ -16,7 +18,9 @@ public class CallingBellPatch {
 
         @SpireInsertPatch(loc = 44)
         public static void Insert(CallingBell callingBell) {
-            callingBell.update();
+            if (AbstractDungeon.player.hasRelic(Chaos.ID)) {
+                callingBell.update();
+            }
         }
     }
 }

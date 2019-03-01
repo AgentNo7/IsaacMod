@@ -29,4 +29,12 @@ public abstract class BookSuit extends ChargeableRelic {
             HushsDoor.bookCount++;
         }
     }
+
+    @Override
+    public void onUnequip() {
+        super.onUnequip();
+//        if (AbstractDungeon.player.getRelic(this.relicId) == this) {
+//            HushsDoor.bookCount--;
+//        }
+    }
 }

@@ -5,6 +5,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import patches.player.PlayerAddFieldsPatch;
 
 @SpirePatch(
@@ -19,14 +20,9 @@ public class EndOfTurnActionPatch {
         BaseMod.logger.info("----------- Minion Before Attacking --------------");
         ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
             monster.takeTurn();
-        });
-        ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
+            monster.applyTurnPowers();
             monster.applyEndOfTurnTriggers();
-        });
-        ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
-            monster.powers.forEach((power) -> {
-                power.atEndOfRound();
-            });
+            monster.powers.forEach(AbstractPower::atEndOfRound);
         });
     }
 

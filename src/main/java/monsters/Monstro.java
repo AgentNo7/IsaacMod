@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import helpers.MinionHelper;
 import monsters.Intent.Move;
 import powers.ConceitedPower;
+import powers.MonstroPower;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -30,6 +31,8 @@ public class Monstro extends CustomMonster {
 
     private TrackEntry e;
 
+    private int slot;
+
     public Monstro(float x, float y) {
         super(NAME, "Monstro", 250, -8.0F, 0.0F, 360.0F, 240.0F, (String) null, x, y);
         this.type = EnemyType.BOSS;
@@ -40,13 +43,46 @@ public class Monstro extends CustomMonster {
         e = this.state.setAnimation(0, "idle", true);
     }
 
+    public Monstro(float x, float y, int slot) {
+        super(NAME, "Monstro", 250, -8.0F, 0.0F, 360.0F, 240.0F, (String) null, x, y);
+        this.type = EnemyType.BOSS;
+        this.setHp(250);
+        this.damage.add(new DamageInfo(this, base));
+        this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
+        this.loadAnimation("images/monsters/monstro/air.atlas", "images/monsters/monstro/air.json", 0.25F);
+        e = this.state.setAnimation(0, "idle", true);
+        this.slot = slot;
+    }
+
+    public Monstro(float x, float y, float scale) {
+        super(NAME, "Monstro", 250, -8.0F, 0.0F, 360.0F * scale, 240.0F, (String) null, x, y);
+        this.type = EnemyType.BOSS;
+        this.setHp(250);
+        this.damage.add(new DamageInfo(this, base));
+        this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
+        this.loadAnimation("images/monsters/monstro/air.atlas", "images/monsters/monstro/air.json", scale);
+        e = this.state.setAnimation(0, "idle", true);
+    }
+
+    public Monstro(float x, float y, float scale, int slot) {
+        super(NAME, "Monstro", 250, -8.0F, 0.0F, 360.0F * scale, 240.0F, (String) null, x, y);
+        this.type = EnemyType.BOSS;
+        this.setHp(250);
+        this.damage.add(new DamageInfo(this, base));
+        this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
+        this.loadAnimation("images/monsters/monstro/air.atlas", "images/monsters/monstro/air.json", scale);
+        e = this.state.setAnimation(0, "idle", true);
+        this.slot = slot;
+    }
+
     @Override
     public void takeTurn() {
         Move nextMove = Move.getMove(this.nextMove);
         switch (nextMove) {
             case DEBUFF:
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new ConceitedPower(AbstractDungeon.player, 1), 1));
+//                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new ConceitedPower(AbstractDungeon.player, 1), 1));
+                AbstractDungeon.player.powers.add(new ConceitedPower(AbstractDungeon.player, 1));
                 break;
             case BUFF:
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
@@ -55,10 +91,13 @@ public class Monstro extends CustomMonster {
             default:
                 break;
             case MULATTACK:
-                int times = AbstractDungeon.aiRng.random(1, 7);
+                int times = AbstractDungeon.aiRng.random(3, 6);
+                damage.clear();
                 for (int i = 0; i < times; i++) {
-                    int damage = AbstractDungeon.aiRng.random(1, 7);
-                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, new DamageInfo(this, damage), AbstractGameAction.AttackEffect.BLUNT_LIGHT, false));
+                    int tempDamage = AbstractDungeon.aiRng.random(2, 6);
+                    damage.add(new DamageInfo(this, tempDamage));
+                    damage.get(i).applyPowers(this, AbstractDungeon.player);
+                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, damage.get(i), AbstractGameAction.AttackEffect.BLUNT_LIGHT, false));
                 }
                 break;
             case UNKNOWN:
@@ -67,10 +106,9 @@ public class Monstro extends CustomMonster {
         AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
     }
 
-//    public void usePreBattleAction() {
-//        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new SlowPower(this, 0)));
-//        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new DecreaseDamagePower(this, 0)));
-//    }
+    public void usePreBattleAction() {
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new MonstroPower(this, 1), 1));
+    }
 
     private static SpriteBatch sb = new SpriteBatch();
 
@@ -124,8 +162,13 @@ public class Monstro extends CustomMonster {
             }
         }
         if (lastMove((byte) Move.DEBUFF.id)) {
-            this.setMove((byte) Move.UNKNOWN.id, Intent.UNKNOWN);
-            myMove = Move.UNKNOWN;
+            if (slot % 2 == 1) {
+                this.setMove((byte) Move.MULATTACK.id, Intent.ATTACK, base, base, true);
+                myMove = Move.MULATTACK;
+            } else {
+                this.setMove((byte) Move.UNKNOWN.id, Intent.UNKNOWN);
+                myMove = Move.UNKNOWN;
+            }
         } else if (lastMove((byte) Move.MULATTACK.id)) {
             this.setMove((byte) Move.UNKNOWN.id, Intent.UNKNOWN);
             myMove = Move.UNKNOWN;

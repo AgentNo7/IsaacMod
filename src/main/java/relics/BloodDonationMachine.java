@@ -1,5 +1,6 @@
 package relics;
 
+import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -10,11 +11,12 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.TreasureRoomBoss;
 import com.megacrit.cardcrawl.vfx.combat.StrikeEffect;
+import mymod.IsaacMod;
 import relics.abstracrt.ClickableRelic;
 
 import java.util.Random;
 
-public class BloodDonationMachine extends ClickableRelic {
+public class BloodDonationMachine extends ClickableRelic implements CustomSavable<Integer>{
     public static final String ID = "BloodDonationMachine";
     public static final String IMG = "images/relics/BloodDonationMachine.png";
     public static final String DESCRIPTION = "右击扣一血，获得20金币（10%），10金币（30%）,5金币（30%），1金币（30%），使用时有3%的概率被卖爆，然后加7血上限或者获得卖血袋。boss房。";
@@ -22,8 +24,6 @@ public class BloodDonationMachine extends ClickableRelic {
     public static boolean canUse = true;
 
     public static boolean broken = false;
-
-    public static boolean isBag = false;
 
     public BloodDonationMachine() {
         super("BloodDonationMachine", new Texture(Gdx.files.internal("images/relics/BloodDonationMachine.png")), RelicTier.RARE, LandingSound.CLINK);
@@ -38,9 +38,12 @@ public class BloodDonationMachine extends ClickableRelic {
     }
 
     //右键卖血
-    protected void onRightClick() {
-        if (broken || !canUse) {
+    public void onRightClick() {
+        if (broken) {
             this.img = ImageMaster.loadImage("images/relics/BrokenBloodDonationMachine.png");
+            return;
+        }
+        if (!canUse) {
             return;
         }
         int bang = AbstractDungeon.aiRng.random(0, 99);
@@ -49,7 +52,7 @@ public class BloodDonationMachine extends ClickableRelic {
             if (blood < 50) {
                 AbstractDungeon.player.increaseMaxHp(7, true);
             } else {
-                isBag = true;
+                IsaacMod.obtainRelics.add(new BloodDonationBag());
             }
             show();
             broken = true;
@@ -89,7 +92,9 @@ public class BloodDonationMachine extends ClickableRelic {
     @Override
     public void onEquip() {
         super.onEquip();
-        canUse = !(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss) && !(AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss);
+        if (AbstractDungeon.currMapNode != null && AbstractDungeon.getCurrRoom() != null) {
+            canUse = !(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss) && !(AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss);
+        }
     }
 
     @Override
@@ -98,5 +103,19 @@ public class BloodDonationMachine extends ClickableRelic {
             this.img = ImageMaster.loadImage("images/relics/BrokenBloodDonationMachine.png");
         }
         canUse = !(room instanceof MonsterRoomBoss) && !(room instanceof TreasureRoomBoss);
+    }
+
+    @Override
+    public Integer onSave() {
+        return broken ? 0 : 1;
+    }
+
+    @Override
+    public void onLoad(Integer integer) {
+        if (integer == 0) {
+            broken = true;
+        } else {
+            broken = false;
+        }
     }
 }

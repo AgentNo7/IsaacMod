@@ -20,7 +20,7 @@ public class Distribution extends CustomCard {
 //    public static final String imgUrl = "images/cards/Distribution.png";
 
     public Distribution() {
-        super("Distribution", NAME, null, 1, DESCRIPTION, CardType.SKILL, CardColor.BLUE, CardRarity.UNCOMMON, CardTarget.SELF);
+        super(ID, NAME, null, 1, DESCRIPTION, CardType.SKILL, CardColor.BLUE, CardRarity.UNCOMMON, CardTarget.SELF);
         baseMagicNumber = 1;
     }
 

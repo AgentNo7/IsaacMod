@@ -27,7 +27,7 @@ public class DoctorsRemote extends ChargeableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             this.flash();
             EpicFetusAttack attack = new EpicFetusAttack();

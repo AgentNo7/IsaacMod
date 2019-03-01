@@ -24,7 +24,7 @@ public class BloodyBrimstone extends CustomCard {
     public static final String imgUrl = "images/cards/BloodyBrimstone.png";
 
     public BloodyBrimstone() {
-        super("BloodyBrimstone", NAME, imgUrl, 1, DESCRIPTION, CardType.ATTACK, CardColor.COLORLESS, CardRarity.RARE, CardTarget.ALL_ENEMY);
+        super(ID, NAME, imgUrl, 1, DESCRIPTION, CardType.ATTACK, CardColor.COLORLESS, CardRarity.RARE, CardTarget.ALL_ENEMY);
         this.exhaust = true;
         this.baseMagicNumber = 25;
         this.isMultiDamage = true;

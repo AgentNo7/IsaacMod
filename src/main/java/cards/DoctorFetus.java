@@ -22,7 +22,7 @@ public class DoctorFetus extends CustomCard {
     private boolean isUpgraded = false;
 
     public DoctorFetus() {
-        super("DoctorFetus", NAME, imgUrl, 2, DESCRIPTION, CardType.POWER, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
+        super(ID, NAME, imgUrl, 2, DESCRIPTION, CardType.POWER, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
         this.baseMagicNumber = 2;
         this.magicNumber = this.baseMagicNumber;
     }

@@ -26,7 +26,7 @@ public class BettingIsNotGood extends CustomCard {
     private int goldNum = 15;
 
     public BettingIsNotGood() {
-        super("BettingIsNotGood", NAME, imgUrl, 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
+        super(ID, NAME, imgUrl, 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
         this.exhaust = true;
         this.baseDamage = 20;
         this.isMultiDamage = true;

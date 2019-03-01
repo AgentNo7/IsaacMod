@@ -16,7 +16,7 @@ import java.util.List;
 public class Pill extends RewardItem {
 
     private Color color;
-    private Effect effect;
+    public Effect effect;
     public static List<Color> forgotColor = getRandomColor();
 
     private PillsDrop pillsDrop;
@@ -34,11 +34,13 @@ public class Pill extends RewardItem {
             if (forgotColor.contains(color)) {
                 this.text = "你吃过这个???药丸";
             } else {
-                String prefix = effect.toString().substring(0, 3);
-                if ("Add".equals(prefix)) {
-                    this.text = "吃下这个正收益药丸";
-                } else if ("Dec".equals(prefix)) {
-                    this.text = "吃下这个负收益药丸";
+                if (effect != null) {
+                    String prefix = effect.toString().substring(0, 3);
+                    if ("Add".equals(prefix)) {
+                        this.text = "吃下这个正收益药丸";
+                    } else if ("Dec".equals(prefix)) {
+                        this.text = "吃下这个负收益药丸";
+                    }
                 }
             }
         }
@@ -54,7 +56,7 @@ public class Pill extends RewardItem {
     }
 
     public static List<Color> getRandomColor() {
-        int size = 2;
+        int size = 3;
         int rnd[] = Utils.randomCombine(Color.values().length, size);
         List<Color> colors = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -65,34 +67,41 @@ public class Pill extends RewardItem {
 
     @Override
     public boolean claimReward() {
-        switch (effect) {
-            case AddFocus:
-                pillsDrop.setFocus(pillsDrop.getFocus() + 1);
-                break;
-            case AddStrength:
-                pillsDrop.setStrength(pillsDrop.getStrength() + 1);
-                break;
-            case DecStrength:
-                pillsDrop.setStrength(pillsDrop.getStrength() - 1);
-                break;
-            case AddDexterity:
-                pillsDrop.setDexterity(pillsDrop.getDexterity() + 1);
-                break;
-            case DecDexterity:
-                pillsDrop.setDexterity(pillsDrop.getDexterity() - 1);
-                break;
-            case AddMaxHp:
-                pillsDrop.setMaxHp(pillsDrop.getMaxHp() + 3);
-                AbstractDungeon.player.increaseMaxHp(3, true);
-                break;
-            case DecMaxHp:
-                pillsDrop.setMaxHp(pillsDrop.getMaxHp() - 5);
-                AbstractDungeon.player.decreaseMaxHealth(5);
-                break;
+        if (effect == null) {
+            if (color != null) {
+                effect = pillsDrop.pillEffect.get(color);
+            }
+        }
+        if (effect != null) {
+            switch (effect) {
+                case AddFocus:
+                    pillsDrop.setFocus(pillsDrop.getFocus() + 1);
+                    break;
+                case AddStrength:
+                    pillsDrop.setStrength(pillsDrop.getStrength() + 1);
+                    break;
+                case DecStrength:
+                    pillsDrop.setStrength(pillsDrop.getStrength() - 1);
+                    break;
+                case AddDexterity:
+                    pillsDrop.setDexterity(pillsDrop.getDexterity() + 1);
+                    break;
+                case DecDexterity:
+                    pillsDrop.setDexterity(pillsDrop.getDexterity() - 1);
+                    break;
+                case AddMaxHp:
+                    pillsDrop.setMaxHp(pillsDrop.getMaxHp() + 3);
+                    AbstractDungeon.player.increaseMaxHp(3, true);
+                    break;
+                case DecMaxHp:
+                    pillsDrop.setMaxHp(pillsDrop.getMaxHp() - 5);
+                    AbstractDungeon.player.decreaseMaxHealth(5);
+                    break;
+            }
         }
         pillsDrop.getUpdatedDescription();
         pillsDrop.tips.clear();
-        pillsDrop.tips.add(new PowerTip(pillsDrop.name, pillsDrop.description));
+        pillsDrop.tips.add(new PowerTip(pillsDrop.name, pillsDrop.getUpdatedDescription()));
         pillsDrop.pillFound.put(this.color, true);
         return true;
     }

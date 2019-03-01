@@ -36,10 +36,23 @@ public class PunchingBag extends ClickableRelic {
         return new PunchingBag();
     }
 
+    private int cardCount = 0;
+
     //右键使用
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter > 0) {
-            AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(new ScapeGoat(scapeGoatPet), 1, false));
+            int cnt = 0;
+            if (AbstractDungeon.getMonsters() != null) {
+                for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+                    if (!m.isDead || !m.isEscaping) {
+                        cnt++;
+                    }
+                }
+            }
+            if (cardCount < cnt) {
+                cardCount++;
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(new ScapeGoat(scapeGoatPet), 1, false));
+            }
         }
     }
 
@@ -58,6 +71,7 @@ public class PunchingBag extends ClickableRelic {
                 return;
             }
         }
+        cardCount = 0;
         ChangeTargetPatch.target = null;
         ChangeTargetPatch.source.clear();
     }

@@ -27,7 +27,7 @@ public class TheBible extends BookSuit {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             if (AbstractDungeon.getMonsters() != null) {
                 this.flash();

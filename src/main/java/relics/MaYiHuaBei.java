@@ -38,7 +38,7 @@ public class MaYiHuaBei extends ClickableRelic {
     }
 
     //右键点击获得500金币
-    protected void onRightClick() {
+    public void onRightClick() {
         if (!used) {
             AbstractDungeon.player.gainGold(500);
             used = true;

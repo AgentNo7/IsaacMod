@@ -56,11 +56,13 @@ public class MomsKnife extends DevilRelic {
     @Override
     public void onPlayerEndTurn() {
         super.onPlayerEndTurn();
-        momsKnife.clickFinish = false;
-        lastTime = -1;
-        timePass = 0;
-        momsKnife.drawX = AbstractDungeon.player.drawX + 70;
-        momsKnife.drawY = AbstractDungeon.player.drawY + 30;
+        if (momsKnife != null) {
+            momsKnife.clickFinish = false;
+            lastTime = -1;
+            timePass = 0;
+            momsKnife.drawX = AbstractDungeon.player.drawX + 70;
+            momsKnife.drawY = AbstractDungeon.player.drawY + 30;
+        }
     }
 
     @Override

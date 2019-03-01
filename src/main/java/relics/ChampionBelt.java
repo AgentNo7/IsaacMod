@@ -30,6 +30,9 @@ public class ChampionBelt extends CustomRelic {
         AbstractDungeon.ascensionLevel = 20;
     }
 
+
+    private static boolean elite = false;
+
     public void onUnequip() {
         --AbstractDungeon.player.energy.energyMaster;
     }
@@ -38,16 +41,18 @@ public class ChampionBelt extends CustomRelic {
     public void justEnteredRoom(AbstractRoom room) {
         super.justEnteredRoom(room);
         AbstractDungeon.ascensionLevel = 20;
-        if (counter == -3) {
+        if (counter == -3 || elite) {
             AbstractDungeon.nextRoom.room = new MonsterRoomElite();
         } else {
             AbstractRoom theRoom = AbstractDungeon.nextRoom.room;
             if ((theRoom instanceof MonsterRoom) && !(theRoom instanceof MonsterRoomBoss) && !(theRoom instanceof MonsterRoomElite)) {
                 int rnd = AbstractDungeon.mapRng.random(0, 99);
-                if (rnd < 75) {
+                if (rnd < 80) {
                     AbstractDungeon.nextRoom.room = new MonsterRoomElite();
                     counter = -3;
+                    elite = true;
                 } else {
+                    elite = false;
                     counter = -1;
                 }
             }
@@ -66,6 +71,7 @@ public class ChampionBelt extends CustomRelic {
     public void onVictory() {
         super.onVictory();
         counter = -1;
+        elite = false;
     }
 
     @Override

@@ -28,12 +28,14 @@ public class BookOfRevelations extends BookSuit {
     }
 
     //右键开大
-    protected void onRightClick() {
-        if (counter >= maxCharge && AbstractDungeon.getMonsters() != null) {
+    public void onRightClick() {
+        if (counter >= maxCharge) {
             this.flash();
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new BarricadePower(AbstractDungeon.player)));
+            if (AbstractDungeon.getMonsters() != null) {
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new BarricadePower(AbstractDungeon.player)));
+                AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+            }
             SoulHeartPatch.soulHeart += 10;
-            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             counter = 0;
             this.stopPulse();
             show();

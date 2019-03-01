@@ -14,13 +14,12 @@ import relics.abstracrt.ClickableRelic;
 public class GuppysPaw extends ClickableRelic {
     public static final String ID = "GuppysPaw";
     public static final String IMG = "images/relics/GuppysPaw.png";
-    public static final String DESCRIPTION = "右击扣除 1 血上限，获得 3 魂心。";
+    public static final String DESCRIPTION = "右击扣除 3 血上限，获得 9 魂心。";
 
     private static int shieldBase = 5;
 
     public GuppysPaw() {
         super("GuppysPaw", new Texture(Gdx.files.internal("images/relics/GuppysPaw.png")), RelicTier.RARE, LandingSound.CLINK);
-        counter = 0;
     }
 
     public String getUpdatedDescription() {
@@ -32,10 +31,10 @@ public class GuppysPaw extends ClickableRelic {
     }
 
     @Override
-    protected void onRightClick() {
+    public void onRightClick() {
         if (AbstractDungeon.player.maxHealth > 1) {
-            AbstractDungeon.player.decreaseMaxHealth(1);
-            SoulHeartPatch.soulHeart += 3;
+            AbstractDungeon.player.decreaseMaxHealth(3);
+            SoulHeartPatch.soulHeart += 9;
         }
     }
 

@@ -71,7 +71,7 @@
   "GuppysCollarPower": {
     "NAME": "猫圈buff",
     "DESCRIPTIONS": [
-      "死亡时有75%的概率一血复活。"
+      "死亡时有60%的概率一血复活。"
     ]
   },
   "UpPower": {
@@ -98,6 +98,18 @@
     "DESCRIPTIONS": [
       "破甲造成的伤害变成原来的",
       "倍。"
+    ]
+  },
+  "JudasShadowPower": {
+    "NAME": "犹大之影",
+    "DESCRIPTIONS": [
+      "你能复活成犹大之影。"
+    ]
+  },
+  "MonstroPower": {
+    "NAME": "萌死戳",
+    "DESCRIPTIONS": [
+      "每被攻击三次，在本回合失去一点力量。"
     ]
   }
 }

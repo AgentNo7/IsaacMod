@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import helpers.MinionHelper;
+import utils.Invoker;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -68,13 +68,7 @@ public class AbstractMonsterPatch {
             /*SL:1276*/dmg = 0;
         }
 //        /*SL:1280*/abstractMonster.intentDmg = dmg;
-        try {
-            Field intentDmg = AbstractMonster.class.getDeclaredField("intentDmg");
-            intentDmg.setAccessible(true);
-            intentDmg.set(abstractMonster, dmg);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        Invoker.setField(abstractMonster, "intentDmg", dmg);
         return SpireReturn.Return(null);
     }
 

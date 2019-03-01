@@ -19,7 +19,7 @@ public class ElectricPowerLearning extends CustomCard {
 //    public static final String imgUrl = "images/cards/ElectricPowerLearning.png";
 
     public ElectricPowerLearning() {
-        super("ElectricPowerLearning", NAME, null, 2, DESCRIPTION, CardType.POWER, CardColor.BLUE, CardRarity.RARE, CardTarget.SELF);
+        super(ID, NAME, null, 2, DESCRIPTION, CardType.POWER, CardColor.BLUE, CardRarity.RARE, CardTarget.SELF);
         this.exhaust = true;
     }
 

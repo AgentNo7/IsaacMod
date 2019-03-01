@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import relics.abstracrt.ClickableRelic;
-import screen.BoxForChargeRelicSelectScreen;
+import screen.ChargeRelicSelectScreen;
 
 public class Diplopia extends ClickableRelic {
     public static final String ID = "Diplopia";
@@ -27,10 +27,10 @@ public class Diplopia extends ClickableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (!used) {
             this.flash();
-            new BoxForChargeRelicSelectScreen(false, "选择一件遗物复制", "遗物选择", "不要选择复视哦，没有用的", this).open();
+            new ChargeRelicSelectScreen(false, "选择一件遗物复制", "遗物选择", "不要选择复视哦，没有用的", this).open();
         }
     }
 

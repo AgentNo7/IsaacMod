@@ -3,7 +3,11 @@ package relics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.city.CursedTome;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.Enchiridion;
+import com.megacrit.cardcrawl.relics.Necronomicon;
+import com.megacrit.cardcrawl.relics.NilrysCodex;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.chests.BossChest;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -12,6 +16,11 @@ import com.megacrit.cardcrawl.rooms.TreasureRoomBoss;
 import com.megacrit.cardcrawl.shop.Merchant;
 import relics.abstracrt.ChargeableRelic;
 import screen.BloodShopScreen;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 public class D6 extends ChargeableRelic {
     public static final String ID = "D6";
@@ -22,6 +31,8 @@ public class D6 extends ChargeableRelic {
         super("D6", new Texture(Gdx.files.internal("images/relics/D6.png")), RelicTier.RARE, LandingSound.CLINK, 6);
     }
 
+    private static List<String> books = Arrays.asList(Necronomicon.ID, Enchiridion.ID, NilrysCodex.ID);
+
     public String getUpdatedDescription() {
         return this.DESCRIPTIONS[0];
     }
@@ -31,7 +42,7 @@ public class D6 extends ChargeableRelic {
     }
 
     //右键开roll
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             AbstractRoom room = AbstractDungeon.currMapNode.room;
             if (room instanceof ShopRoom) {
@@ -45,7 +56,7 @@ public class D6 extends ChargeableRelic {
             }
             else if (room instanceof TreasureRoomBoss) {
                 BossChest bossChest = (BossChest) ((TreasureRoomBoss) room).chest;
-                if (bossChest != null && bossChest.isOpen) {
+                if (bossChest != null && bossChest.isOpen && AbstractDungeon.bossRelicScreen.relics.size() != 0) {
                     bossChest.relics.clear();
                     for(int i = 0; i < 3; ++i) {
                         bossChest.relics.add(AbstractDungeon.returnRandomRelic(RelicTier.BOSS));
@@ -56,16 +67,29 @@ public class D6 extends ChargeableRelic {
                 }
             }
             else {
-                for (RewardItem item : room.rewards) {
-                    if (!item.isDone && item.relic != null) {
-                        AbstractRelic relic = AbstractDungeon.returnRandomRelic(item.relic.tier);
-                        item.relic = relic;
-                        item.text = relic.name;
-                        AbstractDungeon.combatRewardScreen.open();
+                if (AbstractDungeon.combatRewardScreen.rewards != null && AbstractDungeon.combatRewardScreen.rewards.size() > 0) {
+                    for (RewardItem item : AbstractDungeon.combatRewardScreen.rewards) {
+                        if (!item.isDone && item.relic != null) {
+                            if (books.contains(item.relic.relicId)) {
+                                try {
+                                    Method randomBook = CursedTome.class.getDeclaredMethod("randomBook");
+                                    randomBook.setAccessible(true);
+                                    randomBook.invoke(new CursedTome());
+                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else {
+                                AbstractRelic relic = AbstractDungeon.returnRandomRelic(item.relic.tier);
+                                item.relic = relic;
+                                item.text = relic.name;
+                                AbstractDungeon.combatRewardScreen.open();
+                            }
+                        }
                     }
+                    show();
+                    counter = 0;
                 }
-                show();
-                counter = 0;
             }
             this.pulse = false;
         }

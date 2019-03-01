@@ -80,8 +80,6 @@ public class PlayerMethodPatches {
             if (_instance instanceof AbstractPlayer) {
                 ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
                     monster.applyStartOfTurnPowers();
-                });
-                ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
                     monster.loseBlock();
                 });
                 PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player).showIntent();
@@ -118,22 +116,22 @@ public class PlayerMethodPatches {
         }
     }
 
-    @SpirePatch(
-            cls = "com.megacrit.cardcrawl.core.AbstractCreature",
-            method = "applyTurnPowers"
-    )
-    public static class ApplyTurnPowersPatch {
-        public ApplyTurnPowersPatch() {
-        }
-
-        public static void Postfix(AbstractCreature _instance) {
-            if (_instance instanceof AbstractPlayer) {
-                ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
-                    monster.applyTurnPowers();
-                });
-            }
-        }
-    }
+//    @SpirePatch(
+//            cls = "com.megacrit.cardcrawl.core.AbstractCreature",
+//            method = "applyTurnPowers"
+//    )
+//    public static class ApplyTurnPowersPatch {
+//        public ApplyTurnPowersPatch() {
+//        }
+//
+//        public static void Postfix(AbstractCreature _instance) {
+//            if (_instance instanceof AbstractPlayer) {
+//                ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
+//                    monster.applyTurnPowers();
+//                });
+//            }
+//        }
+//    }
 
     @SpirePatch(
             cls = "com.megacrit.cardcrawl.characters.AbstractPlayer",

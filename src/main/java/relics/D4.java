@@ -2,19 +2,20 @@ package relics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.TheEnding;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Circlet;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.ui.buttons.ProceedButton;
 import relics.abstracrt.ChargeableRelic;
 import relics.abstracrt.DevilInterface;
+
+import java.lang.reflect.Field;
 
 public class D4 extends ChargeableRelic {
     public static final String ID = "D4";
     public static final String IMG = "images/relics/D4.png";
-    public static final String DESCRIPTION = "六充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效，战斗中使用可能会导致bug，最终boss处不能使用）。";
+    public static final String DESCRIPTION = "六充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效，战斗中使用可能会导致bug）。";
 
     public D4() {
         super("D4", new Texture(Gdx.files.internal("images/relics/D4.png")), RelicTier.RARE, LandingSound.CLINK, 6);
@@ -30,6 +31,8 @@ public class D4 extends ChargeableRelic {
 
     public boolean roll = false;
 
+    private boolean doRoll = false;
+
     public int devilOnlyRelic = 0;
     public int rare = 0;
     public int uncommon = 0;
@@ -41,11 +44,8 @@ public class D4 extends ChargeableRelic {
     public int deprecated = 0;
 
     //右键开roll
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
-            if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss && CardCrawlGame.dungeon instanceof TheEnding) {
-                return;
-            }
             for (AbstractRelic relic : AbstractDungeon.player.relics) {
                 if (relic instanceof HushsDoor || relic instanceof D4 || relic instanceof Circlet || relic instanceof NineLifeCat) {
                     continue;
@@ -82,6 +82,7 @@ public class D4 extends ChargeableRelic {
                 }
             }
             roll = true;
+            doRoll = true;
             counter = 0;
             this.pulse = false;
         }
@@ -107,5 +108,20 @@ public class D4 extends ChargeableRelic {
     @Override
     public void update() {
         super.update();
+        if (doRoll && AbstractDungeon.getMonsters() != null) {
+            Field isHidden = null;
+            try {
+                isHidden = ProceedButton.class.getDeclaredField("isHidden");
+                isHidden.setAccessible(true);
+                boolean hide = isHidden.getBoolean(AbstractDungeon.overlayMenu.proceedButton);
+                if (!hide && !AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
+                    doRoll = false;
+                    AbstractDungeon.overlayMenu.proceedButton.hide();
+                    AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

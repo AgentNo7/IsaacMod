@@ -32,7 +32,7 @@ public class TuHaoJin extends ClickableRelic {
     }
 
     //右键使用
-    protected void onRightClick() {
+    public void onRightClick() {
         if (AbstractDungeon.player.gold < 1 + addon) {
             return;
         }

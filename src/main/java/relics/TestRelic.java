@@ -40,9 +40,9 @@ public class TestRelic extends CustomRelic {
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new IntangiblePlayerPower(AbstractDungeon.player, 999), 999));
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FocusPower(AbstractDungeon.player, 999), 999));
         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-            m.die();
-        }
+            for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+                m.die();
+            }
     }
 
 //    @Override

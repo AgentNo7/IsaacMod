@@ -32,15 +32,15 @@ public class LittleHush extends CustomMonster {
 
     private int debuffTurnCount;
 
-    private int attackDmg = 35;
-    private int multiDmg = 15;
+    private int attackDmg = 40;
+    private int multiDmg = 22;
     private int multiple = 3;
 
     private int idleCount;
 
     private final int maxIdle = 3;
 
-    private int debuff = -2;
+    private int debuff = -3;
 
     private TrackEntry e;
 
@@ -59,13 +59,17 @@ public class LittleHush extends CustomMonster {
         isAwake = false;
         this.type = EnemyType.BOSS;
         debuffTurnCount = 0;
-        this.damage.add(new DamageInfo(this, attackDmg));
         this.damage.add(new DamageInfo(this, multiDmg));
+        this.damage.add(new DamageInfo(this, attackDmg));
+        this.damage.add(new DamageInfo(this, attackDmg + 20));
+        this.damage.add(new DamageInfo(this, attackDmg + 40));
+        this.damage.add(new DamageInfo(this, attackDmg + 60));
         this.setMove((byte) Move.SLEEP.id, Intent.SLEEP);
-//        this.img = new Texture(Gdx.files.internal("images/monsters/LittleHush.png"));
         this.loadAnimation("images/monsters/LittleHush/skeleton.atlas", "images/monsters/LittleHush/skeleton.json", 1.0F);
         e = this.state.setAnimation(0, "sleep", true);
     }
+
+    private int count = 0;
 
     @Override
     public void takeTurn() {
@@ -102,7 +106,10 @@ public class LittleHush extends CustomMonster {
                 ++this.debuffTurnCount;
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "ATTACK"));
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
-                AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.BLUNT_HEAVY));
+                AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(1 + count), AttackEffect.BLUNT_HEAVY));
+                if (count <= 4) {
+                    count++;
+                }
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
             case MULATTACK:
@@ -110,8 +117,9 @@ public class LittleHush extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "ATTACK"));
                 for (int i = 0; i < multiple; i++) {
                     AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
-                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(1), AttackEffect.BLUNT_LIGHT, true));
+                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.BLUNT_LIGHT, true));
                 }
+                ++multiple;
                 ++multiple;
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
@@ -232,14 +240,9 @@ public class LittleHush extends CustomMonster {
             AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "OPEN"));
         }
         if (this.currentHealth <= 0) {
-//            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(new Hush(this.saveX, this.saveY), false));
             AbstractDungeon.actionManager.addToBottom(new AnimateShakeAction(this, 1.0F, 0.1F));
-//            AbstractDungeon.actionManager.addToBottom(new HideHealthBarAction(this));
-//            AbstractDungeon.actionManager.addToBottom(new WaitAction(1.0F));
-//            AbstractDungeon.actionManager.addToBottom(new CanLoseAction());
             this.canDie = true;
             AbstractDungeon.actionManager.addToTop(new ClearCardQueueAction());
-//            AbstractDungeon.actionManager.addToBottom(new SuicideAction(this, false));
             Iterator s = this.powers.iterator();
             AbstractPower p;
             while (s.hasNext()) {
@@ -251,7 +254,6 @@ public class LittleHush extends CustomMonster {
                 AbstractRelic r = (AbstractRelic) s.next();
                 r.onMonsterDeath(this);
             }
-//            die();
         }
     }
 

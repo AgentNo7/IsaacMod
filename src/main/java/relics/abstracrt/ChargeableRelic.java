@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 public abstract class ChargeableRelic extends ClickableRelic {
 
     public int maxCharge;
-    public int price;
 
     public ChargeableRelic(String id, Texture texture, RelicTier tier, LandingSound sfx, int maxCharge) {
         super(id, texture, tier, sfx);
@@ -40,7 +39,7 @@ public abstract class ChargeableRelic extends ClickableRelic {
         this.flash();
     }
 
-    protected abstract void onRightClick();
+    public abstract void onRightClick();
 
     /**
      * 打完怪物充能+1

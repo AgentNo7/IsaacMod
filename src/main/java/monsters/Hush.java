@@ -47,7 +47,7 @@ public class Hush extends CustomMonster {
         this.damage.add(new DamageInfo(this, base));
         saveX = x;
         saveY = y;
-//        this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
+        this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
         this.img = new Texture(Gdx.files.internal("images/monsters/Hush.png"));
     }
 
@@ -59,7 +59,6 @@ public class Hush extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "DEBUFF"));
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new PowerDownPower(AbstractDungeon.player, 1), 1));
-                AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
             case BUFF:
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "BUFF"));
@@ -71,7 +70,6 @@ public class Hush extends CustomMonster {
                 } else {
                     AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new ShuaLaiPower(this, 1), 1));
                 }
-                AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
             case DEFAULT:
             default:
@@ -84,7 +82,6 @@ public class Hush extends CustomMonster {
                 }
                 base += 3;
                 damage.get(0).base = base;
-                AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
             case UNKNOWN:
                 ++spawnCount;
@@ -116,9 +113,9 @@ public class Hush extends CustomMonster {
                     }
                 }
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new LonelyPower(this, 1), 1));
-                AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
                 break;
         }
+        AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
     }
 
 //    public void usePreBattleAction() {
@@ -137,6 +134,9 @@ public class Hush extends CustomMonster {
 //            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new MyTimeWarpPower(this, 36)));
 //            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new InvinciblePower(this, 2222)));
             addPower = true;
+            if (intent == Intent.DEBUG) {
+                intent = Intent.DEBUFF;
+            }
         }
     }
 
@@ -152,7 +152,7 @@ public class Hush extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
             }
         }
-        
+
         if (!AbstractDungeon.getCurrRoom().cannotLose) {
             this.onBossVictoryLogic();
             this.onFinalBossVictoryLogic();
@@ -173,7 +173,7 @@ public class Hush extends CustomMonster {
                 this.setMove((byte) Move.DEBUFF.id, Intent.DEBUFF);
                 return;
             }
-        }
+        }//StunMonsterAction
         if (lastMove((byte) Move.MULATTACK.id)) {
             this.setMove((byte) Move.UNKNOWN.id, Intent.UNKNOWN);
         } else if (lastMove((byte) Move.UNKNOWN.id)) {
@@ -185,6 +185,8 @@ public class Hush extends CustomMonster {
             }
             this.img = new Texture(Gdx.files.internal("images/monsters/Hush.png"));
         } else if (lastMove((byte) Move.DEBUFF.id) || lastMove((byte) Move.BUFF.id)) {
+            this.setMove((byte) Move.MULATTACK.id, Intent.ATTACK, base, base, true);
+        } else {
             this.setMove((byte) Move.MULATTACK.id, Intent.ATTACK, base, base, true);
         }
     }

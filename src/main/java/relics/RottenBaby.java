@@ -14,7 +14,7 @@ public class RottenBaby extends DevilRelic implements DevilInterface {
 
     public RottenBaby() {
         super("RottenBaby", new Texture(Gdx.files.internal("images/relics/RottenBaby.png")), RelicTier.SPECIAL, LandingSound.CLINK);
-        this.price = 20;
+        this.price = 16;
     }
 
     public String getUpdatedDescription() {

@@ -16,8 +16,6 @@ public class YumHeart extends ChargeableRelic {
         super("YumHeart", new Texture(Gdx.files.internal("images/relics/YumHeart.png")), RelicTier.RARE, LandingSound.CLINK, 4);
     }
 
-    private boolean canUse = false;
-
     public String getUpdatedDescription() {
         return this.DESCRIPTIONS[0];
     }
@@ -27,9 +25,8 @@ public class YumHeart extends ChargeableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
-        if (counter >= maxCharge && canUse) {
-            show();
+    public void onRightClick() {
+            if (counter >= maxCharge) {
             AbstractDungeon.player.heal(25, true);
             counter = 0;
             this.stopPulse();
@@ -39,7 +36,6 @@ public class YumHeart extends ChargeableRelic {
     @Override
     public void onEnterRoom(AbstractRoom room) {
         super.onEnterRoom(room);
-        canUse = true;
     }
 
     @Override

@@ -33,7 +33,7 @@ public abstract class ClickableRelic extends CustomRelic {
         this.flash();
     }
 
-    protected abstract void onRightClick();
+    public abstract void onRightClick();
 
     @Override
     public void onEquip() {

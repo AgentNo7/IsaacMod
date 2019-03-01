@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.curses.AscendersBane;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -19,88 +18,95 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.shop.ShopScreen;
 import patches.event.AddEventPatch;
+import patches.player.PlayerDamagePatch;
 import patches.ui.SoulHeartPatch;
 import powers.ConceitedPower;
 import relics.*;
+import relics.Void;
+import rewards.Heart;
 import rewards.Pill;
+import rewards.SoulHeart;
 import screen.BloodShopScreen;
 import screen.RelicSelectScreen;
 import utils.Utils;
 
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import static utils.Utils.removeFromPool;
+import static patches.ui.JudasPatch.haveJudas;
+import static rewards.HeartRewardPatch.HEART;
 import static utils.Utils.removeRelicString;
 
 
 @SpireInitializer
-public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber {//PostInitializeSubscriber EditCharactersSubscriber
+public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber , PostInitializeSubscriber{//PostInitializeSubscriber EditCharactersSubscriber
 
     public static String[] relicsString = {
-            "AnarchistCookbook",
+            AnarchistCookbook.ID,
             BFFS.ID,
-            "BelialBook",
-//            "BloodDonationBag",
-            "BloodDonationMachine",
-            "BookOfRevelations",
-            "BookofShadows",
+            BelialBook.ID,
+            BloodDonationMachine.ID,
+            BookOfRevelations.ID,
+            BookofShadows.ID,
             Chaos.ID,
-            "D4",
-            "D6",
-            "DeadEye",
-            "DeathBook",
-            "DoctorsRemote",
-            "GnawedLeaf",
+            D6.ID,
+            DeadEye.ID,
+            DeathBook.ID,
+            DoctorsRemote.ID,
+            GnawedLeaf.ID,
             GuppysHead.ID,
             GuppysPaw.ID,
             GuppysTail.ID,
-            "HushsDoor",
-            "HowToJump",
-//            "KonoKeeper",
-            "MaYiHuaBei",
-            "MoneyPower",
-            "PillsDrop",
+            HowToJump.ID,
+            Leech.ID,
+            MaYiHuaBei.ID,
+            MoneyPower.ID,
+            PillsDrop.ID,
             PokeGo.ID,
             PunchingBag.ID,
-            "SalivaCoin",
-            "SatanicBible",
-            "KeepersGift",
-            "SharpPlug",
-            "SteamSale",
-            //"TestRelic",
-            "TheBean",
-            "TheBible",
-            "TuHaoJin",
-            "UnicornStump",
-            "YumHeart"};
-    public static String[] cardsString = {"BettingIsNotGood", "BloodyBrimstone", "DoctorFetus", "EpicFetus",
-            "ChaosCard",
-            "SuicideKing",
-            "Bomb"};
+            SalivaCoin.ID,
+            SatanicBible.ID,
+            SharpPlug.ID,
+            SteamSale.ID,
+            TheBean.ID,
+            TheBible.ID,
+            TuHaoJin.ID,
+            UnicornStump.ID,
+            Void.ID,
+            YumHeart.ID
+    };
+    public static String[] cardsString = {BettingIsNotGood.ID, BloodyBrimstone.ID, DoctorFetus.ID, EpicFetus.ID,
+            ChaosCard.ID,
+            SuicideKing.ID,
+            Bomb.ID
+    };
 
-    public static String[] inPoolRelic = {ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID,
+    public static String[] inPoolRelic = {
+            KeepersGift.ID,
+            ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID,
             GuppysCollar.ID,
             GuppysHairball.ID,
-            NineLifeCat.ID
+            D4.ID
     };
 
     public static String[] bossRelic = {MagicMushroom.ID, ChampionBelt.ID};
-    public static String[] devilRelic = {GuppysHead.ID, GuppysTail.ID, GuppysCollar.ID, GuppysHairball.ID, GuppysPaw.ID, NineLifeCat.ID,
+    public static String[] devilRelic = {GuppysHead.ID, GuppysTail.ID, GuppysCollar.ID, GuppysHairball.ID, GuppysPaw.ID,
             SatanicBible.ID,
             DeathBook.ID,
-            RottenBaby.ID,
             BelialBook.ID
     };
     public static String[] deviOnlyRelic = {Incubus.ID, MegaBlast.ID,
             Succubus.ID,
             MomsKnife.ID,
-            RottenBaby.ID
+            NineLifeCat.ID,
+            JudasShadow.ID,
+            RottenBaby.ID,
+            MyShadow.ID
     };
 
     public static List<String> relics = new ArrayList<>(Arrays.asList(relicsString));
@@ -113,11 +119,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
     public IsaacMod() {
     }
 
-//    public static final Color GOLD = CardHelper.getColor(255.0F, 205.0F, 56.0F);
-
     public static void initialize() {
         BaseMod.subscribe(new IsaacMod());
-//        BaseMod.addColor(CardEnum.POKEMON, GOLD, GOLD, GOLD, GOLD, GOLD, GOLD, GOLD, "images/cardui/512/bg_attack_red.png", "images/cardui/512/bg_skill_red.png", "images/cardui/512/bg_power_red.png", "images/cardui/512/card_red_orb.png", "images/cardui/1024/bg_attack_red.png", "images/cardui/1024/bg_skill_red.png", "images/cardui/1024/bg_power_red.png", "images/cardui/1024/card_red_orb.png");
     }
 
     private static AbstractRelic getRelic(String name) {
@@ -133,6 +136,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
 
     public void receiveEditRelics() {
         BaseMod.addRelic(new BloodDonationBag(), RelicType.SHARED);
+        BaseMod.addRelic(new HushsDoor(), RelicType.SHARED);
         for (String relic : relics) {
             BaseMod.addRelic(getRelic(relic), RelicType.SHARED);
         }
@@ -161,34 +165,14 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BaseMod.addCard(new Bomb());
         BaseMod.addCard(new ChaosCard());
         BaseMod.addCard(new SuicideKing());
-
-//        //PokeMod
-//        BaseMod.addCard(new TakeTurn());
-//
-//        BaseMod.addCard(new Disarm_Poke());//un
-//        BaseMod.addCard(new Heal());//common
-//
-//        BaseMod.addCard(new Defend_Poke());//common
-//        BaseMod.addCard(new Entrench_Poke());//un
-//        BaseMod.addCard(new LimitBreak_Poke());//rare
-//
-//        BaseMod.addCard(new Combust_Poke());//un
-//        BaseMod.addCard(new Evolve_Poke());//un
-//        BaseMod.addCard(new Barricade_Poke());//rare
-//        BaseMod.addCard(new KaKaForm());//rare
-//        BaseMod.addCard(new HealForm());//rare
-//
-//        BaseMod.addCard(new Strike_Poke());//common
-//        BaseMod.addCard(new LittleStrike_Poke());//un
-//        BaseMod.addCard(new Suck());//rare
     }
 
     public void receiveEditStrings() {
         String LOCALIZATION_FOLDER;
         if (Settings.language == Settings.GameLanguage.ZHS) {
-            LOCALIZATION_FOLDER = "localization/zhs";
+            LOCALIZATION_FOLDER = "isaacLocalization/zhs";
         } else {
-            LOCALIZATION_FOLDER = "localization/eng";
+            LOCALIZATION_FOLDER = "isaacLocalization/eng";
         }
 
         String relicStrings = Gdx.files.internal(makePath(LOCALIZATION_FOLDER, "relic_strings.json")).readString(String.valueOf(StandardCharsets.UTF_8));
@@ -238,7 +222,6 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BloodDonationMachine.canUse = true;
         BloodDonationBag.canUse = true;
         BloodDonationMachine.broken = false;
-        BloodDonationMachine.isBag = false;
         AddEventPatch.hidenRoomTimes = 0;
         Pill.forgotColor = Pill.getRandomColor();
         Utils.removeFromPool(new BloodDonationBag());
@@ -251,6 +234,11 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         ConceitedPower.canSee = true;
         HushsDoor.guppyCount = 0;
         HushsDoor.bookCount = 0;
+        HushsDoor.isMonstro = false;
+        HushsDoor.lastDungeon = null;
+        haveJudas = false;
+        PokeGo.slotNum = 0;
+        PlayerDamagePatch.resurrectRelics.clear();
     }
 
     /**
@@ -261,41 +249,30 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             //各种参数初始化
             preSettings();
             //初始遗物赠送
-            obtain(AbstractDungeon.player, HushsDoor.ID, false);
-            obtain(AbstractDungeon.player, KeepersGift.ID, false);
-//            obtain(AbstractDungeon.player, Chaos.ID, false);
+            if (AbstractDungeon.currMapNode != null) {
+                obtain(AbstractDungeon.player, HushsDoor.ID, false);
+                obtain(AbstractDungeon.player, KeepersGift.ID, false);
+            } else {
+                HushsDoor hushsDoor = new HushsDoor();
+                obtain(AbstractDungeon.player, hushsDoor, false, false);
+                hushsDoor.onEquip();
+                obtain(AbstractDungeon.player, KeepersGift.ID, false, false);
+            }
+//            obtain(AbstractDungeon.player, Void.ID, true);
+//            obtain(AbstractDungeon.player, DeathBook.ID, true);
+//            obtain(AbstractDungeon.player, PokeGo.ID, false);
+//            obtain(AbstractDungeon.player, D6.ID, false);
+//            obtain(AbstractDungeon.player, D4.ID, false);
+//            obtain(AbstractDungeon.player, YumHeart.ID, false);
+//            obtain(AbstractDungeon.player, BookOfRevelations.ID, false);
+//            obtain(AbstractDungeon.player, new LizardTail(), false);
+//            obtain(AbstractDungeon.player, new TestRelic(), false);
             AbstractDungeon.uncommonCardPool.addToBottom(new Bomb());
             AbstractDungeon.commonCardPool.addToBottom(new Bomb());
-//            obtain(AbstractDungeon.player, PokeGo.ID, true);
-//            obtain(AbstractDungeon.player, new FusionHammer(), true);
-//            obtain(AbstractDungeon.player, new RottenBaby(), true);
-//            obtain(AbstractDungeon.player, new FossilizedHelix(), true);
-//            obtain(AbstractDungeon.player, TestRelic.ID, false);
-//            obtain(AbstractDungeon.player, ChampionBelt.ID, false);
-//            obtain(AbstractDungeon.player, ForgetMeNow.ID, false);
-//            obtain(AbstractDungeon.player, TestRelic.ID, false);
-//            obtain(AbstractDungeon.player, D6.ID, false);
-//            obtain(AbstractDungeon.player, MagicMushroom.ID, true);
-//            obtain(AbstractDungeon.player, GuppysPaw.ID, false);
-//            obtain(AbstractDungeon.player, GuppysHairball.ID, false);
+            doDaily("20190221");
+            doDaily("20190222");
             //初始卡牌赠送
-//        ElectricPowerLearning electricPowerLearning = new ElectricPowerLearning();
-//        AbstractDungeon.player.masterDeck.addToBottom(electricPowerLearning);
-//            for (int i = 0; i < 20; i++) {
-//                AbstractDungeon.player.masterDeck.addToBottom(new Pummel());
-//            }
-//            AbstractDungeon.player.masterDeck.addToBottom(new Battery());
-//            AbstractDungeon.player.masterDeck.addToBottom(new BloodyBrimstone());
-            //牌库卡牌添加
-            //事件添加
-//        for (int i = 0; i < 100; i++) {
-//            BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "" + i);
-//        }
-//            if (AbstractDungeon.player instanceof Defect) {
-//                AbstractDungeon.removeCardFromPool(Electrodynamics.ID, Electrodynamics.NAME, Electrodynamics.CardRarity.RARE, AbstractCard.CardColor.BLUE);
-//                AbstractCard[] cards = {new ElectricPowerLearning(), new Distribution(), new Cancel(), new Pulse()};
-//                AbstractDungeon.player.masterDeck.addToBottom(cards[new Random().nextInt(cards.length)]);
-//            }
+//            AbstractDungeon.player.masterDeck.addToBottom(new SuicideKing());
             //初始玫瑰赠送
             if (EdensBlessing.obtained) {
                 AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE);
@@ -306,26 +283,18 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                 Utils.removeFromPool(relic);
                 EdensBlessing.obtained = false;
             }
-        } else {
-            int cnt = 0;
-            for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
-                if (AscendersBane.ID.equals(card.cardID)) {
-                    cnt++;
-                }
-            }
-            while (cnt > 1) {
-                AbstractDungeon.player.masterDeck.removeCard(AscendersBane.ID);
-                cnt--;
-            }
         }
     }
 
-    private boolean receivedCard = false;
+    private static boolean receivedCard = false;
+
+    public static List<AbstractRelic> obtainRelics = new ArrayList<>();
+    public static List<AbstractRelic> removeRelics = new ArrayList<>();
+
 
     @Override
     public void receivePostUpdate() {
         //初始卡牌赠送
-        //AbstractDungeon.combatRewardScreen.rewards.add(/*EL:59*/new RewardItem(new TinyHouse()));
         if (!receivedCard && AbstractDungeon.currMapNode != null && AbstractDungeon.getCurrRoom() != null && AbstractDungeon.floorNum < 1) {
             receivedCard = true;
             RewardItem cardReward = new RewardItem();
@@ -334,33 +303,24 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             AbstractDungeon.getCurrRoom().rewards.clear();
             AbstractDungeon.getCurrRoom().rewards.add(cardReward);
             AbstractDungeon.combatRewardScreen.open("Select or Not?");
-            AbstractDungeon.combatRewardScreen.rewards.remove(1);
-            AbstractDungeon.getCurrRoom().rewardPopOutTimer = 0.0F;
+            if (AbstractDungeon.combatRewardScreen.rewards.size() > 1) {
+                AbstractDungeon.combatRewardScreen.rewards.remove(1);
+            }
+            AbstractDungeon.getCurrRoom().rewardPopOutTimer = 1.0F;
+        }
+        if (obtainRelics.size() > 0) {
+            for (AbstractRelic relic : obtainRelics) {
+                obtain(AbstractDungeon.player, relic, true);
+            }
+            obtainRelics.clear();
+        }
+        if (removeRelics.size() > 0) {
+            for (AbstractRelic relic : removeRelics) {
+                AbstractDungeon.player.loseRelic(relic.relicId);
+            }
+            removeRelics.clear();
         }
         if (AbstractDungeon.player != null) {
-            BloodDonationMachine machine = (BloodDonationMachine) AbstractDungeon.player.getRelic(BloodDonationMachine.ID);
-            if (machine != null && BloodDonationMachine.broken && BloodDonationMachine.isBag) {
-                if (AbstractDungeon.player.getRelic("BloodDonationBag") == null) {
-                    obtain(AbstractDungeon.player, new BloodDonationBag(), false);
-                }
-            }
-            Diplopia diplopia = (Diplopia) AbstractDungeon.player.getRelic(Diplopia.ID);
-            if (diplopia != null && !Diplopia.used && diplopia.addRelic != null) {
-                obtain(AbstractDungeon.player, diplopia.addRelic.makeCopy(), true);
-                AbstractDungeon.player.loseRelic(diplopia.relicId);
-                diplopia.addRelic = null;
-                Diplopia.used = true;
-            }
-            if (AbstractDungeon.player.hasRelic(KeepersGift.ID)) {
-                KeepersGift keepersGift = (KeepersGift) AbstractDungeon.player.getRelic(KeepersGift.ID);
-                if (keepersGift.addRelic != null) {
-                    AbstractDungeon.player.loseRelic(keepersGift.relicId);
-                    removeFromPool(keepersGift.addRelic.makeCopy());
-                    obtain(AbstractDungeon.player, keepersGift.addRelic.makeCopy(), false);
-                    removeRelicString(keepersGift.addRelic.relicId);
-                    keepersGift.addRelic = null;
-                }
-            }
             if (AbstractDungeon.player.hasRelic(D4.ID)) {
                 D4 d4 = (D4) AbstractDungeon.player.getRelic(D4.ID);
                 if (d4.roll) {
@@ -390,32 +350,48 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                         obtain(AbstractDungeon.player, relic, false);
                     }
                     for (int i = 0; i < d4.rare + d4.special; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE), true);
+                        obtain(AbstractDungeon.player, returnRandomScreenlessRelic(AbstractRelic.RelicTier.RARE), true);
                     }
                     for (int i = 0; i < d4.uncommon; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.UNCOMMON), true);
+                        obtain(AbstractDungeon.player, returnRandomScreenlessRelic(AbstractRelic.RelicTier.UNCOMMON), true);
                     }
                     for (int i = 0; i < d4.common; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.COMMON), true);
+                        obtain(AbstractDungeon.player, returnRandomScreenlessRelic(AbstractRelic.RelicTier.COMMON), true);
                     }
                     for (int i = 0; i < d4.boss; i++) {
-                        AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS);
+                        AbstractRelic relic = returnRandomScreenlessRelic(AbstractRelic.RelicTier.BOSS);
                         while (relic instanceof CallingBell) {
-                            relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.BOSS);
+                            relic = returnRandomScreenlessRelic(AbstractRelic.RelicTier.BOSS);
                         }
                         obtain(AbstractDungeon.player, relic, false);
                     }
                     for (int i = 0; i < d4.shop; i++) {
-                        obtain(AbstractDungeon.player, AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.SHOP), true);
+                        obtain(AbstractDungeon.player, returnRandomScreenlessRelic(AbstractRelic.RelicTier.SHOP), true);
                     }
                     for (int i = 0; i < d4.devilOnlyRelic; i++) {
                         obtain(AbstractDungeon.player, Utils.getRandomRelicRng(devilOnlyRelics), true);
                     }
                     d4.init();
                     AbstractDungeon.player.reorganizeRelics();
+                    getScreen = false;
                 }
             }
         }
+    }
+
+    private static boolean getScreen = false;
+
+    public static AbstractRelic returnRandomScreenlessRelic(final AbstractRelic.RelicTier tier) {
+        AbstractRelic tmpRelic;
+        if (!getScreen) {
+            tmpRelic= AbstractDungeon.returnRandomRelic(tier);
+            if (Objects.equals(tmpRelic.relicId, "Bottled Flame") || Objects.equals(tmpRelic.relicId, "Bottled Lightning") || Objects.equals(tmpRelic.relicId, "Bottled Tornado")) {
+                getScreen = true;
+            }
+        } else {
+            tmpRelic = AbstractDungeon.returnRandomScreenlessRelic(tier);
+        }
+        return tmpRelic;
     }
 
     public static boolean obtain(AbstractPlayer p, String relicId, boolean canDuplicate) {
@@ -423,18 +399,30 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         if (r == null) return false;
         removeRelicString(relicId);
         Utils.removeFromPool(r);
-        return obtain(p, r, canDuplicate);
+        return obtain(p, r, canDuplicate, true);
+    }
+
+    public static boolean obtain(AbstractPlayer p, String relicId, boolean canDuplicate, boolean callOnEquip) {
+        AbstractRelic r = getRelic(relicId);
+        if (r == null) return false;
+        removeRelicString(relicId);
+        Utils.removeFromPool(r);
+        return obtain(p, r, canDuplicate, callOnEquip);
     }
 
 
     public static boolean obtain(AbstractPlayer p, AbstractRelic r, boolean canDuplicate) {
+        return obtain(p, r, canDuplicate, true);
+    }
+
+    public static boolean obtain(AbstractPlayer p, AbstractRelic r, boolean canDuplicate, boolean callOnEquip) {
         if (r == null) {
             return false;
         } else if (p.hasRelic(r.relicId) && !canDuplicate) {
             return false;
         } else {
             int slot = p.relics.size();
-            r.makeCopy().instantObtain(p, slot, true);
+            r.makeCopy().instantObtain(p, slot, callOnEquip);
             return true;
         }
     }
@@ -449,21 +437,58 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         RelicSelectScreen.updateRender(spriteBatch);
     }
 
-//    private void addEvent() {
-////        Class[] events = new Class[]{HidenRoomEvent.class};
-////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class);
-////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "Exordium");
-////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheCity");
-////        BaseMod.addEvent(HidenRoomEvent.ID, HidenRoomEvent.class, "TheBeyond");
-//    }
+    private static void doDaily() {
+        doDaily(null);
+    }
 
-//    @Override
-//    public void receivePostInitialize() {
-//        addEvent();
-//    }
+    private static void doDaily(String specificDay) {
+        File date = new File(".date");
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String theDay = sdf.format(today);
+        if (!theDay.equals(specificDay)) {
+            return;
+        }
+        if (!date.exists()) {
+            try {
+                date.createNewFile();
+                doGetRelic(new FileWriter(date), theDay);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(date));
+                String thisDay = reader.readLine();
+                if (!theDay.equals(thisDay)) {
+                    doGetRelic(new FileWriter(date), theDay);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    private static void doGetRelic(FileWriter writer, String theDay) {
+        try {
+            writer.write(theDay);
+            writer.flush();
+            writer.close();
+            List<AbstractRelic> all = new ArrayList<>();
+//            all.addAll(inPoolRelics);
+//            all.addAll(bossRelics);
+//            all.addAll(devilOnlyRelics);
+            all.add(new PokeGo());
+            int n = new Random(Integer.parseInt(theDay)).nextInt(all.size());
+            DailyIntro dailyIntro = new DailyIntro(all.get(n), 3);
+            obtain(AbstractDungeon.player, dailyIntro, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-//    public void receiveEditCharacters() {
-//        BaseMod.addCharacter(new AshKetchum("Ash Ketchum"), "images/ui/charSelect/AshKetchumButton.png", "images/ui/charSelect/AshKetchumPortrait.jpg", ModClassEnum.AshKetchum);
-//    }
+    @Override
+    public void receivePostInitialize() {
+        BaseMod.registerCustomReward(HEART, rewardSave -> Heart.getHeartById(rewardSave.id, rewardSave.amount), customReward -> new RewardSave(customReward.type.toString(), ((Heart)customReward).id, ((Heart)customReward).amount, 0));
+    }
 }

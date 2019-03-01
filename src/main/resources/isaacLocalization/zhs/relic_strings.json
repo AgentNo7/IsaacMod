@@ -1,0 +1,388 @@
+{
+  "MaYiHuaBei": {
+    "NAME": "蚂蚁花呗",
+    "FLAVOR": "来钱快，去钱更快",
+    "DESCRIPTIONS": [
+      "点击遗物获得 #b500 临时金额并失效，下次失去金币时将失去所有金币，进入boss房间遗物重新生效。（是我制作的第一个遗物，作为纪念保留了）"
+    ]
+  },
+  "TestRelic": {
+    "NAME": "TestRelic",
+    "FLAVOR": "？？？",
+    "DESCRIPTIONS": [
+      "开局999力量999缓冲，测试遗物，如遇到请不要拿（当然拿了也管不着就是了）。"
+    ]
+  },
+  "KonoKeeper": {
+    "NAME": "是我老板哒",
+    "FLAVOR": "kono Keeper!",
+    "DESCRIPTIONS": [
+      "进入普通怪物房间时，有 #b15% 的概率使得当前房间变成商店。"
+    ]
+  },
+  "SalivaCoin": {
+    "NAME": "口水币",
+    "FLAVOR": "店长口水币，赢了呀",
+    "DESCRIPTIONS": [
+      "每次受伤获得7块钱。"
+    ]
+  },
+  "D6": {
+    "NAME": "D6",
+    "FLAVOR": "是D6，赢了呀",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击可以roll商店，遗物，宝箱和boss宝箱。"
+    ]
+  },
+  "BloodDonationMachine": {
+    "NAME": "卖血机",
+    "FLAVOR": "这是个德国机？",
+    "DESCRIPTIONS": [
+      "右击扣一血，获得20金币（10%），10金币（30%）,5金币（30%），1金币（30%），使用时有3%的概率被卖爆，然后加7血上限或者获得卖血袋。boss房不生效。"
+    ]
+  },
+  "BloodDonationBag": {
+    "NAME": "卖血袋",
+    "FLAVOR": "卖血袋品质不如卖血机",
+    "DESCRIPTIONS": [
+      "右击扣一血，获得10金币（20%），5币（30%），1金币（50%）。boss房不生效。"
+    ]
+  },
+  "DeathBook": {
+    "NAME": "死灵书",
+    "FLAVOR": "此死灵书非彼死灵书",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击对所有怪物造成 #b40 伤害。"
+    ]
+  },
+  "EdensBlessing": {
+    "NAME": "玫瑰",
+    "FLAVOR": "伊甸的祝福",
+    "DESCRIPTIONS": [
+      "拾取后下一局游戏开始获得一个随机稀有遗物，本局游戏在战斗开始随机获得 #b1 点力量，敏捷或者集中。"
+    ]
+  },
+  "MoneyPower": {
+    "NAME": "钱力",
+    "FLAVOR": "金钱就是力量！",
+    "DESCRIPTIONS": [
+      "在战斗开始获得 当前金币÷150 点力量。"
+    ]
+  },
+  "TuHaoJin": {
+    "NAME": "土豪金",
+    "FLAVOR": "金钱就是伤害！",
+    "DESCRIPTIONS": [
+      "右击扣除 #b1 块钱，对所有敌人造成 #b1 点伤害，每次使用增加 #b1 块金钱消耗和 #b1 点伤害。"
+    ]
+  },
+  "DeadEye": {
+    "NAME": "死眼",
+    "FLAVOR": "我也叫神枪手！",
+    "DESCRIPTIONS": [
+      "回合内每次对同一只怪物使用一张攻击牌，获得 #b1 点力量，回合结束或攻击其他怪物时效果消失。"
+    ]
+  },
+  "NineLifeCat": {
+    "NAME": "九命猫",
+    "FLAVOR": "其实是叫死猫啦",
+    "DESCRIPTIONS": [
+      "拾取时减少 #b75% 最大生命值，获得 #b9 条命，复活时回复全部生命。"
+    ]
+  },
+  "UnicornStump": {
+    "NAME": "断角",
+    "FLAVOR": "不动如山！",
+    "DESCRIPTIONS": [
+      "1充能，满充能时右击使怪物本回合不能对你造成伤害，只能在回合开始时使用，使用后本回合无法出牌。"
+    ]
+  },
+  "BlankCard": {
+    "NAME": "白卡",
+    "FLAVOR": "白嫖开始？",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击从手牌中选择一张卡，在每回合开始时打出一次。"
+    ]
+  },
+  "HushsDoor": {
+    "NAME": "凹凸的大门",
+    "FLAVOR": "冲冲冲！",
+    "DESCRIPTIONS": [
+      "通往Hush（凹凸）的关键。右击可切换是否挑战。"
+    ]
+  },
+  "PillsDrop": {
+    "NAME": "尖塔药丸",
+    "FLAVOR": "张嘴吃药！",
+    "DESCRIPTIONS": [
+      "奖励界面可能掉落随机药丸，同色药丸效果相同。(吃下药丸无法被SL撤销)。"
+    ]
+  },
+  "YumHeart": {
+    "NAME": "美味的心",
+    "FLAVOR": "莫小姐真的逊！",
+    "DESCRIPTIONS": [
+      "4充能，每打一个怪物房间加1充能，满充能时右击回复25血，每个房间最多用一次。"
+    ]
+  },
+  "BelialBook": {
+    "NAME": "恶魔书",
+    "FLAVOR": "其实是叫彼列之书的",
+    "DESCRIPTIONS": [
+      "3充能，每打一个怪物房间加1充能，满充能时右击在本场战斗增加5点力量。"
+    ]
+  },
+  "DoctorsRemote": {
+    "NAME": "博士的遥控器",
+    "FLAVOR": "拿来当炸弹用",
+    "DESCRIPTIONS": [
+      "2充能，每打一个怪物房间加1充能，满充能时右击在手牌中加入一张[史诗攻击+2]。"
+    ]
+  },
+  "TheBean": {
+    "NAME": "屁豆",
+    "FLAVOR": "放毒气",
+    "DESCRIPTIONS": [
+      "1充能，每打一个怪物房间加1充能，满充能时右击给所有敌人施加五层毒。"
+    ]
+  },
+  "TheBible": {
+    "NAME": "圣经",
+    "FLAVOR": "等一个秒心脏？（然而不存在的）",
+    "DESCRIPTIONS": [
+      "6充能，每打一个怪物房间加1充能，满充能时右击对使自己获得6层飞行。"
+    ]
+  },
+  "GnawedLeaf": {
+    "NAME": "叶子",
+    "FLAVOR": "一二三木头人",
+    "DESCRIPTIONS": [
+      "连续三回合不出牌后，免疫来自怪物的一切伤害,出牌后解除。"
+    ]
+  },
+  "SteamSale": {
+    "NAME": "打折",
+    "FLAVOR": "爬塔也可以有双打折哦",
+    "DESCRIPTIONS": [
+      "商店全部半价，如果同时持有会员卡或者拥有双打折，商店免费。"
+    ]
+  },
+  "Diplopia": {
+    "NAME": "复视",
+    "FLAVOR": "复视打折的操作也是有的哦",
+    "DESCRIPTIONS": [
+      "右击使用，选择并复制一个已有的遗物。（复视复视会得到一个无效的复视）"
+    ]
+  },
+  "KeepersGift": {
+    "NAME": "店长的礼物",
+    "FLAVOR": "三选一",
+    "DESCRIPTIONS": [
+      "右击使用，从三个遗物中选择一个遗物。(无法获得重复遗物)"
+    ]
+  },
+  "GuppysHead": {
+    "NAME": "嗝屁猫的头",
+    "FLAVOR": "猫套的一部分",
+    "DESCRIPTIONS": [
+      "1充能，满充能时右击，召唤一只苍蝇。（尝试凑齐猫套试试吧）"
+    ]
+  },
+  "GuppysTail": {
+    "NAME": "嗝屁猫的尾巴",
+    "FLAVOR": "猫套的一部分",
+    "DESCRIPTIONS": [
+      "进入宝箱房间时，把小宝箱变成大宝箱。"
+    ]
+  },
+  "GuppysPaw": {
+    "NAME": "嗝屁猫的爪子",
+    "FLAVOR": "猫套的一部分",
+    "DESCRIPTIONS": [
+      "右击扣除 3 血上限，获得 9 魂心。"
+    ]
+  },
+  "GuppysCollar": {
+    "NAME": "嗝屁猫的项圈",
+    "FLAVOR": "猫套的一部分",
+    "DESCRIPTIONS": [
+      "死亡时有60%的概率一血复活。"
+    ]
+  },
+  "GuppysHairball": {
+    "NAME": "嗝屁猫的毛球",
+    "FLAVOR": "猫套的一部分",
+    "DESCRIPTIONS": [
+      "战斗开始召唤一个猫球，猫球杀死敌人时,猫球力量加2，每场战斗最多一次。"
+    ]
+  },
+  "BookofShadows": {
+    "NAME": "无敌书",
+    "FLAVOR": "书套的一部分",
+    "DESCRIPTIONS": [
+      "3充能，满充能时右击使怪物在两个回合内不能对你造成伤害。"
+    ]
+  },
+  "AnarchistCookbook": {
+    "NAME": "无政府主义者食谱",
+    "FLAVOR": "书套的一部分",
+    "DESCRIPTIONS": [
+      "3充能，随机给角色或怪物炸弹buff六次，角色的炸弹先结算。"
+    ]
+  },
+  "MagicMushroom": {
+    "NAME": "大蘑菇",
+    "FLAVOR": "全属性上升",
+    "DESCRIPTIONS": [
+      "获得7点血上限，在战斗开始时获得1点力量，敏捷，集中，多层护甲，金属化，火焰吐息，势不可挡，荆棘，无惧疼痛，再生，残影，保留，火焰屏障，愤怒。"
+    ]
+  },
+  "BookOfRevelations": {
+    "NAME": "启示录",
+    "FLAVOR": "血是没用的",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击，在本场战斗获得壁垒和10点魂心。"
+    ]
+  },
+  "SatanicBible": {
+    "NAME": "撒旦圣经",
+    "FLAVOR": "血是没用的",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击在本场战斗获得壁垒和10点黑心。"
+    ]
+  },
+  "HowToJump": {
+    "NAME": "跳书",
+    "FLAVOR": "书套的一部分",
+    "DESCRIPTIONS": [
+      "在被攻击时有10%的概率不受到伤害，右击让你和怪物跳起来。"
+    ]
+  },
+  "Incubus": {
+    "NAME": "莉莉丝宝宝",
+    "FLAVOR": "还没有宝宝套",
+    "DESCRIPTIONS": [
+      "战斗开始召唤一个莉莉丝宝宝，莉莉丝宝宝会在回合结束时打出你这回合的最后一张牌。"
+    ]
+  },
+  "MegaBlast": {
+    "NAME": "撒旦头",
+    "FLAVOR": "开车开车",
+    "DESCRIPTIONS": [
+      "12充能，满充能时右击获得15秒战斗开始当场怪物即死效果（多命、多形态怪物只能秒一个阶段）。"
+    ]
+  },
+  "Succubus": {
+    "NAME": "魅魔",
+    "FLAVOR": "好玩的来了",
+    "DESCRIPTIONS": [
+      "战斗开始召唤一个魅魔，魅魔会移动对怪造成伤害或者强化你。"
+    ]
+  },
+  "ForgetMeNow": {
+    "NAME": "再爽一次",
+    "FLAVOR": "现在就忘了我",
+    "DESCRIPTIONS": [
+      "一次性遗物，右击回到本层的第一层（boss层无效，在boss宝箱会直接下层）。"
+    ]
+  },
+  "ChampionBelt": {
+    "NAME": "以撒的冠军腰带",
+    "FLAVOR": "挑战我！",
+    "DESCRIPTIONS": [
+      "在每回合开始时获得 [E] 。进阶数变成20。进入普通敌人房间时有80%的概率变成精英房间。"
+    ]
+  },
+  "SharpPlug": {
+    "NAME": "插头",
+    "FLAVOR": "白嫖开始？",
+    "DESCRIPTIONS": [
+      "右击扣除一半血量（最高60最低15），选择一个充能遗物并充满能。"
+    ]
+  },
+  "MomsKnife": {
+    "NAME": "妈刀",
+    "FLAVOR": "听说单妈刀就可以通关？",
+    "DESCRIPTIONS": [
+      "在战斗中获得一个妈刀，妈刀可以每回合左击蓄力打出一次，并对刺中的怪物造成伤害。"
+    ]
+  },
+  "D4": {
+    "NAME": "D4",
+    "FLAVOR": "ROLL！",
+    "DESCRIPTIONS": [
+      "6充能，满充能时右击可以roll自身所有遗物，每个遗物将替换为随机同稀有度的遗物（特殊遗物算做稀有遗物，复制D4无效，战斗中使用可能会导致bug）。"
+    ]
+  },
+  "PunchingBag": {
+    "NAME": "棉花怪",
+    "FLAVOR": "呜呜呜",
+    "DESCRIPTIONS": [
+      "战斗开始召唤一只棉花怪，右击遗物获得一张可以使怪物转移攻击到棉花怪的卡牌。"
+    ]
+  },
+  "PokeGo": {
+    "NAME": "精灵宝可Go",
+    "FLAVOR": "残血了，快抓住它",
+    "DESCRIPTIONS": [
+      "右击获得一张精灵球（1费） NL 精灵球可以抓住剩余1血的非boss怪物或者以15%的概率抓住1血的BOSS， NL 并成为你的随从。 NL 随从最多一只（可替换）。"
+    ]
+  },
+  "Chaos": {
+    "NAME": "混沌",
+    "FLAVOR": "举重必ban",
+    "DESCRIPTIONS": [
+      "打乱所有道具池。"
+    ]
+  },
+  "RottenBaby": {
+    "NAME": "腐烂宝宝",
+    "FLAVOR": "一个不错的宝宝",
+    "DESCRIPTIONS": [
+      "每回合生成一只苍蝇。"
+    ]
+  },
+  "BFFS": {
+    "NAME": "永远的好朋友！",
+    "FLAVOR": "BFF和莉莉丝好像没有配合哦",
+    "DESCRIPTIONS": [
+      "你的召唤物将会初始携带5点力量。"
+    ]
+  },
+  "JudasShadow": {
+    "NAME": "犹大之影",
+    "FLAVOR": "是鳕子酱！",
+    "DESCRIPTIONS": [
+      "死亡后复活成犹大之影，血上限为1，获得40黑心，开局获得15力量。"
+    ]
+  },
+  "DailyIntro": {
+    "NAME": "以撒mod每日奖励",
+    "FLAVOR": "这只是个说明，没有任何功能（D4多个道具?）",
+    "DESCRIPTIONS": [
+      "仅说明用：每日特效，第一局游戏获得",
+      "个相同的遗物（右键使用）。"
+    ]
+  },
+  "Leech": {
+    "NAME": "水蛭",
+    "FLAVOR": "是水蛭，我用水蛭献祭上去了。",
+    "DESCRIPTIONS": [
+      "战斗开始召唤一个水蛭，水蛭可以造成伤害并吸取生命。"
+    ]
+  },
+  "MyShadow": {
+    "NAME": "影之大犹",
+    "FLAVOR": "不！鳕子酱！快停下来！",
+    "DESCRIPTIONS": [
+      "每当你失去生命时，生成一只冲锋怪。"
+    ]
+  },
+  "Void": {
+    "NAME": "虚空",
+    "FLAVOR": "吸！吸就是了！",
+    "DESCRIPTIONS": [
+      "6充能，偶数充能时右击可以从遗物列表吸入遗物一次，吸入遗物加1充能（不能吸入绽放印记，被动遗物获得随机初始属性，主动遗物获得主动效果，满充能时立刻使用一次），满充能时右击触发所有吸入的主动遗物效果。"
+    ]
+  }
+}

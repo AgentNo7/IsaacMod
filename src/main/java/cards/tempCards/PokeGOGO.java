@@ -17,7 +17,7 @@ public class PokeGOGO extends CustomCard {
     private PokeGo pokeGo;
 
     public PokeGOGO(PokeGo pokeGo) {
-        super("PokeGOGO", NAME + pokeGo.pet.name + "!", "images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
+        super("PokeGOGO", NAME + (pokeGo != null ? pokeGo.pet.name : "") + "!", "images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
         this.exhaust = true;
         this.isEthereal = true;
         this.pokeGo = pokeGo;

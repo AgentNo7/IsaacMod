@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import relics.abstracrt.ChargeableRelic;
-import screen.BoxForChargeRelicSelectScreen;
+import screen.ChargeRelicSelectScreen;
 
 public class Battery extends CustomCard {
     private static final CardStrings cardStrings;
@@ -20,7 +20,7 @@ public class Battery extends CustomCard {
     public static final String imgUrl = "images/cards/Battery.png";
 
     public Battery() {
-        super("Battery", NAME, imgUrl, 3, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
+        super(ID, NAME, imgUrl, 3, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
         this.exhaust = true;
         this.isEthereal = true;
     }
@@ -44,7 +44,7 @@ public class Battery extends CustomCard {
         }
         for (AbstractRelic relic : AbstractDungeon.player.relics) {
             if (relic instanceof ChargeableRelic) {
-                new BoxForChargeRelicSelectScreen(false, "选择一件遗物充电", "充电页面", "极速快充2.0，瞬间满电，还在等什么？", this).open();
+                new ChargeRelicSelectScreen(false, "选择一件遗物充电", "充电页面", "极速快充2.0，瞬间满电，还在等什么？", this).open();
                 return;
             }
         }

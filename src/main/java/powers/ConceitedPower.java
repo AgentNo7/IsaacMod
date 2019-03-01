@@ -49,7 +49,7 @@ public class ConceitedPower extends AbstractPower {
     public void atStartOfTurn() {
         super.atStartOfTurn();
         chance = AbstractDungeon.aiRng.random(0, 99);
-        if (chance < 20) {
+        if (chance < 15) {
             AbstractDungeon.actionManager.addToBottom(new TalkAction(true, DIALOGS[0], 1.0f, 2.0f));
         }
         else if (chance >= 85 && chance < 100 && !done) {
@@ -90,7 +90,7 @@ public class ConceitedPower extends AbstractPower {
             }
             AbstractDungeon.actionManager.addToBottom(new TalkAction(true, DIALOGS[4] + (100 - (int) (finaldamage * 100)) + DIALOGS[5], 1.0f, 2.0f));
             owner.currentBlock = (int) (owner.currentBlock * finaldamage);
-        } else if (chance >= 20 && chance < 30) {
+        } else if (chance >= 15 && chance < 30) {
             for (int i = 0; i < this.amount; i++) {
                 AbstractDungeon.actionManager.addToBottom(new TalkAction(true, DIALOGS[6], 1.0f, 2.0f));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this.owner, this.owner, new MoreDamagePower(this.owner, 1), 1));

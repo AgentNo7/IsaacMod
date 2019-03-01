@@ -10,13 +10,13 @@ import mymod.IsaacMod;
 import relics.*;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import static mymod.IsaacMod.obtain;
 
@@ -357,15 +357,157 @@ public class Utils {
     }
 
     public static void main(String[] args) throws InterruptedException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-//        System.out.println(String.format("images/ui/YSD/YSDACNE%04d.png", 1));
-        int n = 101;
-        double a = 0.5;
-        for (int t = 1; t <= 15; t++) {
-            System.out.println(n - a * t * t);
-        }
-        for (int t = 1; t <= 15; t++) {
-            System.out.println(n + a * t * t);
+//        Interpreter interpreter = new Interpreter();
+//        try {
+//            interpreter.eval("Utils.get");
+//        } catch (EvalError evalError) {
+////            evalError.printStackTrace();
+//            System.out.println(evalError.getMessage());
+//        }
+        try {
+            File f = new File("mods");
+            if (f.isDirectory()) {
+                String s[] = f.list();
+                if (s != null) {
+                    for (String x : s) {
+                        JarFile jarFile = new JarFile("mods/" + x);
+                        Enumeration enu = jarFile.entries();
+                        while (enu.hasMoreElements()) {
+                            JarEntry jarEntry = (JarEntry) enu.nextElement();
+                            String name = jarEntry.getName();
+                            if (name.endsWith(".class")) {
+                                System.out.println("import " + name.replace("/", ".").replace(".class", ""));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    public static void ReadAllFile(String filePath) {
+        File f = null;
+        f = new File(filePath);
+        File[] files = f.listFiles(); // 得到f文件夹下面的所有文件。
+        List<File> list = new ArrayList<File>();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                //如何当前路劲是文件夹，则循环读取这个文件夹下的所有文件
+                ReadAllFile(file.getAbsolutePath());
+            } else {
+                list.add(file);
+            }
+        }
+        for (File file : files) {
+            String s = file.getAbsolutePath();
+            if (s.endsWith(".java")) {
+                int len = "D:\\projects\\decompiled-desktop-1.0\\".length();
+                System.out.println("\"" + s.substring(len, s.length()).replace(".java", "").replace("\\", ".") + "\",");
+            }
+        }
+
+    }
+
+
+    public static Object[] getInstancesByClass(Class clazz) {
+        Constructor[] constructors = clazz.getConstructors();
+        if (constructors.length == 0) {
+            return new Object[]{getBasic(clazz)};
+        }
+        Object res[] = new Constructor[constructors.length];
+        int index = 0;
+        for (Constructor constructor : constructors) {
+            Class[] paramTypes = constructor.getParameterTypes();
+            Object[] params = new Object[paramTypes.length];
+            for (int i = 0; i < paramTypes.length; i++) {
+                if (paramTypes[i].getConstructors().length == 0) {
+                    params[i] = getBasic(paramTypes[i]);
+                } else if (hasNoParamCon(paramTypes[i])) {
+                    try {
+                        params[i] = paramTypes[i].newInstance();
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    params[i] = getInstancesByClass(clazz)[0];
+                }
+            }
+            try {
+                res[index++] = constructor.newInstance(params);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
+
+    public static Object getInstanceByClass(Class clazz) {
+        Constructor[] constructors = clazz.getConstructors();
+        if (constructors.length == 0) {
+            return getBasic(clazz);
+        }
+        for (Constructor constructor : constructors) {
+            Class[] paramTypes = constructor.getParameterTypes();
+            Object[] params = new Object[paramTypes.length];
+            for (int i = 0; i < paramTypes.length; i++) {
+                if (paramTypes[i].getConstructors().length == 0) {
+                    params[i] = getBasic(paramTypes[i]);
+                } else if (hasNoParamCon(paramTypes[i])) {
+                    try {
+                        params[i] = paramTypes[i].newInstance();
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    params[i] = getInstanceByClass(clazz);
+                }
+            }
+            try {
+                return constructor.newInstance(params);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private static boolean hasNoParamCon(Class paramType) {
+        for (Constructor c : paramType.getConstructors()) {
+            if (c.getParameterCount() == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static List<Class> basics = Arrays.asList(
+            byte.class,
+            short.class,
+            int.class,
+            long.class,
+            float.class,
+            double.class,
+            boolean.class,
+            char.class,
+            Byte.class,
+            Short.class,
+            Integer.class,
+            Long.class,
+            Float.class,
+            Double.class,
+            Boolean.class,
+            Character.class
+    );
+
+
+    public static Object getBasic(Class c) {
+        if (c == boolean.class || c == Boolean.class) {
+            return false;
+        } else if (basics.contains(c)) {
+            return 0;
+        }
+        return null;
+    }
 }

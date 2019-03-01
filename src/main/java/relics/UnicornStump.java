@@ -35,7 +35,7 @@ public class UnicornStump extends ChargeableRelic {
     }
 
     //右键开大
-    protected void onRightClick() {
+    public void onRightClick() {
         if (counter >= maxCharge) {
             if (AbstractDungeon.player.cardsPlayedThisTurn == 0) {
                 usedTurn = turn;

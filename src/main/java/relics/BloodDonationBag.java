@@ -36,7 +36,7 @@ public class BloodDonationBag extends ClickableRelic {
     }
 
     //右键卖血
-    protected void onRightClick() {
+    public void onRightClick() {
         if (!canUse) {
             return;
         }

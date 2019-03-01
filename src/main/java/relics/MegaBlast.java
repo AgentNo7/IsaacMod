@@ -39,7 +39,7 @@ public class MegaBlast extends ChargeableRelic implements DevilInterface {
     private int remember = 0;
 
     //右键开roll
-    protected void onRightClick() {
+    public void onRightClick() {
         if (!open && counter >= maxCharge) {
             remember = 0;
             counter = 0;

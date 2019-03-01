@@ -52,7 +52,7 @@
     "NAME": "The Necronomicon",
     "FLAVOR": "This Necronomicon is not the Necronomicon",
     "DESCRIPTIONS": [
-      "4 Charges. When fully charged, right-click to deal #b40 damage to ALL enemies."
+      "6 Charges. When fully charged, right-click to deal #b40 damage to ALL enemies."
     ]
   },
   "EdensBlessing": {
@@ -101,7 +101,7 @@
     "NAME": "Blank Card",
     "FLAVOR": "Hoho! Easy game!",
     "DESCRIPTIONS": [
-      "4 charges. When fully charged, right-click to select a card from your hand and play it once at the start of each following turns."
+      "6 charges. When fully charged, right-click to select a card from your hand and play it once at the start of each following turns."
     ]
   },
   "HushsDoor": {
@@ -115,7 +115,7 @@
     "NAME": "Spire's pills",
     "FLAVOR": "Open your mouth to take the medicine.",
     "DESCRIPTIONS": [
-      "Pills may drop at the end of each battle. The pills with the same color will have the same effect. (If you save and quit at the pill reward screen, the save will be broken.)"
+      "Pills may drop at the end of each battle. The pills with the same color will have the same effect. (If you save and quit at the pill reward screen, pill's effect still works.)"
     ]
   },
   "YumHeart": {
@@ -174,129 +174,215 @@
       "Right-click to choose and copy an existing relic. (Copying Diplopia will get a Diplopia, but new one won't work.)"
     ]
   },
-  "KeepersGift":{
+  "KeepersGift": {
     "NAME": "Keeper's gift",
     "FLAVOR": "Select one from three.",
-    "DESCRIPTIONS":["Right-click to use, select and obtain a relic from 3 random Isaac relics."]
+    "DESCRIPTIONS": [
+      "Right-click to use, select and obtain a relic from 3 random Isaac relics."
+    ]
   },
-  "GuppysHead":{
+  "GuppysHead": {
     "NAME": "Guppy's Head",
     "FLAVOR": "A part of Guppy",
-    "DESCRIPTIONS":["1 charge. When fully charged, right-click to summon a fly that deals damage to enemies."]
+    "DESCRIPTIONS": [
+      "1 charge. When fully charged, right-click to summon a fly that deals damage to enemies."
+    ]
   },
-  "GuppysTail":{
+  "GuppysTail": {
     "NAME": "Guppy's Tail",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["Little chests are now large chests."]
+    "DESCRIPTIONS": [
+      "Little chests are now large chests."
+    ]
   },
-  "GuppysPaw":{
+  "GuppysPaw": {
     "NAME": "Guppy's Paw",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["Right click to trade 1 Max Hp for 3 #ySoul #yHeart."]
+    "DESCRIPTIONS": [
+      "Right click to trade 1 Max Hp for 3 #ySoul #yHeart."
+    ]
   },
-  "GuppysCollar":{
+  "GuppysCollar": {
     "NAME": "Guppy's Collar",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["When you would die, heal to 1 HP with 75% of chance."]
+    "DESCRIPTIONS": [
+      "When you would die, heal to 1 HP with 60% of chance."
+    ]
   },
-  "GuppysHairball":{
+  "GuppysHairball": {
     "NAME": "Guppy's Hairball",
     "FLAVOR": "A part of Guppy.",
-    "DESCRIPTIONS":["At the start of each battle, summon a Hairball that deals damage to enemies. Once per battle, when the Hairball kills an enemy, its Strength is permanently increased by 2."]
+    "DESCRIPTIONS": [
+      "At the start of each battle, summon a Hairball that deals damage to enemies. Once per battle, when the Hairball kills an enemy, its Strength is permanently increased by 2."
+    ]
   },
-  "BookofShadows":{
+  "BookofShadows": {
     "NAME": "Book of Shadows",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["3 charges. When fully charged, right-click to prevent all damages for the next 2 turns."]
+    "DESCRIPTIONS": [
+      "3 charges. When fully charged, right-click to prevent all damages for the next 2 turns."
+    ]
   },
-  "AnarchistCookbook":{
+  "AnarchistCookbook": {
     "NAME": "Anarchist Cookbook",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["3 charges. Right-click to give 6 The Bomb effect, which deals damage to ALL opposing characters later, to the player and ALL enemies randomly. Your The Bomb effect will be triggered first."]
+    "DESCRIPTIONS": [
+      "3 charges. Right-click to give 6 The Bomb effect, which deals damage to ALL opposing characters later, to the player and ALL enemies randomly. Your The Bomb effect will be triggered first."
+    ]
   },
-  "MagicMushroom":{
+  "MagicMushroom": {
     "NAME": "Magic Mushroom",
     "FLAVOR": "All stat up.",
-    "DESCRIPTIONS":["Upon pick up, gain 7 max HP. At the start of each battle, gain 1 strength, 1 dexterity, 1 focus, 1 plated armor, 1 regeneration, 1 blur, 1 conserve, and 1 anger."]
+    "DESCRIPTIONS": [
+      "Upon pick up, gain 7 max HP. At the start of each battle, gain 1 strength, 1 dexterity, 1 focus, 1 plated armor, 1 regeneration, 1 fire breathing, 1 juggernaut, 1 thorns, 1 feel no pain, 1 blur, 1 conserve, and 1 anger."
+    ]
   },
-  "BookOfRevelations":{
+  "BookOfRevelations": {
     "NAME": "Book of Revelations",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade and 10 soul heart."]
+    "DESCRIPTIONS": [
+      "6 charges. When fully charged, right-click to gain barricade and 10 soul heart."
+    ]
   },
-  "SatanicBible":{
+  "SatanicBible": {
     "NAME": "Satanic Bible",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["6 charges. When fully charged, right-click to gain barricade, 30 block, and 10 black heart."]
+    "DESCRIPTIONS": [
+      "6 charges. When fully charged, right-click to gain barricade, 30 block, and 10 black heart."
+    ]
   },
-  "HowToJump":{
+  "HowToJump": {
     "NAME": "How to Jump",
     "FLAVOR": "A part of bookworm.",
-    "DESCRIPTIONS":["Negate damage 10% of the time. Right-click to jump. "]
+    "DESCRIPTIONS": [
+      "Negate damage 10% of the time. Right-click to jump. "
+    ]
   },
-  "Incubus":{
+  "Incubus": {
     "NAME": "Incubus",
     "FLAVOR": "Conjoined haven't finished.",
-    "DESCRIPTIONS":["At the start of each battle, summon an Incubus, which, at the end of each turn, plays the last card you played that turn."]
+    "DESCRIPTIONS": [
+      "At the start of each battle, summon an Incubus, which, at the end of each turn, plays the last card you played that turn."
+    ]
   },
-  "MegaBlast":{
+  "MegaBlast": {
     "NAME": "Mega Blast",
     "FLAVOR": "RUSH!",
-    "DESCRIPTIONS":["12 charges. When fully charged, right-click to defeat ALL enemies at battle start for 15 seconds."]
+    "DESCRIPTIONS": [
+      "12 charges. When fully charged, right-click to defeat ALL enemies at battle start for 15 seconds."
+    ]
   },
-  "Succubus":{
+  "Succubus": {
     "NAME": "Succubus",
     "FLAVOR": "Something fun!",
-    "DESCRIPTIONS":["At the beginning of each battle, summon a succubus that moves, deals damage to enemies and gives 1 strength to the player temporarily."]
+    "DESCRIPTIONS": [
+      "At the beginning of each battle, summon a succubus that moves, deals damage to enemies and gives 1 strength to the player temporarily."
+    ]
   },
-  "ForgetMeNow":{
+  "ForgetMeNow": {
     "NAME": "Forget Me Now",
     "FLAVOR": "go back",
-    "DESCRIPTIONS":["Only be used once,right-click to go back to the first floor of current dungeon(at BossTreasureRoom,you go to next dungeon as normal; at boss room, nothing will happen.)."]
+    "DESCRIPTIONS": [
+      "Only be used once,right-click to go back to the first floor of current dungeon(at BossTreasureRoom,you go to next dungeon as normal; at boss room, nothing will happen.)."
+    ]
   },
-  "ChampionBelt":{
+  "ChampionBelt": {
     "NAME": "Isaac's Champion Belt",
     "FLAVOR": "Challenging me!",
-    "DESCRIPTIONS":["Gain [E], when you enter monster room,turn ascension level to 20, switch it into elite room with 75% of chance."]
+    "DESCRIPTIONS": [
+      "Gain [E], when you enter monster room,turn ascension level to 20, switch it into elite room with 80% of chance."
+    ]
   },
-  "SharpPlug":{
+  "SharpPlug": {
     "NAME": "Sharp Plug",
     "FLAVOR": "Awesome Combo!",
-    "DESCRIPTIONS":["Right-Click to lose half HP(Max 50, Min 15),select a chargeable relic,and charge to full charge."]
+    "DESCRIPTIONS": [
+      "Right-Click to lose half HP(Max 50, Min 15),select a chargeable relic,and charge to full charge."
+    ]
   },
-  "MomsKnife":{
+  "MomsKnife": {
     "NAME": "Mom's Knife",
     "FLAVOR": "take huge damage",
-    "DESCRIPTIONS":["summon a knife at battle start, left-click and press,release to discharge the knife,knife take damage to the monsters on the way."]
+    "DESCRIPTIONS": [
+      "summon a knife at battle start, left-click and press,release to discharge the knife,knife take damage to the monsters on the way."
+    ]
   },
-  "D4":{
+  "D4": {
     "NAME": "D4",
     "FLAVOR": "ROLL！",
-    "DESCRIPTIONS":["6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier,can't be used at last boss in TheEnding act"]
+    "DESCRIPTIONS": [
+      "6 charges,roll all relics you obtained,replace every relic to the random relic with same relic tier."
+    ]
   },
-  "PunchingBag":{
+  "PunchingBag": {
     "NAME": "Punching Bag",
     "FLAVOR": "don't hurt me.",
-    "DESCRIPTIONS":["summon a Scape Goat at battle start.Right-Click this relic to get a card to change a enemy's target to Scape Goat"]
+    "DESCRIPTIONS": [
+      "summon a Scape Goat at battle start.Right-Click this relic to get a card to change a enemy's target to Scape Goat"
+    ]
   },
-  "PokeGo":{
+  "PokeGo": {
     "NAME": "Poke Go",
     "FLAVOR": "Gotta catch em...",
-    "DESCRIPTIONS":["Right-Click to get a PokeBall(1 cost). NL PokeBall can catch the monster(not boss) which HP only left 1 NL or catch 1 HP BOSS at the chance of 15%, NL and become your pet.(max pet amount = 1)"]
+    "DESCRIPTIONS": [
+      "Right-Click to get a PokeBall(1 cost). NL PokeBall can catch the monster(not boss) which HP only left 1 NL or catch 1 HP BOSS at the chance of 15%, NL and become your pet.(max pet amount = 1)"
+    ]
   },
-  "Chaos":{
+  "Chaos": {
     "NAME": "Chaos",
     "FLAVOR": "!!!",
-    "DESCRIPTIONS":["Chaos causes relics to be chosen from random item pools."]
+    "DESCRIPTIONS": [
+      "Chaos causes relics to be chosen from random item pools."
+    ]
   },
-  "RottenBaby":{
+  "RottenBaby": {
     "NAME": "Rotten Baby",
     "FLAVOR": "A nice baby",
-    "DESCRIPTIONS":["Spawn a fly at turn start."]
+    "DESCRIPTIONS": [
+      "Spawn a fly at turn start."
+    ]
   },
-  "BFFS":{
+  "BFFS": {
     "NAME": "BFFS!",
     "FLAVOR": "Best Friends Forever!",
-    "DESCRIPTIONS":["All minions gain 5 strength at battle start."]
+    "DESCRIPTIONS": [
+      "All minions gain 5 strength when they summon."
+    ]
+  },
+  "JudasShadow": {
+    "NAME": "Judas' Shadow",
+    "FLAVOR": "Be stronger!",
+    "DESCRIPTIONS": [
+      "After the death, you will resurrect into the shadow of Judah. ​​Max Hp = 1, receive 40 black hearts. gain 15 strength at battle start."
+    ]
+  },
+  "DailyIntro": {
+    "NAME": "IsaacMod's Daily Intro",
+    "FLAVOR": "It's only a introduction.",
+    "DESCRIPTIONS": [
+      "IsaacMod's Daily Effect: First game at the day, you get random",
+      " same relics at the beginning.(right-click to use)"
+    ]
+  },
+  "Leech": {
+    "NAME": "Leech",
+    "FLAVOR": "gain blood!",
+    "DESCRIPTIONS": [
+      "Summon a leech at battle start, leech will deal damage and heal for you."
+    ]
+  },
+  "MyShadow": {
+    "NAME": "My Shadow",
+    "FLAVOR": "Me! And my shaaaadow!",
+    "DESCRIPTIONS": [
+      "When you lose Hp, summon a Charger."
+    ]
+  },
+  "Void": {
+    "NAME": "Void",
+    "FLAVOR": "Consume",
+    "DESCRIPTIONS": [
+      "6 charges, at 2 or 4 or 6 charge can inhale relics from the relic list by right-click, gain 1 charge when inhale relic(cannot inhale the bloom mark, passive relics get random initial attributes, clickable relics get its effect, and gain the effect immediately when full charge), if full charge,right-click can trigger all effect it already gains."
+    ]
   }
 }

@@ -22,12 +22,10 @@ public class SuicideKing extends CustomCard {
     public static final String imgUrl = "images/cards/SuicideKing.png";
 
     public SuicideKing() {
-        super("SuicideKing", NAME, imgUrl, 3, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
+        super(ID, NAME, imgUrl, 3, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);
         this.exhaust = true;
         this.isEthereal = true;
     }
-
-//    public static boolean suicide = false;
 
     @Override
     public boolean canUpgrade() {
@@ -37,13 +35,12 @@ public class SuicideKing extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.player.masterDeck.removeCard(this.cardID);
         p.currentHealth = -999999;
-//        suicide = true;
-        AbstractDungeon.actionManager.addToBottom(new DamageAction(p, new DamageInfo(p, p.maxHealth, DamageInfo.DamageType.HP_LOSS), AbstractGameAction.AttackEffect.SLASH_VERTICAL));
-        int relic = AbstractDungeon.treasureRng.random(1, 3);
+        AbstractDungeon.actionManager.addToBottom(new DamageAction(p, new DamageInfo(p, 99999999, DamageInfo.DamageType.HP_LOSS), AbstractGameAction.AttackEffect.SLASH_VERTICAL));
+        int relic = AbstractDungeon.treasureRng.random(1, 4);
         for (int i = 0; i < relic; i++) {
             AbstractDungeon.getCurrRoom().addRelicToRewards(AbstractDungeon.returnRandomRelicTier());
         }
-        int card = AbstractDungeon.treasureRng.random(0, 4);
+        int card = AbstractDungeon.treasureRng.random(0, 3);
         for (int i = 0; i < card; i++) {
             AbstractDungeon.getCurrRoom().addCardToRewards();
         }
