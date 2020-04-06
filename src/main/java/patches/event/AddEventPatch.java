@@ -20,7 +20,7 @@ public class AddEventPatch {
 
     public static AbstractEvent Postfix(AbstractEvent event, String key) {
         //事件加入隐藏房
-        if (AbstractDungeon.eventRng.randomBoolean(0.20F) && hidenRoomTimes < 3 && !isSame) {
+        if (AbstractDungeon.eventRng.randomBoolean(0.20F) && hidenRoomTimes < 2 && !isSame) {
             hidenRoomTimes++;
             isSame = true;
             return new HidenRoomEvent();

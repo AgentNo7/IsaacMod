@@ -31,7 +31,7 @@ public class TheBean extends ChargeableRelic {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             if (AbstractDungeon.getMonsters() != null && !AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
                 this.flash();
                 Iterator var3 = AbstractDungeon.getMonsters().monsters.iterator();
@@ -44,9 +44,9 @@ public class TheBean extends ChargeableRelic {
                 }
             }
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            counter = 0;
             this.stopPulse();
             show();
+            resetCharge();
         }
     }
 

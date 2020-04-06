@@ -39,7 +39,7 @@ public class AnarchistCookbook extends BookSuit {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             if (AbstractDungeon.getMonsters() != null) {
                 this.flash();
                 List<AbstractCreature> list = new ArrayList<>();
@@ -58,9 +58,9 @@ public class AnarchistCookbook extends BookSuit {
                         AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
                     }
                 }
-                counter = 0;
                 this.stopPulse();
                 show();
+                resetCharge();
             }
         }
     }

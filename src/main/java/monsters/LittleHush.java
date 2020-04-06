@@ -32,15 +32,15 @@ public class LittleHush extends CustomMonster {
 
     private int debuffTurnCount;
 
-    private int attackDmg = 40;
-    private int multiDmg = 22;
+    private int attackDmg = 35;
+    private int multiDmg = 20;
     private int multiple = 3;
 
     private int idleCount;
 
     private final int maxIdle = 3;
 
-    private int debuff = -3;
+    private int debuff = -2;
 
     private TrackEntry e;
 
@@ -69,7 +69,7 @@ public class LittleHush extends CustomMonster {
         e = this.state.setAnimation(0, "sleep", true);
     }
 
-    private int count = 0;
+    private int count = 1;
 
     @Override
     public void takeTurn() {
@@ -106,8 +106,8 @@ public class LittleHush extends CustomMonster {
                 ++this.debuffTurnCount;
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "ATTACK"));
                 AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
-                AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(1 + count), AttackEffect.BLUNT_HEAVY));
-                if (count <= 4) {
+                AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(count), AttackEffect.BLUNT_HEAVY));
+                if (count < 4) {
                     count++;
                 }
                 AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
@@ -117,7 +117,7 @@ public class LittleHush extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new ChangeStateAction(this, "ATTACK"));
                 for (int i = 0; i < multiple; i++) {
                     AbstractDungeon.actionManager.addToBottom(new WaitAction(0.3F));
-                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.BLUNT_LIGHT, true));
+                    AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, this.damage.get(0), AttackEffect.BLUNT_LIGHT, true));
                 }
                 ++multiple;
                 ++multiple;
@@ -214,7 +214,9 @@ public class LittleHush extends CustomMonster {
                 power.amount = 1;
                 super.update();
             }
-            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(new Hush(this.saveX, this.saveY), false));
+            if (!hasPower(DexterityPower.POWER_ID)) {
+                AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(new Hush(this.saveX, this.saveY), false));
+            }
             this.currentBlock = 0;
             AbstractDungeon.actionManager.addToBottom(new SuicideAction(this, false));
             AbstractDungeon.actionManager.addToBottom(new CanLoseAction());
@@ -232,7 +234,6 @@ public class LittleHush extends CustomMonster {
     public void damage(DamageInfo info) {
         int previousHealth = this.currentHealth;
         super.damage(info);
-//        AbstractDungeon.actionManager.addToTop(new SpawnMonsterAction(new Hush(this.saveX, this.saveY), false));
         if (this.currentHealth != previousHealth && !this.isAwake) {
             this.setMove((byte) Move.ABORT.id, Intent.STUN);
             this.createIntent();
@@ -241,7 +242,6 @@ public class LittleHush extends CustomMonster {
         }
         if (this.currentHealth <= 0) {
             AbstractDungeon.actionManager.addToBottom(new AnimateShakeAction(this, 1.0F, 0.1F));
-            this.canDie = true;
             AbstractDungeon.actionManager.addToTop(new ClearCardQueueAction());
             Iterator s = this.powers.iterator();
             AbstractPower p;
@@ -284,17 +284,15 @@ public class LittleHush extends CustomMonster {
         }
     }
 
-    private boolean canDie = false;
-
     @Override
     protected void getMove(int i) {
         if (this.isAwake) {
             if (lastMove((byte) Move.MULATTACK.id)) {
                 this.setMove(DEBUFF_NAME, (byte) Move.DEBUFF.id, Intent.STRONG_DEBUFF);
             } else if (lastMove((byte) Move.ATTACK.id)) {
-                this.setMove(MOVE_NAME, (byte) Move.MULATTACK.id, Intent.ATTACK, ((DamageInfo) this.damage.get(1)).base, multiple, true);
+                this.setMove(MOVE_NAME, (byte) Move.MULATTACK.id, Intent.ATTACK, this.damage.get(0).base, multiple, true);
             } else if (lastMove((byte) Move.DEBUFF.id)) {
-                this.setMove((byte) Move.ATTACK.id, Intent.ATTACK_BUFF, ((DamageInfo) this.damage.get(0)).base);
+                this.setMove((byte) Move.ATTACK.id, Intent.ATTACK_BUFF, this.damage.get(count).base);
             } else if (lastMove((byte) Move.SLEEP.id)) {
                 this.setMove(DEBUFF_NAME, (byte) Move.DEBUFF.id, Intent.STRONG_DEBUFF);
             }

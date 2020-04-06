@@ -28,16 +28,16 @@ public class DoctorsRemote extends ChargeableRelic {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             this.flash();
             EpicFetusAttack attack = new EpicFetusAttack();
             attack.upgrade();
             attack.upgrade();
             AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(attack, 1, false));
             AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            counter = 0;
             this.stopPulse();
             show();
+            resetCharge();
         }
     }
 

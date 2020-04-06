@@ -11,7 +11,7 @@
   "DecreaseDamagePower": {
     "NAME": "Damage Reduction",
     "DESCRIPTIONS": [
-      "You only take ", 
+      "You only take ",
       "% of the damage recieved. After you play an attack card, decrease the damage received by 1%. (Minimum 50%)"
     ]
   },
@@ -68,9 +68,11 @@
       "Prevent 50% of the time this enemy would recieve damage."
     ]
   },
-  "GuppysCollarPower":{
+  "GuppysCollarPower": {
     "NAME": "Guppys Collar",
-    "DESCRIPTIONS":["When you would die, heal to 1 HP with 60% of chance."]
+    "DESCRIPTIONS": [
+      "When you would die, heal to 1 HP with 60% of chance."
+    ]
   },
   "UpPower": {
     "NAME": "UP",
@@ -108,6 +110,30 @@
     "NAME": "Monstro",
     "DESCRIPTIONS": [
       "Every time get attacked three times, lose 1 strength in this turn."
+    ]
+  },
+  "DeliriousPower": {
+    "NAME": "Delirious",
+    "DESCRIPTIONS": [
+      "After ",
+      " times attack is taken, it will act directly in accordance with the current intent, and gain 'DamageSelfPower'.After losing",
+      "HP,attacked by",
+      "times, this monster will become other monsters."
+    ]
+  },
+  "ImpatiencePower": {
+    "NAME": "Impatience",
+    "DESCRIPTIONS": [
+      "After playing",
+      "cards, it will act directly in accordance with the current intent.Can be reset by Delirious."
+    ]
+  },
+  "DamageSelf": {
+    "NAME": "DamageSelf",
+    "DESCRIPTIONS": [
+      "when the power's amount is added to",
+      ", deal ",
+      " damage to self."
     ]
   }
 }

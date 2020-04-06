@@ -51,15 +51,16 @@ public class Void extends ChargeableRelic implements CustomSavable<VoidSave> {
         if ((counter % 2 == 0)) {
             new ChargeRelicSelectScreen(true, "选择一件遗物吸入虚空", "虚空", "没有人知道虚空的内部到底是怎么样的", this, this.counter).open();
         }
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             for (ClickableRelic relic : relicList) {
                 if (relic instanceof ChargeableRelic) {
                     ((ChargeableRelic) relic).counter = ((ChargeableRelic) relic).maxCharge;
                 }
                 relic.onRightClick();
             }
-            counter = 0;
+            resetCharge();
         }
+        AbstractRelic.relicPage = 0;
     }
 
     public String getUpdatedDescription() {
@@ -153,6 +154,9 @@ public class Void extends ChargeableRelic implements CustomSavable<VoidSave> {
         if (focus != 0) {
             AbstractDungeon.player.addPower(new FocusPower(AbstractDungeon.player, focus));
         }
+        for (ClickableRelic r : relicList) {
+            r.atBattleStart();
+        }
     }
 
     @Override
@@ -165,10 +169,16 @@ public class Void extends ChargeableRelic implements CustomSavable<VoidSave> {
     public int onAttacked(DamageInfo info, int damageAmount) {
         int damage = damageAmount;
         for (ClickableRelic r : relicList) {
-            int res = r.onAttacked(info, damageAmount);
-            damage = damage < res ? damage : res;
+            damage = r.onAttacked(info, damageAmount);
         }
         return damage;
+    }
+
+    @Override
+    public void atTurnStart() {
+        for (ClickableRelic r : relicList) {
+            r.atTurnStart();
+        }
     }
 
     @Override

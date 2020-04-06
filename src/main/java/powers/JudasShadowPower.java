@@ -9,9 +9,9 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import patches.ui.RenderCreaturePatch;
 import relics.JudasShadow;
 
-import static patches.ui.JudasPatch.haveJudas;
 import static patches.ui.SoulHeartPatch.blackHeart;
 
 public class JudasShadowPower extends AbstractPower {
@@ -56,7 +56,7 @@ public class JudasShadowPower extends AbstractPower {
             AbstractDungeon.actionManager.addToTop(new ReducePowerAction(this.owner, this.owner, this.ID, 1));
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 15), 15));
             judasShadow.counter = -1;
-            haveJudas = true;
+            RenderCreaturePatch.haveJudas = true;
             return 0;
         }
         return damageAmount;

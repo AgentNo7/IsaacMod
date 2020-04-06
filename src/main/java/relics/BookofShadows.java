@@ -33,12 +33,12 @@ public class BookofShadows extends BookSuit {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             usedTurn = turn;
             this.flash();
-            counter = 0;
             show();
             this.stopPulse();
+            resetCharge();
         }
     }
 
@@ -61,7 +61,7 @@ public class BookofShadows extends BookSuit {
     @Override
     public void atTurnStart() {
         this.turn++;
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             beginLongPulse();
         } else {
             stopPulse();

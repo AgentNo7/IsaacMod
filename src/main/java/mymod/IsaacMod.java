@@ -2,6 +2,7 @@ package mymod;
 
 import basemod.BaseMod;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import cards.*;
@@ -10,12 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.characters.Defect;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.localization.CardStrings;
-import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
@@ -28,7 +27,6 @@ import relics.*;
 import relics.Void;
 import rewards.Heart;
 import rewards.Pill;
-import rewards.SoulHeart;
 import screen.BloodShopScreen;
 import screen.RelicSelectScreen;
 import utils.Utils;
@@ -38,13 +36,13 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static patches.ui.JudasPatch.haveJudas;
+import static patches.ui.RenderCreaturePatch.haveJudas;
 import static rewards.HeartRewardPatch.HEART;
 import static utils.Utils.removeRelicString;
 
 
 @SpireInitializer
-public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber , PostInitializeSubscriber{//PostInitializeSubscriber EditCharactersSubscriber
+public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, PreUpdateSubscriber, RenderSubscriber, PostUpdateSubscriber , PostInitializeSubscriber, CustomSavable{//PostInitializeSubscriber EditCharactersSubscriber
 
     public static String[] relicsString = {
             AnarchistCookbook.ID,
@@ -66,6 +64,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             Leech.ID,
             MaYiHuaBei.ID,
             MoneyPower.ID,
+            NineVolt.ID,
             PillsDrop.ID,
             PokeGo.ID,
             PunchingBag.ID,
@@ -91,7 +90,10 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             ForgetMeNow.ID, BlankCard.ID, Diplopia.ID, EdensBlessing.ID,
             GuppysCollar.ID,
             GuppysHairball.ID,
-            D4.ID
+            D4.ID,
+            BloodBag.ID,
+            TheBattery.ID,
+            Habit.ID
     };
 
     public static String[] bossRelic = {MagicMushroom.ID, ChampionBelt.ID};
@@ -165,6 +167,7 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
         BaseMod.addCard(new Bomb());
         BaseMod.addCard(new ChaosCard());
         BaseMod.addCard(new SuicideKing());
+        BaseMod.addCard(new Fan());
     }
 
     public void receiveEditStrings() {
@@ -273,6 +276,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             doDaily("20190222");
             //初始卡牌赠送
 //            AbstractDungeon.player.masterDeck.addToBottom(new SuicideKing());
+//            AbstractDungeon.player.masterDeck.addToBottom(new Burn());
+//            new GnawedLeaf().instantObtain();
             //初始玫瑰赠送
             if (EdensBlessing.obtained) {
                 AbstractRelic relic = AbstractDungeon.returnRandomRelic(AbstractRelic.RelicTier.RARE);
@@ -283,13 +288,16 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
                 Utils.removeFromPool(relic);
                 EdensBlessing.obtained = false;
             }
+            if (AbstractDungeon.player instanceof Defect) {
+//                AbstractDungeon.player.masterDeck.addToBottom(new Fan());
+            }
         }
     }
 
     private static boolean receivedCard = false;
 
     public static List<AbstractRelic> obtainRelics = new ArrayList<>();
-    public static List<AbstractRelic> removeRelics = new ArrayList<>();
+    public static List<String> removeRelics = new ArrayList<>();
 
 
     @Override
@@ -315,8 +323,8 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
             obtainRelics.clear();
         }
         if (removeRelics.size() > 0) {
-            for (AbstractRelic relic : removeRelics) {
-                AbstractDungeon.player.loseRelic(relic.relicId);
+            for (String relic : removeRelics) {
+                AbstractDungeon.player.loseRelic(relic);
             }
             removeRelics.clear();
         }
@@ -435,7 +443,10 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
     @Override
     public void receiveRender(SpriteBatch spriteBatch) {
         RelicSelectScreen.updateRender(spriteBatch);
+        sb = spriteBatch;
     }
+
+    public static SpriteBatch sb;
 
     private static void doDaily() {
         doDaily(null);
@@ -490,5 +501,15 @@ public class IsaacMod implements EditCardsSubscriber, EditRelicsSubscriber, Post
     @Override
     public void receivePostInitialize() {
         BaseMod.registerCustomReward(HEART, rewardSave -> Heart.getHeartById(rewardSave.id, rewardSave.amount), customReward -> new RewardSave(customReward.type.toString(), ((Heart)customReward).id, ((Heart)customReward).amount, 0));
+    }
+
+    @Override
+    public Object onSave() {
+        return null;
+    }
+
+    @Override
+    public void onLoad(Object o) {
+
     }
 }

@@ -1,10 +1,8 @@
 package relics;
 
 import basemod.abstracts.CustomSavable;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.GameActionManager;
-import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -13,10 +11,11 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.*;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.helpers.PowerTip;
+import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.map.DungeonMap;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
-import com.megacrit.cardcrawl.monsters.exordium.TheGuardian;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
@@ -26,6 +25,7 @@ import com.megacrit.cardcrawl.shop.ShopScreen;
 import com.megacrit.cardcrawl.vfx.combat.HbBlockBrokenEffect;
 import helpers.MinionHelper;
 import helpers.SummonHelper;
+import monsters.Delirium;
 import monsters.LittleHush;
 import monsters.Monstro;
 import monsters.pet.Fly;
@@ -43,7 +43,7 @@ import utils.Point;
 import utils.SoulHeartSave;
 import utils.Utils;
 
-import static patches.ui.JudasPatch.haveJudas;
+import static patches.ui.RenderCreaturePatch.haveJudas;
 import static patches.ui.SoulHeartPatch.blackHeart;
 import static patches.ui.SoulHeartPatch.soulHeart;
 
@@ -52,24 +52,34 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
     public static final String IMG = "images/relics/HushsDoor.png";
     public static final String DESCRIPTION = "通往Hush（凹凸）的关键。右击可切换是否挑战。";
 
-    public static boolean toHush = true;
+    public static int toHush = 0;
 
     public static boolean isOn = false;
 
     @Override
     public void onRightClick() {
-        toHush = !toHush;
-        if (toHush) {
-            this.img = ImageMaster.loadImage("images/relics/HushsDoor.png");
-        } else {
-            this.img = ImageMaster.loadImage("images/relics/HushsDoorBroken.png");
+        toHush = (++toHush) % 3;
+        setDescription(toHush);
+        this.img = getTexture(toHush);
+    }
+
+    private static Texture getTexture(int num) {
+        switch (num) {
+            case 0:
+                return ImageMaster.loadImage("images/relics/Stage_the_void.png");
+            case 1:
+                return ImageMaster.loadImage("images/relics/HushsDoor.png");
+            case 2:
+                return ImageMaster.loadImage("images/relics/HushsDoorBroken.png");
         }
+        return ImageMaster.loadImage("images/relics/HushsDoorBroken.png");
     }
 
     private static boolean talk = true;
 
     public HushsDoor() {
-        super("HushsDoor", new Texture(Gdx.files.internal(toHush ? "images/relics/HushsDoor.png" : "images/relics/HushsDoorBroken.png")), RelicTier.SPECIAL, LandingSound.CLINK);
+        super("HushsDoor", getTexture(toHush), RelicTier.SPECIAL, LandingSound.CLINK);
+        setDescription(toHush);
     }
 
     public String getUpdatedDescription() {
@@ -91,13 +101,28 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
             isOn = false;
         }
         makeHeartToHush();
+//        makeBossToMonstro();
 //        makeAllToHush();
-        makeBossToMonstro();
     }
 
     @Override
     public void onEquip() {
         super.onEquip();
+    }
+
+    private void setDescription(int num) {
+        tips.clear();
+        try {
+            if (num == 0) {
+                String theName = (Settings.language == Settings.GameLanguage.ZHS) ? "百变怪的邀请" : "Way to The Void";
+                this.tips.add(new PowerTip(theName, this.DESCRIPTIONS[1]));
+            } else {
+                RelicStrings relicStrings = Invoker.getField(this, "relicStrings");
+                this.tips.add(new PowerTip(relicStrings.NAME, this.DESCRIPTIONS[0]));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -109,9 +134,13 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
         if (AbstractDungeon.floorNum < 53) {
             return;
         }
-        if (toHush && AbstractDungeon.nextRoom.room instanceof MonsterRoomBoss) {
+        if (toHush == 1 && AbstractDungeon.nextRoom.room instanceof MonsterRoomBoss) {
             AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new LittleHush(-50.0F, 30.0F)));
             AbstractDungeon.lastCombatMetricKey = "LittleHush";
+        }
+        if (toHush == 0 && AbstractDungeon.nextRoom.room instanceof MonsterRoomBoss) {
+            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new Delirium(-50.0F, 30.0F)));
+            AbstractDungeon.lastCombatMetricKey = "Delirium";
         }
     }
 
@@ -119,7 +148,8 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
         if (AbstractDungeon.nextRoom.room instanceof MonsterRoom) {
 //            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new LittleHush(-50.0F, 30.0F)));
 //            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new Nemesis()));
-            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new TheGuardian()));
+//            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new TheGuardian()));
+            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new Delirium(-50.0F, 30.0F)));
 
 //            AbstractDungeon.nextRoom.room = new MonsterRoomMyBoss(new MonsterGroup(new Monstro(-50.0F, 30.0F)));
             AbstractDungeon.lastCombatMetricKey = "LittleHush";
@@ -185,24 +215,10 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
                 enteredBloodShop = true;
             }
         }
-//        if (save != null && AbstractDungeon.getCurrRoom() != null) {
-//            int soul = save.soulHeartNum;
-//            int black = save.blackHeartNum;
-//            save = null;
-//            if (soul > 0 || black > 0) {
-//                for (int i = 0; i < soul; i++) {
-//                    AbstractDungeon.getCurrRoom().rewards.add(0, new SoulHeart());
-//                }
-//                for (int i = 0; i < black; i++) {
-//                    AbstractDungeon.getCurrRoom().rewards.add(0, new BlackHeart());
-//                }
-//                AbstractDungeon.combatRewardScreen.open();
-//            }
-//        }
         if (CardCrawlGame.dungeon != lastDungeon) {
             lastDungeon = CardCrawlGame.dungeon;
             if (!(lastDungeon instanceof TheBeyond)) {
-                isMonstro = AbstractDungeon.aiRng.randomBoolean(0.15F);
+                isMonstro = false;//AbstractDungeon.aiRng.randomBoolean(0.15F);
                 if (isMonstro && !(CardCrawlGame.dungeon instanceof TheEnding)) {
                     DungeonMap.boss = ImageMaster.loadImage("images/ui/map/monstro.png");
                     DungeonMap.bossOutline = ImageMaster.loadImage("images/ui/map/monstro_outline.png");
@@ -275,12 +291,12 @@ public class HushsDoor extends ClickableRelic implements CustomSavable<SoulHeart
     @Override
     public void atBattleStart() {
         super.atBattleStart();
-        if (talk) {
-            talk = false;
-            if (Settings.language == Settings.GameLanguage.ZHS) {
-                AbstractDungeon.actionManager.addToBottom(new TalkAction(true, "书套猫套失去遗物也保留效果啦！", 1.0f, 2.0f));
-            }
-        }
+//        if (talk) {
+//            talk = false;
+//            if (Settings.language == Settings.GameLanguage.ZHS) {
+////                AbstractDungeon.actionManager.addToBottom(new TalkAction(true, "机器人出了抽牌球，快来玩啊！", 1.0f, 2.0f));
+//            }
+//        }
         if (AbstractDungeon.player.getRelic(HushsDoor.ID) != this) {
             return;
         }

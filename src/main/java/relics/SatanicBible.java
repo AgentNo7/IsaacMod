@@ -29,16 +29,16 @@ public class SatanicBible extends BookSuit {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             this.flash();
             if (AbstractDungeon.getMonsters() != null) {
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new BarricadePower(AbstractDungeon.player)));
                 AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             }
             SoulHeartPatch.blackHeart += 10;
-            counter = 0;
             this.stopPulse();
             show();
+            resetCharge();
         }
     }
 

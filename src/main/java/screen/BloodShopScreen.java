@@ -383,7 +383,15 @@ public class BloodShopScreen extends ShopScreen {
 
         List<String> tempDevilRelics = new ArrayList<>(IsaacMod.devilRelics);
         List<String> tempDevilOnlyRelics = new ArrayList<>(IsaacMod.devilOnlyRelics);
-        int size = AbstractDungeon.merchantRng.random(1, 3);
+        int chance = AbstractDungeon.merchantRng.random(0, 99);
+        int size;
+        if (chance < 40) {
+            size = 1;
+        } else if (chance < 80) {
+            size = 2;
+        } else {
+            size = 3;
+        }
         for (int i = 0; i < size; i++) {
             AbstractRelic tempRelic = null;
             // todo 恶魔房专属遗物
@@ -1325,7 +1333,7 @@ public class BloodShopScreen extends ShopScreen {
 
     private void renderPurge(SpriteBatch sb) {
         sb.setColor(new Color(0.0F, 0.0F, 0.0F, 0.25F));
-        sb.draw(ImageMaster.CARD_SKILL_BG_SILHOUETTE, this.purgeCardX - 256.0F + 18.0F * Settings.scale, this.purgeCardY - 256.0F - 14.0F * Settings.scale, 256.0F, 256.0F, 512.0F, 512.0F, this.purgeCardScale, this.purgeCardScale, 0.0F, 0, 0, 512, 512, false, false);
+        sb.draw(ImageMaster.TP_HP, this.purgeCardX - 256.0F + 18.0F * Settings.scale, this.purgeCardY - 256.0F - 14.0F * Settings.scale, 256.0F, 256.0F, 512.0F, 512.0F, this.purgeCardScale, this.purgeCardScale, 0.0F, 0, 0, 512, 512, false, false);
 
 
         sb.setColor(Color.WHITE);

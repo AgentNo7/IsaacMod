@@ -8,10 +8,10 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import patches.ui.RenderCreaturePatch;
 import relics.abstracrt.DevilInterface;
 import relics.abstracrt.ResurrectRelic;
 
-import static patches.ui.JudasPatch.haveJudas;
 import static patches.ui.SoulHeartPatch.blackHeart;
 
 public class JudasShadow extends ResurrectRelic implements DevilInterface{
@@ -41,7 +41,7 @@ public class JudasShadow extends ResurrectRelic implements DevilInterface{
         blackHeart += 40;
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 15), 15));
         counter = -1;
-        haveJudas = true;
+        RenderCreaturePatch.haveJudas = true;
         return 1;
     }
 
@@ -65,7 +65,7 @@ public class JudasShadow extends ResurrectRelic implements DevilInterface{
         super.atBattleStart();
         this.flash();
         if (counter != 1) {
-            haveJudas = true;
+            RenderCreaturePatch.haveJudas = true;
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 15), 15));
         }
         AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));

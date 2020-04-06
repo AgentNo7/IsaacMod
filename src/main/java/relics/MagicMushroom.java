@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import patches.ui.MagicMushroomPatch;
+import patches.ui.RenderCreaturePatch;
 import utils.Invoker;
 
 public class MagicMushroom extends CustomRelic {
@@ -64,10 +64,10 @@ public class MagicMushroom extends CustomRelic {
         super.update();
         if (!large && AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(ID)) {
             large = true;
-            if (MagicMushroomPatch.atlasUrl != null && MagicMushroomPatch.skeletonUrl != null) {
+            if (RenderCreaturePatch.atlasUrl != null && RenderCreaturePatch.skeletonUrl != null) {
                 if (Invoker.getField(AbstractDungeon.player, "skeleton") != null) {
                     try {
-                        Invoker.invoke(AbstractDungeon.player, "loadAnimation", MagicMushroomPatch.atlasUrl, MagicMushroomPatch.skeletonUrl, 0.55f);
+                        Invoker.invoke(AbstractDungeon.player, "loadAnimation", RenderCreaturePatch.atlasUrl, RenderCreaturePatch.skeletonUrl, 0.55f);
                         AnimationState.TrackEntry e = AbstractDungeon.player.state.setAnimation(0, "Idle", true);
                         e.setTimeScale(0.9F);
                     } catch (Exception ignored) {

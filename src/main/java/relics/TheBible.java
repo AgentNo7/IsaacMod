@@ -28,14 +28,14 @@ public class TheBible extends BookSuit {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             if (AbstractDungeon.getMonsters() != null) {
                 this.flash();
                 AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new FlightPower(AbstractDungeon.player, 6), 6));
                 AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                counter = 0;
                 this.stopPulse();
                 show();
+                resetCharge();
             }
         }
     }

@@ -13,9 +13,9 @@ public class EpicFetus extends CustomCard {
     private static final CardStrings cardStrings;
     public static final String UPGRADE_DESCRIPTION;
     public static final String ID = "EpicFetus";
-    public static final String NAME ;//= "史诗婴儿";
-    public static final String DESCRIPTION;// = "每回合开始获得一张 [史诗攻击]。";
     public static final String imgUrl = "images/cards/EpicFetus.png";
+    public static final String NAME;
+    public static final String DESCRIPTION;
 
     public EpicFetus() {
         super(ID, NAME, imgUrl, 3, DESCRIPTION, CardType.POWER, CardColor.COLORLESS, CardRarity.RARE, CardTarget.SELF);

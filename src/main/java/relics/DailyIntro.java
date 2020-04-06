@@ -1,9 +1,7 @@
 package relics;
 
-import actions.LoseRelicAction;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import mymod.IsaacMod;
@@ -55,23 +53,7 @@ public class DailyIntro extends ClickableRelic {
                 }
             }
             IsaacMod.obtainRelics = relics;
-            IsaacMod.removeRelics = Collections.singletonList(this);
-        }
-    }
-
-    @Override
-    public void atBattleStart() {
-        super.atBattleStart();
-        if (used) {
-            AbstractDungeon.actionManager.addToBottom(new LoseRelicAction(this.relicId));
-        }
-    }
-
-    @Override
-    public void atTurnStart() {
-        super.atTurnStart();
-        if (used) {
-            AbstractDungeon.actionManager.addToBottom(new LoseRelicAction(this.relicId));
+            IsaacMod.removeRelics = Collections.singletonList(this.relicId);
         }
     }
 }

@@ -278,7 +278,7 @@ public class Invoker {
         return target instanceof Class ? (Class) target : target.getClass();
     }
 
-    private static void setAccessible(Field field) {
+    public static void setAccessible(Field field) {
         if (!Modifier.isPublic(field.getModifiers())) {
             field.setAccessible(true);
         }

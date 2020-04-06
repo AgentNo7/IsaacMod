@@ -17,11 +17,12 @@ public class Distribution extends CustomCard {
     public static final String ID = "Distribution";
     public static final String NAME;// = "分配";
     public static final String DESCRIPTION;// = "降低1力量，1敏捷，获得 !M! 集中";
-//    public static final String imgUrl = "images/cards/Distribution.png";
+    public static final String UPGRADE_DESCRIPTION;
 
     public Distribution() {
         super(ID, NAME, null, 1, DESCRIPTION, CardType.SKILL, CardColor.BLUE, CardRarity.UNCOMMON, CardTarget.SELF);
         baseMagicNumber = 1;
+        this.exhaust = true;
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
@@ -37,7 +38,8 @@ public class Distribution extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            baseMagicNumber = 2;
+            this.exhaust = false;
+            this.rawDescription = DESCRIPTION;
             this.initializeDescription();
         }
     }
@@ -46,5 +48,6 @@ public class Distribution extends CustomCard {
         cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
         NAME = cardStrings.NAME;
         DESCRIPTION = cardStrings.DESCRIPTION;
+        UPGRADE_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
     }
 }

@@ -1,6 +1,6 @@
 package cards;
 
-import basemod.abstracts.CustomCard;
+import animation.AbstractGIFCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -14,13 +14,13 @@ import com.megacrit.cardcrawl.vfx.GainPennyEffect;
 
 import java.util.Random;
 
-public class BettingIsNotGood extends CustomCard {
+public class BettingIsNotGood extends AbstractGIFCard {
     private static final CardStrings cardStrings;
     public static final String UPGRADE_DESCRIPTION;
     public static final String ID = "BettingIsNotGood";
     public static final String NAME;// = "赌博是个恶习";
     public static final String DESCRIPTION;//= "打出时随机获得下列一个效果： NL ①掉血 3 滴 ②回血 5 滴 ③对所有敌人造成 !D! 伤害 ④获得 15 金币。 NL 消耗 。";
-    public static final String imgUrl = "images/cards/BettingIsNotGood.png";
+    public static final String imgUrl = "images/cards/BettingIsNotGood.gif";
     private int healNum = 5;
     private int damageNum = 3;
     private int goldNum = 15;

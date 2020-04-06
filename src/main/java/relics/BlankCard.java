@@ -32,7 +32,7 @@ public class BlankCard extends ChargeableRelic {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             this.flash();
             CardGroup all = new CardGroup(CardGroup.CardGroupType.HAND);
             for (AbstractCard c : AbstractDungeon.player.hand.group) {
@@ -40,10 +40,10 @@ public class BlankCard extends ChargeableRelic {
             }
             CardLibrary.cards.entrySet();
             AbstractDungeon.gridSelectScreen.open(all, 1, "选择一张牌", false);
-            counter = 0;
             isValid = true;
             this.stopPulse();
             show();
+            resetCharge();
         }
     }
 

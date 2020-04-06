@@ -16,7 +16,7 @@ public class CallingBellPatch {
         public atPreBattlePatch() {
         }
 
-        @SpireInsertPatch(loc = 44)
+        @SpireInsertPatch(rloc = 14) //43-29
         public static void Insert(CallingBell callingBell) {
             if (AbstractDungeon.player.hasRelic(Chaos.ID)) {
                 callingBell.update();

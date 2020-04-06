@@ -10,7 +10,7 @@ import relics.abstracrt.ChargeableRelic;
 public class YumHeart extends ChargeableRelic {
     public static final String ID = "YumHeart";
     public static final String IMG = "images/relics/YumHeart.png";
-    public static final String DESCRIPTION = "四充能，每打一个怪物房间加一充能，满充能时右击回复22血，每个房间最多用一次。";
+    public static final String DESCRIPTION = "四充能，每打一个怪物房间加一充能，满充能时右击回复25血。";
 
     public YumHeart() {
         super("YumHeart", new Texture(Gdx.files.internal("images/relics/YumHeart.png")), RelicTier.RARE, LandingSound.CLINK, 4);
@@ -26,10 +26,10 @@ public class YumHeart extends ChargeableRelic {
 
     //右键开大
     public void onRightClick() {
-            if (counter >= maxCharge) {
+        if (isUsable()) {
             AbstractDungeon.player.heal(25, true);
-            counter = 0;
             this.stopPulse();
+            resetCharge();
         }
     }
 

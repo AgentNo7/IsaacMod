@@ -43,7 +43,7 @@ public class D6 extends ChargeableRelic {
 
     //右键开roll
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             AbstractRoom room = AbstractDungeon.currMapNode.room;
             if (room instanceof ShopRoom) {
                 ShopRoom shopRoom = (ShopRoom) room;
@@ -52,7 +52,7 @@ public class D6 extends ChargeableRelic {
                 if (AbstractDungeon.player.hasRelic(SteamSale.ID) && !(AbstractDungeon.shopScreen instanceof BloodShopScreen)) {
                     AbstractDungeon.shopScreen.applyDiscount(0.5F, true);
                 }
-                counter = 0;
+                resetCharge();
             }
             else if (room instanceof TreasureRoomBoss) {
                 BossChest bossChest = (BossChest) ((TreasureRoomBoss) room).chest;
@@ -63,7 +63,7 @@ public class D6 extends ChargeableRelic {
                     }
                     bossChest.open(true);
                     show();
-                    counter = 0;
+                    resetCharge();
                 }
             }
             else {
@@ -88,7 +88,7 @@ public class D6 extends ChargeableRelic {
                         }
                     }
                     show();
-                    counter = 0;
+                    resetCharge();
                 }
             }
             this.pulse = false;

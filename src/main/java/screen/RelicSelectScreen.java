@@ -48,6 +48,12 @@ public abstract class RelicSelectScreen {
     private String infoDesc = "描述";
     private static boolean isPrevMouseDown = false;
 
+    private float scrollLowerBound;
+    private float scrollUpperBound;
+    private boolean grabbedScreen;
+    private float targetY;
+    private float grabStartY;
+
     /**
      * 被选中的遗物
      */
@@ -109,6 +115,10 @@ public abstract class RelicSelectScreen {
             this.relics.addAll(c);
         isPrevMouseDown = false;
         screen = this;
+        this.scrollLowerBound = 1000.0F * Settings.scale;
+        this.scrollUpperBound = 3500.0F * Settings.scale;
+        this.targetY = this.scrollY;
+        this.grabbedScreen = false;
     }
 
     /**
@@ -142,7 +152,8 @@ public abstract class RelicSelectScreen {
         if (this.relics.isEmpty())
             this.addRelics();
         this.button.show();
-        this.scrollY = (Settings.HEIGHT - 400.0F * Settings.scale);
+        this.scrollY = (Settings.HEIGHT - 300.0F * Settings.scale);
+        this.targetY = (float)Settings.HEIGHT - 300.0F * Settings.scale;
         CardCrawlGame.mainMenuScreen.screen = MainMenuScreen.CurScreen.RELIC_VIEW;
     }
 
@@ -189,6 +200,7 @@ public abstract class RelicSelectScreen {
         }
         InputHelper.justClickedLeft = false;
         this.hoveredRelic = null;
+        this.updateScrolling();
         updateList(relics);
     }
 
@@ -299,4 +311,37 @@ public abstract class RelicSelectScreen {
             }
         }
     }
+
+    private void updateScrolling() {
+        int y = InputHelper.mY;
+        if (!this.grabbedScreen) {
+            if (InputHelper.scrolledDown) {
+                this.targetY += Settings.SCROLL_SPEED;
+            } else if (InputHelper.scrolledUp) {
+                this.targetY -= Settings.SCROLL_SPEED;
+            }
+
+            if (InputHelper.justClickedLeft) {
+                this.grabbedScreen = true;
+                this.grabStartY = (float)y - this.targetY;
+            }
+        } else if (InputHelper.isMouseDown) {
+            this.targetY = (float)y - this.grabStartY;
+        } else {
+            this.grabbedScreen = false;
+        }
+
+        this.scrollY = MathHelper.scrollSnapLerpSpeed(this.scrollY, this.targetY);
+        this.resetScrolling();
+    }
+
+    private void resetScrolling() {
+        if (this.targetY < this.scrollLowerBound) {
+            this.targetY = MathHelper.scrollSnapLerpSpeed(this.targetY, this.scrollLowerBound);
+        } else if (this.targetY > this.scrollUpperBound) {
+            this.targetY = MathHelper.scrollSnapLerpSpeed(this.targetY, this.scrollUpperBound);
+        }
+
+    }
+
 }

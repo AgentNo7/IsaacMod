@@ -34,7 +34,7 @@ public class CircletPatch {
         @SpireInsertPatch(rloc = 3)
         public static void Insert(AbstractRelic relic) {
             if (relic.counter < 24) {
-                if (AbstractDungeon.player != null) {
+                if (AbstractDungeon.player != null  && AbstractDungeon.player.maxHealth < 450) {
                     AbstractDungeon.player.increaseMaxHp(5, true);
                 }
             }
@@ -52,8 +52,8 @@ public class CircletPatch {
 
         @SpireInsertPatch(rloc = 3)
         public static void Insert(AbstractRelic relic, AbstractPlayer player, int slot, boolean callonEquip) {
-            if (relic.relicId.equals(Circlet.ID) && relic.counter < 24) {
-                if (player != AbstractDungeon.player && player != null) {
+            if (relic.relicId.equals(Circlet.ID)) {
+                if (player != AbstractDungeon.player && player != null && player.maxHealth < 450) {
                     try {
                         player.increaseMaxHp(5, false);
                     } catch (Exception e) {
@@ -75,7 +75,7 @@ public class CircletPatch {
         @SpireInsertPatch(rloc = 3)
         public static void Insert(AbstractRelic relic) {
             if (relic.counter < 24) {
-                if (AbstractDungeon.player != null) {
+                if (AbstractDungeon.player != null && AbstractDungeon.player.maxHealth < 450) {
                     AbstractDungeon.player.increaseMaxHp(5, true);
                 }
             }

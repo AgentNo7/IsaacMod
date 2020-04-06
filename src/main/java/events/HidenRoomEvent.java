@@ -78,10 +78,10 @@ public class HidenRoomEvent extends AbstractImageEvent {
         list.add("Colosseum Nobs");
         list.add("2 Thieves");
         Collections.shuffle(list, new Random(AbstractDungeon.miscRng.randomLong()));
-        AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(list.get(0));
-        if (AbstractDungeon.floorNum < 17) {
+        if (AbstractDungeon.floorNum < 17 && !list.get(0).equals("2 Thieves")) {
             list.set(0, "Colosseum Slavers");
         }
+        AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(list.get(0));
         if (list.get(0).equals("2 Thieves")) {
             AbstractDungeon.getCurrRoom().monsters.addMonster(new Looter(-200.0F, 415.0F));
             AbstractDungeon.getCurrRoom().monsters.addMonster(new Mugger(80.0F, 400.0F));

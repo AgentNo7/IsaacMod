@@ -45,7 +45,7 @@ public class D4 extends ChargeableRelic {
 
     //右键开roll
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             for (AbstractRelic relic : AbstractDungeon.player.relics) {
                 if (relic instanceof HushsDoor || relic instanceof D4 || relic instanceof Circlet || relic instanceof NineLifeCat) {
                     continue;
@@ -83,8 +83,8 @@ public class D4 extends ChargeableRelic {
             }
             roll = true;
             doRoll = true;
-            counter = 0;
             this.pulse = false;
+            resetCharge();
         }
     }
 

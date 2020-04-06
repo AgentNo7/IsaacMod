@@ -36,19 +36,9 @@ public class PlayerMethodPatches {
         }
     }
 
-//    @SpirePatch(cls = "com.megacrit.cardcrawl.monsters.MonsterGroup", method = "updateAnimations")
-//    public static class UpdateAnimationsPatch {
-//        @SpirePostfixPatch
-//        public static void Postfix(final MonsterGroup group) {
-//            for (final AbstractMonster m : PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player).monsters) {
-//                m.updatePowers();
-//            }
-//        }
-//    }
-
     @SpirePatch(cls = "com.megacrit.cardcrawl.characters.AbstractPlayer", method = "updateSingleTargetInput")
     public static class UpdateSingleTargetInputPatch {
-        @SpireInsertPatch(rloc = 11)
+        @SpireInsertPatch(rloc = 14) //1039-1025
         public static void Insert(final AbstractPlayer player) {
             Field field;
             try {
@@ -116,23 +106,6 @@ public class PlayerMethodPatches {
         }
     }
 
-//    @SpirePatch(
-//            cls = "com.megacrit.cardcrawl.core.AbstractCreature",
-//            method = "applyTurnPowers"
-//    )
-//    public static class ApplyTurnPowersPatch {
-//        public ApplyTurnPowersPatch() {
-//        }
-//
-//        public static void Postfix(AbstractCreature _instance) {
-//            if (_instance instanceof AbstractPlayer) {
-//                ((MonsterGroup) PlayerAddFieldsPatch.f_minions.get(AbstractDungeon.player)).monsters.forEach((monster) -> {
-//                    monster.applyTurnPowers();
-//                });
-//            }
-//        }
-//    }
-
     @SpirePatch(
             cls = "com.megacrit.cardcrawl.characters.AbstractPlayer",
             method = "preBattlePrep"
@@ -185,7 +158,6 @@ public class PlayerMethodPatches {
     @SpirePatch(
             cls = "com.megacrit.cardcrawl.characters.AbstractPlayer",
             method = "render"
-//            paramtypes = {SpriteBatch.class}
     )
     public static class RenderPatch {
         public RenderPatch() {

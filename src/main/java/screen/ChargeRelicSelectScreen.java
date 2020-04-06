@@ -81,18 +81,21 @@ public class ChargeRelicSelectScreen extends RelicSelectScreen {
 
     @Override
     protected void addRelics() {
-        if (battery != null || sharpPlug != null) {
+        if (battery != null) {
             for (AbstractRelic r : AbstractDungeon.player.relics)
                 if (r instanceof ChargeableRelic)
                     this.relics.add(r);
-        } else
-        if (diplopia != null) {
+        } else if(sharpPlug != null){
+            for (AbstractRelic r : AbstractDungeon.player.relics)
+                if (r instanceof ChargeableRelic && r.counter % ((ChargeableRelic) r).maxCharge == 0) {
+                    this.relics.add(r);
+                }
+        } else if (diplopia != null) {
             this.relics.addAll(AbstractDungeon.player.relics);
-        }else
-        if (selectARelic != null) {
+            this.relics.remove(diplopia);
+        } else if (selectARelic != null) {
             obtainRandomRelics(3);
-        }else
-        if (Void != null) {
+        } else if (Void != null) {
             for (AbstractRelic r : AbstractDungeon.player.relics)
                 if (!(r instanceof MarkOfTheBloom) && !(r instanceof Void) && !(r instanceof HushsDoor))
                     this.relics.add(r);
@@ -103,44 +106,58 @@ public class ChargeRelicSelectScreen extends RelicSelectScreen {
     protected void afterSelected() {
         if (battery != null) {
             ChargeableRelic relic = (ChargeableRelic) (this.selectedRelic);
-            if (relic.maxCharge <= 6) {
-                relic.counter = relic.maxCharge;
+            relic.counter += relic.maxCharge;
+            if (AbstractDungeon.player.hasRelic(TheBattery.ID) && relic.counter >= relic.maxCharge) {
+                if (relic.maxCharge <= 6) {
+                    relic.counter = 2 * relic.maxCharge;
+                } else {
+                    relic.counter += relic.counter + 6 < 2 * relic.maxCharge ? relic.counter + 6 : 2 * relic.maxCharge;
+                }
             } else {
-                relic.counter = (relic.counter < 6) ? 6 : relic.maxCharge;
+                if (relic.maxCharge <= 6) {
+                    relic.counter = relic.maxCharge;
+                } else {
+                    relic.counter += relic.counter < 6 ? 6 : relic.maxCharge;
+                }
             }
             AbstractDungeon.player.reorganizeRelics();
-        } else
-        if (diplopia != null) {
+        } else if (sharpPlug != null) {
+            ChargeableRelic relic = (ChargeableRelic) (this.selectedRelic);
+            if (AbstractDungeon.player.hasRelic(TheBattery.ID) && relic.counter == relic.maxCharge) {
+                relic.counter += relic.maxCharge;
+            }else {
+                relic.counter = relic.maxCharge;
+            }
+            AbstractDungeon.player.reorganizeRelics();
+        } else if (diplopia != null) {
             diplopia.addRelic = this.selectedRelic;
-            IsaacMod.obtainRelics.add(selectedRelic);
-            IsaacMod.removeRelics.add(diplopia);
-        } else
-        if (selectARelic != null) {
+            IsaacMod.obtainRelics.add(selectedRelic.makeCopy());
+            IsaacMod.removeRelics.add(diplopia.relicId);
+        } else if (selectARelic != null) {
             selectARelic.addRelic = this.selectedRelic;
             IsaacMod.obtainRelics.add(selectedRelic);
-            IsaacMod.removeRelics.add(selectARelic);
+            IsaacMod.removeRelics.add(selectARelic.relicId);
             Utils.removeFromPool(selectARelic.addRelic);
-        } else
-         if (Void != null) {
-             if (this.selectedRelic instanceof ClickableRelic) {
-                 ClickableRelic clickableRelic = (ClickableRelic) this.selectedRelic;
-                 if (clickableRelic instanceof ChargeableRelic) {
-                     ChargeableRelic chargeableRelic = (ChargeableRelic) clickableRelic;
-                     chargeableRelic.counter = chargeableRelic.maxCharge;
-                 }
-                 if (!(clickableRelic instanceof Diplopia)) {
-                     Void.relicList.add(clickableRelic);
-                 }
-                 if (count == Void.maxCharge) {
-                     clickableRelic.onRightClick();
-                 }
-             } else {
-                 Void.addPower();
-                 Void.tips.clear();
-                 Void.tips.add(new PowerTip(Void.name, Void.getUpdatedDescription()));
-             }
-             Void.counter++;
-             IsaacMod.removeRelics.add(this.selectedRelic);
+        } else if (Void != null) {
+            if (this.selectedRelic instanceof ClickableRelic) {
+                ClickableRelic clickableRelic = (ClickableRelic) this.selectedRelic;
+                if (clickableRelic instanceof ChargeableRelic) {
+                    ChargeableRelic chargeableRelic = (ChargeableRelic) clickableRelic;
+                    chargeableRelic.counter = chargeableRelic.maxCharge;
+                }
+                if (!(clickableRelic instanceof Diplopia)) {
+                    Void.relicList.add(clickableRelic);
+                }
+                if (count == Void.maxCharge) {
+                    clickableRelic.onRightClick();
+                }
+            } else {
+                Void.addPower();
+                Void.tips.clear();
+                Void.tips.add(new PowerTip(Void.name, Void.getUpdatedDescription()));
+            }
+            Void.counter++;
+            IsaacMod.removeRelics.add(this.selectedRelic.relicId);
         }
     }
 

@@ -6,6 +6,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
+import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -47,17 +48,17 @@ public class PlayerDamagePatch {
         }
 
         @SpireInsertPatch(
-                rloc = 45,
+                rloc = 83,
                 localvars = {"damageAmount"}
         )
-        public static void Insert(AbstractPlayer player, final DamageInfo info, @ByRef int[] damageAmount) { //damageAmount 必定>0
+        public static void Insert(AbstractPlayer player, final DamageInfo info, @ByRef int[] damageAmount) { //damageAmount 必定>0 //1769 - 1686
             if (blackHeart > 0) {
                 if (damageAmount[0] > blackHeart % 10) {
                     blackHeart = blackHeart <= damageAmount[0] ? 0 : blackHeart - damageAmount[0];
                     if (AbstractDungeon.getMonsters() != null) {
                         AbstractDungeon.actionManager.addToBottom(new DamageAllEnemiesAction(player, DamageInfo.createDamageMatrix(40, false), DamageInfo.DamageType.NORMAL, AbstractGameAction.AttackEffect.FIRE));
                     }
-                } else {
+                    } else {
                     blackHeart -= damageAmount[0];
                 }
                 damageAmount[0] = 0;
@@ -68,9 +69,9 @@ public class PlayerDamagePatch {
         }
 
         @SpireInsertPatch(
-                rloc = 94
+                rloc = 133
         )
-        public static SpireReturn Insert2(AbstractPlayer player, final DamageInfo info) { ///*SL:1713*/if (player.currentHealth < 1) { //rloc = 94
+        public static SpireReturn Insert2(AbstractPlayer player, final DamageInfo info) { ///*SL:1819*/if (player.currentHealth < 1) { //rloc = 133
             if (player.currentHealth < 1) {
                 if (resurrectRelics.size() > 0 && !AbstractDungeon.player.hasRelic(MarkOfTheBloom.ID)) {
                     resurrectRelics.sort(comparator);
@@ -78,6 +79,7 @@ public class PlayerDamagePatch {
                         if (resurrectRelic.canResurrect()) {
                             player.currentHealth = 0;
                             player.heal(resurrectRelic.onResurrect());
+                            AbstractDungeon.actionManager.addToBottom(new RelicAboveCreatureAction(AbstractDungeon.player, resurrectRelic));
                             return SpireReturn.Return(null);
                         }
                     }

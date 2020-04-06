@@ -36,12 +36,12 @@ public class UnicornStump extends ChargeableRelic {
 
     //右键开大
     public void onRightClick() {
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             if (AbstractDungeon.player.cardsPlayedThisTurn == 0) {
                 usedTurn = turn;
                 this.flash();
-                counter = 0;
                 show();
+                resetCharge();
             }
             this.stopPulse();
         }
@@ -65,7 +65,7 @@ public class UnicornStump extends ChargeableRelic {
     @Override
     public void atTurnStart() {
         this.turn++;
-        if (counter >= maxCharge) {
+        if (isUsable()) {
             beginLongPulse();
         } else {
             stopPulse();

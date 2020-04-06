@@ -1,6 +1,5 @@
 package relics;
 
-import actions.LoseRelicAction;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -10,6 +9,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.rooms.TreasureRoomBoss;
+import mymod.IsaacMod;
 import relics.abstracrt.ClickableRelic;
 
 import java.util.ArrayList;
@@ -18,8 +18,6 @@ public class ForgetMeNow extends ClickableRelic {
     public static final String ID = "ForgetMeNow";
     public static final String IMG = "images/relics/ForgetMeNow.png";
     public static final String DESCRIPTION = "一次性遗物，右击回到本层的第一层（在boss宝箱会直接下层）。";
-
-    public static boolean used = false;
 
     public ForgetMeNow() {
         super("ForgetMeNow", new Texture(Gdx.files.internal("images/relics/ForgetMeNow.png")), RelicTier.RARE, LandingSound.CLINK);
@@ -35,27 +33,25 @@ public class ForgetMeNow extends ClickableRelic {
 
     //右键使用
     public void onRightClick() {
-        if (!used) {
-            if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss || AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss) {
-                return;
-            }
-            used = true;
-            if (AbstractDungeon.floorNum < 55) {
-                CardCrawlGame.dungeon = getDungeon(AbstractDungeon.floorNum, AbstractDungeon.player);
-            } else {
-                CardCrawlGame.dungeon = getDungeon(CardCrawlGame.nextDungeon, AbstractDungeon.player);
-            }
-            CardCrawlGame.music.fadeOutBGM();
-            CardCrawlGame.music.fadeOutTempBGM();
-            AbstractDungeon.fadeOut();
-            AbstractDungeon.topLevelEffects.clear();
-            AbstractDungeon.actionManager.actions.clear();
-            AbstractDungeon.effectList.clear();
-            AbstractDungeon.effectsQueue.clear();
-            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
-            AbstractDungeon.dungeonMapScreen.open(true);
-            AbstractDungeon.floorNum = AbstractDungeon.floorNum - AbstractDungeon.floorNum % 17;
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss || AbstractDungeon.getCurrRoom() instanceof TreasureRoomBoss) {
+            return;
         }
+        if (AbstractDungeon.floorNum < 55) {
+            CardCrawlGame.dungeon = getDungeon(AbstractDungeon.floorNum, AbstractDungeon.player);
+        } else {
+            CardCrawlGame.dungeon = getDungeon(CardCrawlGame.nextDungeon, AbstractDungeon.player);
+        }
+        CardCrawlGame.music.fadeOutBGM();
+        CardCrawlGame.music.fadeOutTempBGM();
+        AbstractDungeon.fadeOut();
+        AbstractDungeon.topLevelEffects.clear();
+        AbstractDungeon.actionManager.actions.clear();
+        AbstractDungeon.effectList.clear();
+        AbstractDungeon.effectsQueue.clear();
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
+        AbstractDungeon.dungeonMapScreen.open(true);
+        AbstractDungeon.floorNum = AbstractDungeon.floorNum - AbstractDungeon.floorNum % 17;
+        IsaacMod.removeRelics.add(this.relicId);
     }
 
     public AbstractDungeon getDungeon(int floorNum, AbstractPlayer p) {
@@ -113,17 +109,8 @@ public class ForgetMeNow extends ClickableRelic {
     }
 
     @Override
-    public void atTurnStart() {
-        super.atTurnStart();
-        if (used) {
-            AbstractDungeon.actionManager.addToBottom(new LoseRelicAction(ForgetMeNow.ID));
-        }
-    }
-
-    @Override
     public void onEquip() {
         super.onEquip();
-        used = false;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package relics.abstracrt;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import relics.NineVolt;
+import relics.TheBattery;
 
 public abstract class ChargeableRelic extends ClickableRelic {
 
@@ -41,6 +44,28 @@ public abstract class ChargeableRelic extends ClickableRelic {
 
     public abstract void onRightClick();
 
+    protected void resetCharge() {
+        if (AbstractDungeon.player.hasRelic(TheBattery.ID)) {
+            counter -= maxCharge;
+        } else {
+            counter = 0;
+        }
+        if (AbstractDungeon.player.hasRelic(NineVolt.ID) && this.maxCharge > 1) {
+            counter++;
+        }
+    }
+
+    public boolean isUsable() {
+        return counter >= maxCharge;
+    }
+
+    public boolean isMaxCharge() {
+        if (AbstractDungeon.player.hasRelic(TheBattery.ID)) {
+            return counter >= maxCharge * 2;
+        }
+        return counter >= maxCharge;
+    }
+
     /**
      * 打完怪物充能+1
      */
@@ -48,8 +73,10 @@ public abstract class ChargeableRelic extends ClickableRelic {
     public void onVictory() {
         if (counter < maxCharge) {
             counter++;
+        } else if (counter < 2 * maxCharge && AbstractDungeon.player.hasRelic(TheBattery.ID)) {//大电池
+            counter++;
         }
-        if (counter == maxCharge) {
+        if (isUsable()) {
             this.pulse = true;
             this.beginPulse();
         }

@@ -108,7 +108,8 @@
     "NAME": "Hush's Door",
     "FLAVOR": "Rush!",
     "DESCRIPTIONS": [
-      "The key to Hush. Right click to cancel challenging hush, do it before you enter the second last floor."
+      "The key to Hush. Right click to cancel challenging hush, do it before you enter the second last floor.",
+      "The last Boss will be the Delirium(Stronger than Hush)."
     ]
   },
   "PillsDrop": {
@@ -269,7 +270,7 @@
     "NAME": "Mega Blast",
     "FLAVOR": "RUSH!",
     "DESCRIPTIONS": [
-      "12 charges. When fully charged, right-click to defeat ALL enemies at battle start for 15 seconds."
+      "12 charges. When fully charged, right-click to defeat ALL enemies(by 12 * 500 damage) at battle start for 15 seconds."
     ]
   },
   "Succubus": {
@@ -297,7 +298,7 @@
     "NAME": "Sharp Plug",
     "FLAVOR": "Awesome Combo!",
     "DESCRIPTIONS": [
-      "Right-Click to lose half HP(Max 50, Min 15),select a chargeable relic,and charge to full charge."
+      "Right-Click to lose half HP(Max 50, Min 15),select a chargeable relic which is 0 charge,and charge to full charge."
     ]
   },
   "MomsKnife": {
@@ -383,6 +384,34 @@
     "FLAVOR": "Consume",
     "DESCRIPTIONS": [
       "6 charges, at 2 or 4 or 6 charge can inhale relics from the relic list by right-click, gain 1 charge when inhale relic(cannot inhale the bloom mark, passive relics get random initial attributes, clickable relics get its effect, and gain the effect immediately when full charge), if full charge,right-click can trigger all effect it already gains."
+    ]
+  },
+  "Habit": {
+    "NAME": "Habit",
+    "FLAVOR": "You will be glad to see this",
+    "DESCRIPTIONS": [
+      "Add 1 charge to your first chargeable relic which is not full of charge when you lose HP."
+    ]
+  },
+  "BloodBag": {
+    "NAME": "Blood Bag",
+    "FLAVOR": "Only occurs after Blood Donation Machine crack",
+    "DESCRIPTIONS": [
+      "Gain 7 max HP."
+    ]
+  },
+  "TheBattery": {
+    "NAME": "The Battery",
+    "FLAVOR": "Double Charge!",
+    "DESCRIPTIONS": [
+      "Chargeable relics get the double charge limit."
+    ]
+  },
+  "NineVolt": {
+    "NAME": "9 Volt",
+    "FLAVOR": "No effect for one charge relics",
+    "DESCRIPTIONS": [
+      "Your chargeable relics will gain 1 charge after use."
     ]
   }
 }

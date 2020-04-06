@@ -72,5 +72,9 @@
   "PokeGOGO": {
     "NAME": "GO! ",
     "DESCRIPTION": "Make your pet attack or debuff enemy or buff for pets."
+  },
+  "Fan": {
+    "NAME": "Fan",
+    "DESCRIPTION": "Channel !M! Wind."
   }
 }

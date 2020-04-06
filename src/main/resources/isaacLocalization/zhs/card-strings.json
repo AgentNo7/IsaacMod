@@ -6,7 +6,7 @@
   },
   "BettingIsNotGood": {
     "NAME": "赌博是个恶习",
-    "DESCRIPTION": "打出时随机获得下列一个效果： NL ①掉血 #b3 滴 ②回血 #b5 滴 ③对所有敌人造成 !D! 伤害 ④获得 #b15 金币 NL 消耗",
+    "DESCRIPTION": "打出时随机获得下列一个效果： NL ①掉血 3 滴 ②回血 5 滴 ③对所有敌人造成 !D! 伤害 ④获得 15 金币 NL 消耗",
     "UPGRADE_DESCRIPTION": "打出时随机获得下列一个效果： NL ①掉血 6 滴 ②回血 10 滴 ③对所有敌人造成 !D! 伤害 ④获得 25 金币。"
   },
   "BloodyBrimstone": {
@@ -24,7 +24,8 @@
   },
   "Distribution": {
     "NAME": "分配",
-    "DESCRIPTION": "降低1力量，1敏捷，获得 !M! 集中。"
+    "DESCRIPTION": "降低1力量，1敏捷，获得 !M! 集中。 NL 消耗。",
+    "UPGRADE_DESCRIPTION": "降低1力量，1敏捷，获得 !M! 集中。"
   },
   "DoctorFetus": {
     "NAME": "婴儿博士",
@@ -72,5 +73,9 @@
   "PokeGOGO": {
     "NAME": "去吧!",
     "DESCRIPTION": "使你的随从对目标怪物行动。加buff可以指向其他随从施加。"
+  },
+  "Fan": {
+    "NAME": "风扇",
+    "DESCRIPTION": "生成 !M! 个 风冷元素 充能球。"
   }
 }

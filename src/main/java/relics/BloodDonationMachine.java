@@ -50,26 +50,31 @@ public class BloodDonationMachine extends ClickableRelic implements CustomSavabl
         if (bang < 3) {
             int blood = AbstractDungeon.aiRng.random(0, 99);
             if (blood < 50) {
-                AbstractDungeon.player.increaseMaxHp(7, true);
+                IsaacMod.obtainRelics.add(new BloodBag());
             } else {
                 IsaacMod.obtainRelics.add(new BloodDonationBag());
             }
             show();
             broken = true;
             this.img = ImageMaster.loadImage("images/relics/BrokenBloodDonationMachine.png");
+            IsaacMod.removeRelics.add(this.relicId);
             return;
-        }
-        AbstractDungeon.player.currentHealth -= 1;
-        if (AbstractDungeon.player.hasRelic(SalivaCoin.ID)) {
-            AbstractDungeon.player.getRelic(SalivaCoin.ID).onLoseHp(1);
         }
         if (AbstractDungeon.player.hasRelic("Charity")) {
             AbstractDungeon.player.currentHealth -= 5;
         }
-        AbstractDungeon.player.healthBarUpdatedEvent();
-        AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1));
-        if (AbstractDungeon.player.currentHealth <= 0) {
+        if (AbstractDungeon.player.currentHealth <= 1) {
             AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
+        } else {
+            AbstractDungeon.player.currentHealth -= 1;
+            AbstractDungeon.player.healthBarUpdatedEvent();
+            AbstractDungeon.effectList.add(new StrikeEffect(AbstractDungeon.player, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1));
+            if (AbstractDungeon.player.currentHealth <= 0) {
+                AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, 1, DamageInfo.DamageType.HP_LOSS));
+            }
+            for (AbstractRelic relic : AbstractDungeon.player.relics) {
+                relic.onLoseHp(1);
+            }
         }
         int rnd = new Random().nextInt(100);
         if (rnd < 10) {
