@@ -69,7 +69,7 @@ public class PlayerDamagePatch {
         }
 
         @SpireInsertPatch(
-                rloc = 133
+                rloc = 126
         )
         public static SpireReturn Insert2(AbstractPlayer player, final DamageInfo info) { ///*SL:1819*/if (player.currentHealth < 1) { //rloc = 133
             if (player.currentHealth < 1) {
