@@ -62,7 +62,7 @@ public abstract class RelicSelectScreen {
     /**
      * 用于选择遗物的遗物列表
      */
-    protected ArrayList<AbstractRelic> relics = new ArrayList<AbstractRelic>();
+    protected ArrayList<AbstractRelic> relics = new ArrayList<>();
 
     /**
      * 该窗口当前是否开启，开启之前不会显示内容
@@ -221,7 +221,7 @@ public abstract class RelicSelectScreen {
             FontHelper.renderFontCentered(sb, FontHelper.menuBannerFont, "IsaacMod", X,
                     Y + 170.0F * Settings.scale - DungeonMapScreen.offsetY / 50.0F, c2);
             sb.setColor(c2);
-            FontHelper.renderFontLeftTopAligned(sb, FontHelper.eventBodyText, screen.bottomDesc, TEXT_X - 50.0F * Settings.scale,
+            FontHelper.renderFontLeftTopAligned(sb, FontHelper.buttonLabelFont, screen.bottomDesc, TEXT_X - 50.0F * Settings.scale,
                     Y - SPACE_Y * 0.0F + 113.0F * Settings.scale - DungeonMapScreen.offsetY / 50.0F, c);
         }
     }
@@ -291,7 +291,7 @@ public abstract class RelicSelectScreen {
         this.row += 1;
         this.col = 0;
         for (Iterator<AbstractRelic> var5 = list.iterator(); var5.hasNext(); this.col += 1) {
-            AbstractRelic r = (AbstractRelic) var5.next();
+            AbstractRelic r = var5.next();
             r.isSeen = true;
             if (this.col == 10) {
                 this.col = 0;

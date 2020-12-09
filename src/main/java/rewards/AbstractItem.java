@@ -85,7 +85,7 @@ public abstract class AbstractItem extends RewardItem{
         if (this.redText) {
             color = Settings.RED_TEXT_COLOR;
         }
-        Field REWARD_TEXT_X = null;
+        Field REWARD_TEXT_X;
         float x = 0;
         try {
             REWARD_TEXT_X = RewardItem.class.getDeclaredField("REWARD_TEXT_X");
@@ -95,7 +95,7 @@ public abstract class AbstractItem extends RewardItem{
             e.printStackTrace();
         }
 
-        FontHelper.renderSmartText(sb, FontHelper.rewardTipFont, this.text, x, this.y + 5.0F * Settings.scale, 1000.0F * Settings.scale, 0.0F, color);
+        FontHelper.renderSmartText(sb, FontHelper.tipHeaderFont, this.text, x, this.y + 5.0F * Settings.scale, 1000.0F * Settings.scale, 0.0F, color);
 
         this.hb.render(sb);
     }
